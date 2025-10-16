@@ -1,0 +1,93 @@
+[ExtensionFile]
+EXTENSIONTYPE: Python
+EXTENSIONS: *.py
+SEPS: !%&/()=?+-.,:;*^~><\\[]{}|\t\\\"'´`   
+STRING: "
+CHAR: '
+LITERAL: 
+LINECONTINUATION: \
+BRACES: (),[],{}
+BLOCKBEGIN: 
+BLOCKEND: 
+LINECOMMENT: #
+COMMENTBEGIN: """
+COMMENTEND: """
+COMMENTWHOLEWORD: 0
+COMMENTFIRSTWORD: 0
+PREPROCESSOR: 
+IGNORECASE: 0
+IndentAfter:
+IndentUnless:
+UnIndent:
+TabSize: 3
+Indent: 3
+Numbers: 0[xX]+[0-9a-fA-F]+[lLuU]*|0[1234567]*[lLuU]*|[0-9]+[uUlL]+|([0-9]+(\.)*[0-9]*|[0-9]*(\.)+[0-9]+)+([eE]+[-+]*[0-9]*)*
+TabPos: 4, 7, 10, 13, 16, 19
+PreProcWords:
+[COLOR]
+MarkText: 0x000000
+MarkBackGround: 0xA0A0A0
+TextText: 0x000000
+TextBackGround: 0xFFFFFF
+SeperatorsText: 0xFF0000
+SeperatorsBackGround: 0xFFFFFF
+PreProcessorText: 0x00A000
+PreProcessorBackGround: 0xFFFFFF
+CommentsText: 0xA0A0A0
+CommentsBackGround: 0xFFFFFF
+StringsText: 0x909000
+StringsBackGround: 0xFFFFFF
+NumbersText: 0xFF00FF
+NumbersBackGround: 0xFFFFFF
+TagsText: 0x800000
+TagsBackGround: 0xFFFFFF
+Keyword0Text: 0x0000E6
+Keyword0BackGround: 0xFFFFFF
+Keyword1Text: 0x0000D2
+Keyword1BackGround: 0xFFFFFF
+Keyword2Text: 0x0000BE
+Keyword2BackGround: 0xFFFFFF
+Keyword3Text: 0x0000AA
+Keyword3BackGround: 0xFFFFFF
+Keyword4Text: 0x000096
+Keyword4BackGround: 0xFFFFFF
+[TAGS]
+Program: ctags.exe
+Options: 
+File: $T$\$FFE$.tag
+UseTagColor: 1
+[Templates]
+[Keyword 0]
+and
+assert
+break
+class
+continue
+def
+del
+elif
+else
+except
+exec
+finally
+for
+from
+global
+if
+import
+in
+is
+lambda
+not
+or
+pass
+print
+raise
+return
+try
+while
+yield
+[Keyword 1]
+[Keyword 2]
+[Keyword 3]
+[Keyword 4]

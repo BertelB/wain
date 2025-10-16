@@ -1,0 +1,9 @@
+void wain_macro(void)
+{
+  PutChar('/')
+  PutChar('/')
+  PutChar('B')
+  PutChar('K')
+  PutChar('B')
+  PutChar(' ')
+}

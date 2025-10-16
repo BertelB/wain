@@ -1,0 +1,119 @@
+#
+Append 0
+Arguments -w -v "$F$"
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+LastRunPath 
+MenuText BorlandC
+Path $FP$
+Program CMD /C BCC32
+Regexp 
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments 
+AskForArguments 0
+CaptureStderr 0
+CaptureStdout 0
+DispModeHidden 0
+DispModeMax 0
+DispModeNorm 1
+DosProgram 1
+LastRunPath C:\bkb\code\Turbo\
+MenuText Cmd Prompt
+Path $FP$
+Program CMD /K
+Regexp 
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments -Wall -W -ansi -g $FFE$ -O2 -o $FF$.exe
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+LastRunPath 
+MenuText GCC
+Path $FP$
+Program GCC
+Regexp 
+SaveDoc 1
+WinProgram 0
+#
+Append 1
+Arguments /N /F:"$X$" $W$
+AskForArguments 1
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 1
+DispModeMax 0
+DispModeNorm 0
+DosProgram 1
+LastRunPath 
+MenuText FindStr
+Path 
+Program findstr
+Regexp (.:[^\:]*):([0-9]*).*
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments $FFE$ -g -O2 -W -Wall -lgdiplus -o $FF$.exe -std=c++11
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 1
+DispModeMax 0
+DispModeNorm 0
+DosProgram 1
+LastRunPath c:\bkb\bkb\code\
+MenuText G++
+Path $FP$
+Program g++
+Regexp 
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments $FFE$ -W -Wall -mwindows -lcomctl32 -o $FF$.exe
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 1
+DispModeMax 0
+DispModeNorm 0
+DosProgram 1
+LastRunPath C:\bkb\code\Turbo\
+MenuText Gcc-Win
+Path $FP$
+Program g++
+Regexp 
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments 
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 1
+DispModeMax 0
+DispModeNorm 0
+DosProgram 1
+LastRunPath c:\bkb\bkb\code\
+MenuText CurrentProgram
+Path $FP$
+Program $FPF$.exe
+Regexp 
+SaveDoc 0
+WinProgram 0

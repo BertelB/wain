@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.05.03"/>
+    <PROJECT value=".\..\Borland\Wain.exe"/>
+    <OBJFILES value="..\Borland\WainView.obj ..\Borland\ChildFrm.obj ..\Borland\GlobSet.obj 
+      ..\Borland\KeySetup.obj ..\Borland\Line.obj ..\Borland\Macro.obj 
+      ..\Borland\MainFrm.obj ..\Borland\Project.obj ..\Borland\Search.obj 
+      ..\Borland\StdAfx.obj ..\Borland\TagList.obj ..\Borland\Tags.obj 
+      ..\Borland\Tools.obj ..\Borland\Undo.obj ..\Borland\ViewList.obj 
+      ..\Borland\Wain.obj ..\Borland\WainDoc.obj ..\Borland\WainEdit.obj 
+      ..\Borland\WainFunc.obj ..\Borland\DocProp.obj ..\Borland\CallTree.obj 
+      ..\Borland\PageDlg.obj ..\Borland\TabView.obj ..\Borland\DockBar.obj 
+      ..\Borland\regexp.obj ..\Borland\WainMark.obj ..\Borland\WainFTP.obj 
+      ..\Borland\Print.obj ..\Borland\NavigatorList.obj 
+      ..\Borland\NavigatorDlg.obj ..\Borland\FileSelD.obj 
+      ..\Borland\NavigatorFile.obj ..\Borland\classview.obj"/>
+    <RESFILES value="..\Borland\Wain.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value="wininet.lib"/>
+    <LIBRARIES value="VclX50.lib vcldb50.lib vclbde50.lib Vcl50.lib"/>
+    <SPARELIBS value="Vcl50.lib vclbde50.lib vcldb50.lib VclX50.lib"/>
+    <PACKAGES value="Vcl50.bpi"/>
+    <PATHCPP value=".;..\Src"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;..\Src"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value=""/>
+    <SYSDEFINES value="_NO_VCL;_X86_;_WINDOWS;_AFX_PORTABLE;_AFX_NOFORCE_LIBS;_MT;_CRT_PORTABLE;_AFX_NO_DEBUG_CRT;_MSC_VER=1100"/>
+    <MAINSOURCE value="Wain.bpf"/>
+    <INCLUDEPATH value="..\Src;$(BCB)\include\atl;$(BCB)\include;$(BCB)\INCLUDE\MFC"/>
+    <LIBPATH value="..\Src;$(BCB)\lib;$(BCB)\lib\obj;$(BCB)\lib\psdk"/>
+    <WARNINGS value="-w8092 -w8091 -w8090 -w8089 -w8087 -wprc -wuse -wucp -wstv -wstu -wsig 
+      -wpin -wnod -wnak -w-hid -wdef -wcln -wbbf -wasm -wamp -wamb"/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I$(BCB)\include"/>
+    <CFLAG1 value="-vGc -vGt -vGd -O2 -H=$(BCB)\lib\vcl50.csm -Hc -w -VF -X- -a8 -b -k -y -v 
+      -vi- -c -g0 -tW -WM -W"/>
+    <PFLAGS value="-N2..\Borland -N0..\Borland -$YD -$W -$O- -v -jphnd -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-I..\Borland -D&quot;&quot; -aa -Tpe -x -Gn -wdpl -v -tWM"/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="cg32.lib $(LIBFILES) $(LIBRARIES) nafxcw.lib import32.lib cw32mt.lib"/>
+  </LINKER>
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1033
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+$(BCB)\Bin\DbX50.bpl=(untitled)
+
+[HistoryLists\hlIncludePath]
+Count=3
+Item0=..\Src;$(BCB)\include\atl;$(BCB)\include;$(BCB)\INCLUDE\MFC
+Item1=.\..\Src;$(BCB)\include\atl;$(BCB)\include;$(BCB)\INCLUDE\MFC
+Item2=.\..\Src;$(BCB)\include\atl;$(BCB)\include;$(BCB)\INCLUDE;$(BCB)\INCLUDE\MFC
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=..\Src;$(BCB)\lib;$(BCB)\lib\obj;$(BCB)\lib\psdk
+Item1=.\..\Src;$(BCB)\lib;$(BCB)\lib\obj;$(BCB)\lib\psdk
+Item2=.\..\Src;$(BCB)\lib;$(BCB)\lib\obj;$(BCB)\LIB;$(BCB)\lib\psdk;
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=3
+Item0=_DEBUG
+Item1=DEBUG;_DEBUG
+Item2=DEBUG
+
+[HistoryLists\hlIntOutputDir]
+Count=4
+Item0=..\Borland
+Item1=.\..\Borland\
+Item2=..\debug
+Item3=.\..\debug
+
+[HistoryLists\hlFinalOutputDir]
+Count=3
+Item0=.\..\Borland\
+Item1=.\..\debug\
+Item2=.\..\debug
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=1
+LinkCGLIB=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

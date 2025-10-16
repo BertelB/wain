@@ -1,0 +1,170 @@
+[ExtensionFile]
+EXTENSIONTYPE: MatLab
+EXTENSIONS: *.m
+SEPS: \\\t []{}()!"#%&/()=?.-;:. ' +  ,`<>*^@~
+STRING: "
+CHAR: '
+LITERAL: \
+LINECONTINUATION: \
+BRACES: {,}:[,]:(,)
+BLOCKBEGIN: {
+BLOCKEND: }
+LINECOMMENT: %
+COMMENTBEGIN: 
+COMMENTEND: 
+COMMENTWHOLEWORD: 0
+COMMENTFIRSTWORD: 0
+PREPROCESSOR: 
+IGNORECASE: 0
+IndentAfter:
+IndentUnless:
+UnIndent:
+TabSize: 3
+Indent: 3
+Numbers: 0[bB]+[0-9]+|0[xX]+[0-9a-fA-F]+[lLuU]*|0[1234567]*[lLuU]*|[0-9]+[uUlL]+|([0-9]+(\.)*[0-9]*|[0-9]*(\.)+[0-9]+)+([eE^]+[-+]*[0-9]*)*
+TabPos: 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31
+PreProcWords:
+[COLOR]
+MarkText: 0x000000
+MarkBackGround: 0xA0A0A0
+TextText: 0x000000
+TextBackGround: 0xFFFFFF
+SeperatorsText: 0xFF0000
+SeperatorsBackGround: 0xFFFFFF
+PreProcessorText: 0x00A000
+PreProcessorBackGround: 0xFFFFFF
+CommentsText: 0xA0A0A0
+CommentsBackGround: 0xFFFFFF
+StringsText: 0x40C400
+StringsBackGround: 0xFFFFFF
+NumbersText: 0xFF00FF
+NumbersBackGround: 0xFFFFFF
+TagsText: 0xA00000
+TagsBackGround: 0xFFFFFF
+Keyword0Text: 0x0000E6
+Keyword0BackGround: 0xFFFFFF
+Keyword1Text: 0x0000D2
+Keyword1BackGround: 0xFFFFFF
+Keyword2Text: 0x0000BE
+Keyword2BackGround: 0xFFFFFF
+Keyword3Text: 0x0000AA
+Keyword3BackGround: 0xFFFFFF
+Keyword4Text: 0x000096
+Keyword4BackGround: 0xFFFFFF
+[TAGS]
+Program: C:\bkb\ctags\ctags.exe
+Options: 
+File: $T$\$FFE$.tag
+UseTagColor: 1
+[Templates]
+[Keyword 0]
+NaN
+break
+case
+else
+elseif
+end
+false
+for
+function
+global
+if
+imag
+int32
+persistent
+real
+return
+switch
+true
+uint32
+[Keyword 1]
+abs
+angle
+any
+arrayfun
+asin
+atan
+atand
+bitand
+cat
+complex
+conj
+cos
+de2bi
+deg2rad
+diag
+double
+exp
+eye
+find
+fix
+fliplr
+flipud
+floor
+fprintf
+ind2sub
+iscell
+ischar
+iscolumn
+isempty
+isequal
+isfield
+isnan
+isnumeric
+isreal
+isscalar
+isstring
+isstruct
+length
+linspace
+max
+min
+mod
+nargin
+numel
+ones
+permute
+pi
+rad2deg
+rand
+randi
+randperm
+repmat
+reshape
+round
+sin
+size
+sqrt
+squeeze
+std
+strcmpi
+sub2ind
+sum
+unique
+xor
+zeros
+[Keyword 2]
+[Keyword 3]
+figure
+grid
+hold
+linkaxes
+nexttile
+off
+on
+plot
+subplot
+tiledlayout
+xlabel
+ylabel
+[Keyword 4]
+awgn
+fft
+fftshift
+ifft
+ifftshift
+log10
+log2
+resample
+snr
+trapz

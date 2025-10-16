@@ -1,0 +1,5 @@
+void wain_macro(void)
+{
+  SearchNext()
+  ScrollLineCenter()
+}

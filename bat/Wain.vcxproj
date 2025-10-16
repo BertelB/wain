@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>WAIN</ProjectName>
+    <Keyword>MFCProj</Keyword>
+    <ProjectGuid>{3C052979-BD9F-40F5-94A2-A5FF5329F83F}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\..\Debug\</OutDir>
+    <IntDir>.\..\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\..\Release\</OutDir>
+    <IntDir>.\..\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Debug\</AssemblerListingLocation>
+      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeaderOutputFile>.\..\Debug\Wain.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>.\..\src\stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\..\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Debug\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\..\Debug\Wain.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <RedirectOutputAndErrors>NUL</RedirectOutputAndErrors>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0406</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug\Wain.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\..\Debug\Wain.exe</OutputFile>
+      <AdditionalDependencies>MPR.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Release\Wain.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>.\..\src\stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\..\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TypeLibraryName>.\..\Release\Wain.tlb</TypeLibraryName>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <RedirectOutputAndErrors>NUL</RedirectOutputAndErrors>
+      <TargetEnvironment>Win32</TargetEnvironment>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0406</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Release\Wain.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>.\..\Release\Wain.exe</OutputFile>
+      <AdditionalDependencies>MPR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ChildFrm.cpp" />
+    <ClCompile Include="..\src\ClassList.cpp" />
+    <ClCompile Include="..\Src\classview.cpp" />
+    <ClCompile Include="..\Src\DockBar.cpp" />
+    <ClCompile Include="..\Src\DocProp.cpp" />
+    <ClCompile Include="..\Src\FileSelD.cpp" />
+    <ClCompile Include="..\SRC\GlobSet.cpp" />
+    <ClCompile Include="..\SRC\KeySetup.cpp" />
+    <ClCompile Include="..\SRC\Line.cpp" />
+    <ClCompile Include="..\SRC\Macro.cpp" />
+    <ClCompile Include="..\src\MainFrm.cpp" />
+    <ClCompile Include="..\Src\NavigatorDlg.cpp" />
+    <ClCompile Include="..\Src\NavigatorFile.cpp" />
+    <ClCompile Include="..\Src\NavigatorList.cpp" />
+    <ClCompile Include="..\src\NavigatorProjTree.cpp" />
+    <ClCompile Include="..\Src\PageDlg.cpp" />
+    <ClCompile Include="..\Src\Print.cpp" />
+    <ClCompile Include="..\SRC\Project.cpp" />
+    <ClCompile Include="..\src\ProjectOptions.cpp" />
+    <ClCompile Include="..\src\ProjectSetup.cpp" />
+    <ClCompile Include="..\SRC\Search.cpp" />
+    <ClCompile Include="..\src\SimpleDialog.cpp" />
+    <ClCompile Include="..\src\StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\src\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\src\stdafx.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\Src\TabView.cpp" />
+    <ClCompile Include="..\SRC\TagList.cpp" />
+    <ClCompile Include="..\Src\Tags.cpp" />
+    <ClCompile Include="..\src\ToolDialog.cpp" />
+    <ClCompile Include="..\SRC\Tools.cpp" />
+    <ClCompile Include="..\SRC\Undo.cpp" />
+    <ClCompile Include="..\SRC\ViewList.cpp" />
+    <ClCompile Include="..\src\Wain.cpp" />
+    <ClCompile Include="..\src\WainDoc.cpp" />
+    <ClCompile Include="..\SRC\WainEdit.cpp" />
+    <ClCompile Include="..\Src\WainFTP.cpp" />
+    <ClCompile Include="..\SRC\WainFunc.cpp" />
+    <ClCompile Include="..\Src\WainMark.cpp" />
+    <ClCompile Include="..\src\WainUtil.cpp" />
+    <ClCompile Include="..\src\WainView.cpp" />
+    <ClCompile Include="..\src\WordListDialog.cpp" />
+    <ClCompile Include="..\src\WordListThread.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ChildFrm.h" />
+    <ClInclude Include="..\src\ClassView.h" />
+    <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\DialogBase.h" />
+    <ClInclude Include="..\src\DockBar.h" />
+    <ClInclude Include="..\src\DocProp.h" />
+    <ClInclude Include="..\Src\FileSelD.h" />
+    <ClInclude Include="..\src\GlobSet.h" />
+    <ClInclude Include="..\SRC\KeySetup.h" />
+    <ClInclude Include="..\src\MainFrm.h" />
+    <ClInclude Include="..\Src\NavigatorDlg.h" />
+    <ClInclude Include="..\Src\NavigatorList.h" />
+    <ClInclude Include="..\src\NavigatorProjTree.h" />
+    <ClInclude Include="..\src\PageDlg.h" />
+    <ClInclude Include="..\SRC\Project.h" />
+    <ClInclude Include="..\src\ProjectSetup.h" />
+    <ClInclude Include="..\src\RegExp.h" />
+    <ClInclude Include="..\src\Resource.h" />
+    <ClInclude Include="..\src\SimpleDialog.h" />
+    <ClInclude Include="..\src\StdAfx.h" />
+    <ClInclude Include="..\src\TabView.h" />
+    <ClInclude Include="..\src\TagList.h" />
+    <ClInclude Include="..\src\Tags.h" />
+    <ClInclude Include="..\src\Tools.h" />
+    <ClInclude Include="..\src\Wain.h" />
+    <ClInclude Include="..\src\WainCfg.h" />
+    <ClInclude Include="..\src\WainDoc.h" />
+    <ClInclude Include="..\src\WainSearch.h" />
+    <ClInclude Include="..\src\WainView.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\Wain.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">\bkb\Wain.2021\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">\bkb\Wain.2021\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\hlp\AppExit.bmp" />
+    <Image Include="..\hlp\Bullet.bmp" />
+    <Image Include="..\hlp\CurArw2.bmp" />
+    <Image Include="..\hlp\CurArw4.bmp" />
+    <Image Include="..\hlp\CurHelp.bmp" />
+    <Image Include="..\hlp\EditCopy.bmp" />
+    <Image Include="..\hlp\EditCut.bmp" />
+    <Image Include="..\hlp\EditPast.bmp" />
+    <Image Include="..\hlp\EditUndo.bmp" />
+    <Image Include="..\hlp\FileNew.bmp" />
+    <Image Include="..\hlp\FileOpen.bmp" />
+    <Image Include="..\hlp\FilePrnt.bmp" />
+    <Image Include="..\hlp\FileSave.bmp" />
+    <Image Include="..\hlp\HlpSBar.bmp" />
+    <Image Include="..\hlp\HlpTBar.bmp" />
+    <Image Include="..\hlp\RecFirst.bmp" />
+    <Image Include="..\hlp\RecLast.bmp" />
+    <Image Include="..\hlp\RecNext.bmp" />
+    <Image Include="..\hlp\RecPrev.bmp" />
+    <Image Include="..\hlp\Scmax.bmp" />
+    <Image Include="..\hlp\ScMenu.bmp" />
+    <Image Include="..\hlp\Scmin.bmp" />
+    <Image Include="..\res\smallico.bmp" />
+    <Image Include="..\res\Toolbar.bmp" />
+    <Image Include="..\res\Wain.ico" />
+    <Image Include="..\res\WainDoc.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\hlp\AfxCore.rtf" />
+    <CustomBuild Include="..\hlp\AfxPrint.rtf" />
+    <CustomBuild Include="..\hlp\Wain.cnt" />
+    <CustomBuild Include="..\res\Wain.rc2" />
+    <CustomBuild Include="MakeHelp.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

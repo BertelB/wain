@@ -1,0 +1,591 @@
+# Microsoft Developer Studio Generated Dependency File, included by Wain.mak
+
+..\Src\CallTree.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\ChildFrm.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\classview.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\DockBar.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\Src\DocProp.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\FileSelD.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\Src\FileSelD.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	
+
+.\..\SRC\GlobSet.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\SRC\KeySetup.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\KeySetup.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\SRC\KeySetup.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	
+
+..\SRC\Line.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\Macro.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\SRC\KeySetup.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\MainFrm.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\SRC\KeySetup.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\tags.h"\
+	"..\src\tools.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\wainsearch.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\NavigatorDlg.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\NavigatorFile.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\NavigatorList.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\PageDlg.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\Print.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\Project.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\Src\FileSelD.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\tools.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\regexp.cpp : \
+	"..\src\regexp.h"\
+	"..\src\StdAfx.h"\
+	
+
+.\..\SRC\Search.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\wainsearch.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\StdAfx.cpp : \
+	"..\src\StdAfx.h"\
+	
+
+..\Src\TabView.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\TagList.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\SRC\Tags.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainView.h"\
+	
+
+..\SRC\Tools.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\SRC\KeySetup.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\tools.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\Undo.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\SRC\ViewList.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\Wain.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\Wain.rc : \
+	"..\Res\Cursor1.cur"\
+	"..\res\smallico.bmp"\
+	"..\res\Toolbar.bmp"\
+	"..\res\Wain.ico"\
+	"..\res\WainDoc.ico"\
+	"..\src\Resource.h"\
+	
+
+.\..\src\WainDoc.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\wainsearch.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\WainEdit.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\docprop.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\WainFTP.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\Src\NavigatorList.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\SRC\WainFunc.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\SRC\Project.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\wainsearch.h"\
+	"..\src\WainView.h"\
+	
+
+..\Src\WainMark.cpp : \
+	"..\src\calltree.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	
+
+.\..\src\WainView.cpp : \
+	"..\src\calltree.h"\
+	"..\src\ChildFrm.h"\
+	"..\src\classview.h"\
+	"..\src\dialogbase.h"\
+	"..\src\dockbar.h"\
+	"..\src\MainFrm.h"\
+	"..\Src\NavigatorDlg.h"\
+	"..\src\pagedlg.h"\
+	"..\src\regexp.h"\
+	"..\src\Resource.h"\
+	"..\src\tabview.h"\
+	"..\src\taglist.h"\
+	"..\src\tags.h"\
+	"..\src\Wain.h"\
+	"..\src\WainDoc.h"\
+	"..\src\WainView.h"\
+	

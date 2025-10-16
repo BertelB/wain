@@ -1,0 +1,147 @@
+[ExtensionFile]
+EXTENSIONTYPE: CMD-Files
+EXTENSIONS: *.cmd;*.bat
+SEPS: !%&/()=?+-.,:;*^~><\\[]{}|\t\"'´` 
+STRING: "
+CHAR: '
+LITERAL: 
+LINECONTINUATION: 
+BRACES: {,}:[,]:(,)
+BLOCKBEGIN: (
+BLOCKEND: )
+LINECOMMENT: rem
+COMMENTBEGIN: /*
+COMMENTEND: */
+COMMENTWHOLEWORD: 1
+COMMENTFIRSTWORD: 0
+PREPROCESSOR: :
+IGNORECASE: 1
+TabSize: 2
+Indent: 2
+Numbers: 
+TabPos: 
+PreProcWords:
+[COLOR]
+MarkText: 0x000000
+MarkBackGround: 0xA0A0A0
+TextText: 0x000000
+TextBackGround: 0xFFFFFF
+SeperatorsText: 0xFF0000
+SeperatorsBackGround: 0xFFFFFF
+PreProcessorText: 0x00A000
+PreProcessorBackGround: 0xFFFFFF
+CommentsText: 0xA0A0A0
+CommentsBackGround: 0xFFFFFF
+StringsText: 0x800000
+StringsBackGround: 0xFFFFFF
+NumbersText: 0xFF00FF
+NumbersBackGround: 0xFFFFFF
+TagsText: 0x800000
+TagsBackGround: 0xFFFFFF
+Keyword0Text: 0x0000E6
+Keyword0BackGround: 0xFFFFFF
+Keyword1Text: 0x0000D2
+Keyword1BackGround: 0xFFFFFF
+Keyword2Text: 0x0000BE
+Keyword2BackGround: 0xFFFFFF
+Keyword3Text: 0x0000AA
+Keyword3BackGround: 0xFFFFFF
+Keyword4Text: 0x000096
+Keyword4BackGround: 0xFFFFFF
+[TAGS]
+Program: 
+Options: 
+File: 
+UseTagColor: 0
+[Templates]
+[Keyword 0]
+call
+defined
+do
+echo
+else
+eof
+equ
+errorlevel
+FOR
+geq
+goto
+gtr
+if
+in
+leq
+lss
+neq
+not
+off
+SET
+shift
+[Keyword 1]
+assoc
+at
+attrib
+break
+cacls
+cd
+chcp
+chdir
+chkdsk
+cls
+cmd
+color
+comp
+compact
+convert
+copy
+date
+del
+dir
+diskcomp
+diskcopy
+doskey
+endlocal
+erase
+exit
+fc
+find
+findstr
+for
+format
+ftype
+graftabl
+help
+if
+label
+md
+mkdir
+mode
+more
+move
+path
+pause
+popd
+print
+prompt
+pushd
+rd
+recover
+ren
+rename
+replace
+rmdir
+set
+setlocal
+sort
+start
+subst
+time
+title
+tree
+type
+ver
+verify
+vol
+xcopy
+[Keyword 2]
+[Keyword 3]
+[Keyword 4]

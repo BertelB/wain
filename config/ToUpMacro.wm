@@ -1,0 +1,6 @@
+void wain_macro(void)
+{
+  MarkRight()
+  ToUpper()
+  RemoveMark()
+}

@@ -1,0 +1,147 @@
+#
+Append 0
+Arguments -w -v "$F$"
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp [^ ]+
+FileSkipRegexp (Error E[0-9]+ )|(Warning W[0-9]+ )
+LastRunPath 
+LineRegexp [0-9]+
+LineSkipRegexp ((Error E[0-9]+ )|(Warning W[0-9]+ ))([^ ]+)
+MenuText BorlandC
+NewLineRegexp Hello
+Path $FP$
+Program CMD /C BCC32
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments 
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp 
+FileSkipRegexp 
+LastRunPath 
+LineRegexp 
+LineSkipRegexp 
+MenuText Dos Prompt
+NewLineRegexp 
+Path $FP$
+Program CMD /K
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments -Wall -W -ansi -g $FFE$ -O2 -o $FF$.exe
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp 
+FileSkipRegexp 
+LastRunPath 
+LineRegexp 
+LineSkipRegexp 
+MenuText GCC
+NewLineRegexp 
+Path $FP$
+Program GCC
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments /N /F:"$X$" $W$
+AskForArguments 1
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp [^ [A-Za-z]+:[a-zA-Z0-9\\._-]+
+FileSkipRegexp 
+LastRunPath 
+LineRegexp [0-[0-9]+
+LineSkipRegexp [a-zA-Z]:[^:]+:
+MenuText FindStr
+NewLineRegexp 
+Path 
+Program findstr
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments 
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp 
+FileSkipRegexp 
+LastRunPath 
+LineRegexp 
+LineSkipRegexp 
+MenuText CurrentProgram
+NewLineRegexp 
+Path $FP$
+Program $FPF$.exe
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments $FFE$ -g -O2 -W -Wall -o $FF$.exe -std=c++11
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp 
+FileSkipRegexp 
+LastRunPath 
+LineRegexp 
+LineSkipRegexp 
+MenuText G++
+NewLineRegexp 
+Path $FP$
+Program g++
+SaveDoc 1
+WinProgram 0
+#
+Append 0
+Arguments $FFE$ -W -Wall -mwindows -lcomctl32 -o $FF$.exe
+AskForArguments 0
+CaptureStderr 1
+CaptureStdout 1
+DispModeHidden 0
+DispModeMax 1
+DispModeNorm 0
+DosProgram 1
+FileRegexp 
+FileSkipRegexp 
+LastRunPath 
+LineRegexp 
+LineSkipRegexp 
+MenuText Gcc-Win
+NewLineRegexp 
+Path $FP$
+Program g++
+SaveDoc 1
+WinProgram 0

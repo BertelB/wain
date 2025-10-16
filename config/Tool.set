@@ -1,0 +1,146 @@
+#Wain Tool Setup File
+9
+BorlandC
+CMD /C BCC32
+-w -v "$F$"
+$FP$
+2
+1
+1
+0
+0
+1
+0
+[^ ]+
+[0-9]+
+(Error E[0-9]+ )|(Warning W[0-9]+ )
+((Error E[0-9]+ )|(Warning W[0-9]+ ))([^ ]+)
+Hello
+Dos Prompt
+CMD /K
+
+$FP$
+0
+0
+0
+0
+0
+0
+0
+
+
+
+
+
+GCC
+GCC
+-Wall -W -ansi -g $FFE$ -O2 -o $FF$.exe
+$FP$
+2
+1
+1
+0
+0
+1
+0
+
+
+
+
+
+FindStr
+findstr
+/N /F:"$X$" $W$
+
+2
+1
+1
+0
+1
+0
+1
+[A-Za-z]+:[a-zA-Z0-9\\._-]+
+[0-9]+
+
+[a-zA-Z]:[^:]+:
+
+CurrentProgram
+$FPF$.exe
+
+$FP$
+2
+1
+1
+0
+0
+0
+0
+
+
+
+
+
+G++
+g++
+$FFE$ -g -O2 -W -Wall -o $FF$.exe -std=c++11
+$FP$
+2
+1
+1
+0
+0
+1
+0
+
+
+
+
+(.:\\\\[^:]+|[^:]+):([0-9]+):([0-9]+).*
+Gcc-Win
+g++
+$FFE$ -W -Wall -mwindows -lcomctl32 -o $FF$.exe
+$FP$
+2
+1
+1
+0
+0
+1
+0
+
+
+
+
+
+wgrep-proj
+wgrep
+$W$ "@$X$"
+
+2
+1
+1
+0
+1
+1
+0
+[A-Za-z]+:[a-zA-Z0-9\\._-]+
+[0-9]+
+[0-9]*
+[a-zA-Z]:[^:]+:
+
+DosProgram
+$FPF$.exe
+
+$FP$
+2
+1
+1
+0
+0
+1
+0
+
+
+
+
+

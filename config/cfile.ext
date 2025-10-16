@@ -1,0 +1,442 @@
+[ExtensionFile]
+EXTENSIONTYPE: C-files
+EXTENSIONS: *.c;*.cpp;*.h;*.hpp;*.inl;*.cxx;*.cc;*.hh
+SEPS: !%&/()=?+-.,:;*^~><\\[]{}|\t\\\"'´` 
+STRING: "
+CHAR: '
+LITERAL: \
+LINECONTINUATION: \
+BRACES: {,}:[,]:(,):/*,*/
+BLOCKBEGIN: {
+BLOCKEND: }
+LINECOMMENT: //
+COMMENTBEGIN: /*
+COMMENTEND: */
+COMMENTWHOLEWORD: 0
+COMMENTFIRSTWORD: 0
+PREPROCESSOR: #
+BLOCKBEGINWORDS: BlockBegin;Begin2
+BLOCKENDWORDS: BlockEnd;End2
+IGNORECASE: 0
+IndentAfter:
+IndentUnless:
+UnIndent:
+TabSize: 3
+Indent: 3
+Numbers: [+-]?0[xX]+[0-9a-fA-F]+[uULl]?|[0-9]+\.[0-9]+[fF]?|[+-]?[0-9]+[uULl]?
+TabPos: 1, 1, 1, 1, 4, 4, 4, 4, 7, 7, 7, 7, 10, 10, 10, 10, 13, 13, 13, 13, 16, 16, 16, 16, 19, 19, 19, 19, 22, 22, 22, 22, 25, 25, 25, 25, 28, 28, 28, 28, 31, 31, 31, 31
+PreProcWords: define pragma if error include ifdef elif ifndef endif undef else line define pragma if error include ifdef elif ifndef endif undef else line define pragma if error include ifdef elif ifndef endif undef else line define pragma if error include ifdef elif ifndef endif undef else line
+[COLOR]
+MarkText: 0x000000
+MarkBackGround: 0xA0A0A0
+TextText: 0x000000
+TextBackGround: 0xFFFFFF
+MatchText: 0x000000
+MatchBackGround: 0x90B0FF
+SeperatorsText: 0xFF0000
+SeperatorsBackGround: 0xFFFFFF
+PreProcessorText: 0x00A000
+PreProcessorBackGround: 0xFFFFFF
+CommentsText: 0xA0A0A0
+CommentsBackGround: 0xFFFFFF
+StringsText: 0x909000
+StringsBackGround: 0xFFFFFF
+NumbersText: 0xFF00FF
+NumbersBackGround: 0xFFFFFF
+TagsText: 0x800000
+TagsBackGround: 0xFFFFFF
+WordsText: 0x000000
+WordsBackGround: 0x40FFFF
+Keyword0Text: 0x0000E6
+Keyword0BackGround: 0xFFFFFF
+Keyword1Text: 0x0000D2
+Keyword1BackGround: 0xFFFFFF
+Keyword2Text: 0x0000BE
+Keyword2BackGround: 0xFFFFFF
+Keyword3Text: 0x0000AA
+Keyword3BackGround: 0xFFFFFF
+Keyword4Text: 0x000096
+Keyword4BackGround: 0xFFFFFF
+[TAGS]
+Program: c:\bkb\uctags\ctags.exe
+Options: --c-types=+px-n
+File: $T$\$FFE$.tag
+UseTagColor: 1
+[Templates]
+!*!fhead
+/******************************************************************************\n * Description:\n *   \c\n * Parameters:\n *\n *****************************************************************************/
+!*!if
+if(\c)\n{\n}
+!*!inc
+#include "\c.h"
+!*!Inc
+#include <\c.h>
+!*!com
+/* \c */
+!*!class
+class \c\n{\npublic:\n\n};
+!*!usi
+unsigned int \c
+!*!usc
+unsigned char \c
+!*!uss
+unsigned short \c
+!*!ss
+signed short \c
+!*!mod
+/*\t\t\tModified\nBy: \U\c\n\T\S\D */
+!*!todo
+/* EGPRS TODO \U */
+!*!for
+for(\c;;)\n{\n}
+!*!{
+{\n\i\c\n}
+!*!ife
+if(\c)\n{\n}\nelse\n{\n}
+!*!/**
+/* \c */
+!*!u8
+uint8_t \c
+!*!s8
+int8_t \c
+!*!u16
+uint16_t \c
+!*!s16
+int16_t \c
+!*!u32
+uint32_t \c
+!*!case
+case \c:\n   {\n   }\n   break;
+!*!i8
+int8_t\c
+!*!i16
+int16_t \c
+!*!i32
+int32_t \c
+!*!enum
+enum\n{\n   \c\n};
+[Keyword 0]
+break
+case
+char
+const
+continue
+default
+do
+double
+else
+enum
+extern
+fabs
+float
+for
+goto
+if
+int
+long
+return
+short
+signed
+sizeof
+static
+struct
+switch
+typedef
+union
+unsigned
+void
+volatile
+while
+[Keyword 1]
+BOOL
+FALSE
+NULL
+TRUE
+UINT
+[Keyword 2]
+CHAR_BIT
+CHAR_MAX
+CHAR_MIN
+EOF
+EXIT_FAILURE
+EXIT_SUCCESS
+FILE
+INT_MAX
+INT_MIN
+RAND_MAX
+SCHAR_MAX
+SCHAR_MIN
+SEEK_CUR
+SEEK_END
+SEEK_SET
+SHRT_MAX
+SHRT_MIN
+UCHAR_MAX
+UINT_MAX
+USHRT_MAX
+__FILE__
+__LINE__
+abs
+acos
+asin
+assert
+atan
+atan2
+atexit
+bsearch
+calloc
+clock
+clock_t
+cos
+ctime
+difftime
+div
+eof
+errno
+exit
+exp
+fclose
+feof
+fflush
+fgetc
+fgets
+fopen
+fprintf
+fputc
+fputs
+fread
+free
+fseek
+ftell
+fwrite
+getc
+getchar
+getenv
+isalnum
+isalpha
+isascii
+iscntrl
+isdigit
+islower
+isprint
+ispunct
+isspace
+isupper
+isxdigit
+labs
+ldiv
+localtime
+log
+longjmp
+malloc
+memcmp
+memcpy
+memmove
+memset
+offsetof
+pow
+printf
+putc
+puts
+qsort
+rand
+realloc
+remove
+rename
+setjmp
+sin
+size_t
+sprintf
+sqrt
+srand
+stderr
+stdin
+stdout
+strcat
+strchr
+strcmp
+strcpy
+strcspn
+strftime
+stricmt
+strlen
+strncat
+strncmp
+strncpy
+strrchr
+strstr
+strtod
+strtok
+strtol
+system
+tan
+time
+time_t
+tolower
+toupper
+va_arg
+va_end
+va_list
+va_start
+vfprintf
+vprintf
+vsprintf
+[Keyword 3]
+append
+at
+auto
+auto_ptr
+back
+back_inserter
+basic_streambuf
+begin
+binary
+binary_search
+bool
+c_str
+catch
+ceil
+cerr
+cin
+class
+clear
+cmatch
+complex
+conj
+const_cast
+const_iterator
+copy
+cout
+cregex_iterator
+dec
+decltype
+delete
+deque
+dynamic_cast
+empty
+end
+endl
+erase
+exception
+explicit
+false
+find
+find_first_not_of
+find_first_of
+find_last_of
+first
+fixed
+floor
+for_each
+friend
+front
+gcount
+get
+getline
+good
+greater
+hex
+ifstream
+ignore
+imag
+inline
+insert
+ios
+ios_base
+iota
+is_open
+istream
+iterator
+less
+list
+lower_bound
+make_pair
+make_shared
+make_unique
+map
+max
+min
+min_element
+multimap
+mutable
+namespace
+new
+npos
+nullptr
+numeric_limits
+ofstream
+open
+operator
+ostream
+ostringstream
+override
+pair
+pop_back
+pop_front
+pos_type
+private
+protected
+ptrdiff_t
+public
+push_back
+push_front
+queue
+random_shuffle
+read
+real
+regex
+regex_error
+regex_match
+regex_replace
+reinterpret_cast
+remove
+resize
+reverse
+rfind
+second
+seekg
+set
+setf
+setfill
+setiosflags
+setprecision
+setw
+shared_ptr
+showpoint
+size
+size_type
+smatch
+sort
+static_cast
+std
+str
+streambuf
+stricmp
+string
+stringstream
+substr
+swap
+tellg
+tellp
+template
+this
+throw
+transform
+true
+try
+typename
+unique
+upper_bound
+uppercase
+using
+vector
+virtual
+[Keyword 4]
+HWND
+int16_t
+int32_t
+int8_t
+restrict
+uint16_t
+uint32_t
+uint8_t

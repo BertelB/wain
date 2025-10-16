@@ -1,0 +1,1321 @@
+#include ".\..\src\resource.h"
+
+#ifdef APSTUDIO_INVOKED
+#error This file is not to be edited by Microsoft Visual C++
+#endif
+#include "afxres.h"
+
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+IDD_NAVIGATOR_LIST_COLOR_DLG DIALOG DISCARDABLE 0, 0, 200, 90
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Navigator List Color Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+   LISTBOX   IDC_BLC_LIST,              5,  5, 100, 60
+   LTEXT     "Red", IDC_STATIC,         5, 60,  40,  8
+   EDITTEXT  IDC_BLC_RED_EDIT,          5, 70,  30, 14, ES_NUMBER
+   CONTROL   "Spin1", IDC_BLC_RED_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,   35, 70, 11, 14
+   LTEXT     "Green", IDC_STATIC,      40, 60,  40,  8
+   EDITTEXT  IDC_BLC_GREEN_EDIT,       40, 70,  30, 14, ES_NUMBER
+   CONTROL   "Spin1", IDC_BLC_GREEN_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 75, 70, 11, 14
+   LTEXT     "Blue", IDC_STATIC,       75, 60,  40,  8
+   EDITTEXT  IDC_BLC_BLUE_EDIT,        75, 70,  35, 14, ES_NUMBER
+   CONTROL   "Spin1", IDC_BLC_BLUE_SPIN, "msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 115, 70, 11, 14
+   DEFPUSHBUTTON "&Ok", IDOK,         120, 70,  30, 14
+   PUSHBUTTON    "&Cancel", IDCANCEL, 160, 70,  30, 14
+END
+
+IDD_POPUP_MENU_SETUP DIALOG 0, 0, 300, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Popup Menu Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LISTBOX       IDC_PMS_FUNC_LIST,                 5,   5, 120, 190, LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_GROUP | WS_TABSTOP
+  LISTBOX       IDC_PMS_MENU_LIST,               175,   5, 120, 190, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  PUSHBUTTON    "&Add",       IDC_PMS_ADD,       130,  05,  40,  14, WS_TABSTOP
+  PUSHBUTTON    "&Remove",    IDC_PMS_REMOVE,    130,  25,  40,  14, WS_TABSTOP
+  PUSHBUTTON    "&Seperator", IDC_PMS_SEPERATOR, 130,  45,  40,  14, WS_TABSTOP
+  PUSHBUTTON    "&Up",        IDC_PMS_UP,        130,  65,  40,  14, WS_TABSTOP
+  PUSHBUTTON    "&Down",      IDC_PMS_DOWN,      130,  85,  40,  14, WS_TABSTOP
+  PUSHBUTTON    "&Cancel",    IDCANCEL,          130, 105,  40,  14, WS_TABSTOP
+  DEFPUSHBUTTON "&OK",        IDOK,              130, 125,  40,  14, WS_TABSTOP
+END
+
+IDD_PROJ_MANAGE_DIALOG DIALOG 0, 0, 400, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU  | WS_THICKFRAME
+CAPTION "Manage Project Files"
+FONT 8, "MS Sans Serif"
+BEGIN
+   // LISTBOX       IDC_PM_CURR_TREE,         5,   5, 220, 190, LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_GROUP | WS_TABSTOP | LBS_EXTENDEDSEL
+   LTEXT         "Path", IDC_PM_CURRENT_PATH,    5,    5, 400,   8, SS_NOPREFIX
+   LISTBOX       IDC_PM_CURR_DIR,               275,   5, 120, 170, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | LBS_EXTENDEDSEL
+   COMBOBOX      IDC_PM_FILTER_COMBO,           275, 180, 120,  70, CBS_DROPDOWN | WS_VSCROLL | WS_HSCROLL | WS_GROUP | WS_TABSTOP
+   COMBOBOX      IDC_PM_DISK_COMBO,             230,   5,  40,  70, CBS_DROPDOWN | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+   PUSHBUTTON    "Add",    IDC_PM_ADD,          230,  25,  40,  14, WS_TABSTOP
+   PUSHBUTTON    "Remove", IDC_PM_REMOVE,       230,  45,  40,  14, WS_TABSTOP
+   PUSHBUTTON    "Home",   IDC_PM_HOME,         230,  65,  40,  14, WS_TABSTOP
+   DEFPUSHBUTTON "OK",     IDOK,                230, 160,  40,  14, WS_TABSTOP
+   PUSHBUTTON    "Cancel", IDCANCEL,            230, 180,  40,  14, WS_TABSTOP
+END
+
+IDD_MACRO_SETUP DIALOG DISCARDABLE 0, 0, 140, 165
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Macro Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT         "Macros:", IDC_STATIC,        5,   5, 60,  8
+  LISTBOX       IDC_MACRO_MENUTEXT,           5,  15, 80, 85, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  LTEXT         "Filename:", IDC_STATIC,      5, 105, 80,  8
+  EDITTEXT      IDC_MACRO_FILENAME_EDIT,      5, 115, 80, 14, ES_AUTOHSCROLL
+  LTEXT         "Menu Text:", IDC_STATIC,     5, 135, 80,  8
+  EDITTEXT      IDC_MACRO_MENUTEXT_EDIT,      5, 145, 80, 14, ES_AUTOHSCROLL
+  PUSHBUTTON    "Remove", IDC_MACRO_REMOVE,  95,  15, 40, 14
+  PUSHBUTTON    "Find",   IDC_MACRO_FIND,    95,  35, 40, 14
+  PUSHBUTTON    "Apply",  IDC_MACRO_APPLY,   95,  55, 40, 14
+  PUSHBUTTON    "New",    IDC_MACRO_NEW,     95,  75, 40, 14
+  DEFPUSHBUTTON "OK",IDOK,                   95,  95, 40, 14
+  PUSHBUTTON    "Cancel", IDCANCEL,          95, 115, 40, 14
+END
+
+IDD_TOOL_SETUP DIALOG DISCARDABLE  0, 0, 390, 195
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tool Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_TOOLS_LIST,  5,  5, 120,  85, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+
+    GROUPBOX        "Tool Type",IDC_STATIC,                                                    135,   5, 55, 40
+    CONTROL         "DOS", IDC_TOOLS_DOS,           "Button", BS_AUTORADIOBUTTON | WS_TABSTOP, 140,  15, 32, 10
+    CONTROL         "Windows", IDC_TOOLS_WINDOWS,   "Button", BS_AUTORADIOBUTTON | WS_TABSTOP, 140,  28, 45, 10
+
+    GROUPBOX        "Capture",IDC_STATIC,                                                      135,  50, 55, 40
+    CONTROL         "Stdout", IDC_TOOLS_STDOUT,     "Button", BS_AUTOCHECKBOX | WS_TABSTOP,    140,  60, 37, 10
+    CONTROL         "Stderr", IDC_TOOLS_STDERR,     "Button", BS_AUTOCHECKBOX | WS_TABSTOP,    140,  73, 37, 10
+
+    GROUPBOX        "Display Mode",IDC_STATIC,                                                   5, 115, 65, 50, WS_GROUP
+    CONTROL         "Normal", IDC_TOOLS_RUN_NORM,   "Button", BS_AUTORADIOBUTTON | WS_TABSTOP,  10, 125, 50, 10
+    CONTROL         "Maximized", IDC_TOOLS_RUN_MAX, "Button", BS_AUTORADIOBUTTON | WS_TABSTOP,  10, 138, 50, 10
+    CONTROL         "Hidden", IDC_TOOLS_RUN_HIDDEN, "Button", BS_AUTORADIOBUTTON | WS_TABSTOP,  10, 151, 50, 10
+
+    CONTROL         "Ask for arguments", IDC_TOOLS_ASK_ARG, "Button", BS_AUTOCHECKBOX |  WS_TABSTOP,         80, 120, 110, 10
+    CONTROL         "Save documets before running", IDC_TOOLS_SAVE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,  80, 133, 110, 10
+    CONTROL         "Append to output", IDC_TOOLS_APPEND, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,            80, 146, 110, 10
+
+    PUSHBUTTON      "Find",IDC_TOOLS_FIND,         5,  95,  50,  14, WS_TABSTOP
+    PUSHBUTTON      "New",IDC_TOOLS_NEW,          60,  95,  50,  14, WS_TABSTOP
+    PUSHBUTTON      "Delete",IDC_TOOLS_DELETE,   115,  95,  50,  14, WS_TABSTOP
+
+    LTEXT           "Program:",IDC_STATIC,           200,   5,  48,   8
+    EDITTEXT        IDC_TOOLS_PROG,                  200,  15, 185,  14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "Arguments:",IDC_STATIC,         200,  35,  50,   8
+    EDITTEXT        IDC_TOOLS_ARGS,                  200,  45, 185,  14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "Directory:",IDC_STATIC,         200,  65,  29,   8
+    EDITTEXT        IDC_TOOLS_PATH,                  200,  75, 185,  14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "Menu Text:",IDC_STATIC,         200,  95,  90,   8
+    EDITTEXT        IDC_TOOLS_MENU_TEXT,             200, 105, 185,  14, ES_AUTOHSCROLL | WS_TABSTOP
+    LTEXT           "RegEx:",IDC_STATIC,             200, 125,  90,   8
+    EDITTEXT        IDC_TOOLS_REGEX,                 200, 135, 185,  14, ES_AUTOHSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,                     5, 175,  35,  14, WS_TABSTOP
+    PUSHBUTTON      "Apply",IDC_TOOLS_APPLY,      65, 175,  35,  14, WS_TABSTOP
+    PUSHBUTTON      "Cancel",IDCANCEL,           125, 175,  35,  14, WS_TABSTOP
+END
+
+IDD_KEY_SETUP DIALOG DISCARDABLE  0, 0, 205, 200
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Key Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Key:",IDC_STATIC,5,5,50,8
+    LISTBOX         IDC_KEY_KEY,5,18,75,90,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Function:",IDC_STATIC,85,5,48,8
+    LISTBOX         IDC_KEY_FUNC,85,18,115,90,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    RADIOBUTTON     "Alt",IDC_KEY_ALT,5,110,30,14
+    RADIOBUTTON     "Ctrl",IDC_KEY_CTRL,5,125,30,14
+    RADIOBUTTON     "Shift",IDC_KEY_SHIFT,5,140,30,14
+    PUSHBUTTON      "Assign",IDC_KEY_APPLY,5,180,45,14
+    PUSHBUTTON      "Remove",IDC_KEY_REMOVE,55,180,45,14
+    DEFPUSHBUTTON   "OK",IDOK,105,180,45,14
+    PUSHBUTTON      "Cancel",IDCANCEL,155,180,45,14
+    LTEXT           "Current Assignment",IDC_STATIC,35,110,62,8
+    LISTBOX         IDC_KEY_CURR,35,120,115,30,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "KeyList", IDC_KEY_FILE,5, 160, 140, 8
+    PUSHBUTTON      "Browse",IDC_KEY_BROWSE,155,160,45,14
+END
+
+IDD_MSG_BOX DIALOG DISCARDABLE 0, 0, 200, 180
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Wain MessageBox"
+FONT 8, "MS Sans Serif"
+BEGIN
+   LTEXT           "Message", IDC_MSG_TEXT, 5, 5, 80, 40
+   PUSHBUTTON      "&Ok",IDC_MSG_OK,105,160,45,14
+   PUSHBUTTON      "&Cancel",IDC_MSG_CANCEL,105,160,45,14
+   PUSHBUTTON      "&Yes",IDC_MSG_YES,105,160,45,14
+   PUSHBUTTON      "&No",IDC_MSG_NO,105,160,45,14
+   PUSHBUTTON      "&Cust",IDC_MSG_CUST,105,160,45,14
+   ICON            IDI_QUESTION, IDI_QUESTION_ICO, 150, 20, 20, 20
+   ICON            IDI_EXCLAMATION, IDI_WARNING_ICO 150, 20, 20, 20
+   ICON            IDI_HAND,        IDI_ERROR_ICO,  150, 20, 20, 20
+   ICON            IDI_ASTERISK,    IDI_INFORMATION_ICO, 150, 20, 20, 20
+END
+
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 217, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Wain"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,          11, 17,  20, 20
+    LTEXT           "Wain Version 1.1.6" IDC_STATIC,  40, 10, 119,  8, SS_NOPREFIX
+    LTEXT           "Copyright Bertel Brander 1999 - 2021",IDC_STATIC,         40, 25, 119,  8, SS_NOPREFIX
+    LTEXT           "", IDC_ABOUT_TIME, 40, 40, 120, 8, SS_NOPREFIX
+    DEFPUSHBUTTON   "OK",IDOK,178,7,32,14,WS_GROUP
+END
+
+IDD_SEARCH_DIALOG DIALOG DISCARDABLE  0, 0, 200, 80
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Search"
+FONT 8, "MS Sans Serif"
+BEGIN
+  COMBOBOX        IDC_SEARCH_COMBO,5,5,140,70,CBS_DROPDOWN | WS_VSCROLL | WS_GROUP | WS_TABSTOP | CBS_AUTOHSCROLL
+  RADIOBUTTON     "Forward",IDC_SEARCH_FORWARD,5,20,60,10,WS_TABSTOP
+  RADIOBUTTON     "Backward",IDC_SEARCH_BACKWARD,5,32,60,10,WS_TABSTOP
+  CONTROL         "From Start",IDC_SEARCH_START,"Button",WS_TABSTOP | BS_AUTOCHECKBOX, 5,44,60,10
+  CONTROL         "Ignore Case",IDC_SEARCH_CASE,"Button",BS_AUTOCHECKBOX |WS_TABSTOP,70,20,60,10
+  CONTROL         "Regular Expression", IDC_SEARCH_REGEX, "Button", BS_AUTOCHECKBOX |WS_TABSTOP,70,32,75,10
+  DEFPUSHBUTTON   "&Next", IDC_SEARCH_NEXT,150,5,42,14
+  PUSHBUTTON      "&Done", IDCANCEL,150,25,42,14
+END
+
+IDD_FILE_INFO_DIALOG DIALOG DISCARDABLE 0, 0, 100, 100
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FileInfo"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT           "", IDC_FILE_INFO_LINES  5,  5, 90, 8
+  LTEXT           "", IDC_FILE_INFO_CHARS  5, 20, 90, 8
+  CONTROL         "Unix Style CR/LF", IDC_FILE_INFO_UNIX, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 5, 35, 90, 10
+  CONTROL         "ReadOnly", IDC_FILE_INFO_READONLY, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,     5, 50, 90, 10
+  DEFPUSHBUTTON   "OK",IDOK,          5, 80, 32, 14, WS_TABSTOP
+  PUSHBUTTON      "Cancel",IDCANCEL, 45, 80, 32, 14, WS_TABSTOP
+END
+
+IDD_REPLACE_DIALOG DIALOG DISCARDABLE  0, 0, 200, 105
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Search And Replace"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT           "Search For:", IDC_STATIC,       5,  5,  80,  8
+  COMBOBOX        IDC_REPLACE_SEARCH_COMBO,        5, 15, 140, 70, CBS_DROPDOWN | WS_VSCROLL | WS_GROUP | WS_TABSTOP | CBS_AUTOHSCROLL
+  LTEXT           "Replace With:", IDC_STATIC,     5, 35,  80,  8
+  COMBOBOX        IDC_REPLACE_COMBO,               5, 45, 140, 70, CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP | CBS_AUTOHSCROLL
+  RADIOBUTTON     "Forward",IDC_REPLACE_FORWARD,   5, 65,  60, 10, WS_TABSTOP
+  RADIOBUTTON     "Backward",IDC_REPLACE_BACKWARD, 5, 77,  60, 10, WS_TABSTOP
+  CONTROL         "From Start",IDC_REPLACE_START,"Button", BS_AUTOCHECKBOX | WS_TABSTOP, 5, 89,  60, 10
+  CONTROL         "Ignore Case", IDC_REPLACE_CASE,"Button", BS_AUTOCHECKBOX | WS_TABSTOP, 70, 65,  60, 10
+  DEFPUSHBUTTON   "&Replace",IDC_REPLACE_NEXT,    150,  5,  42, 14, WS_TABSTOP
+  PUSHBUTTON      "&Next",IDC_REPLACE_SKIP,       150, 25,  42, 14, WS_TABSTOP
+  PUSHBUTTON      "&All", IDC_REPLACE_ALL,        150, 45,  42, 14, WS_TABSTOP
+  PUSHBUTTON      "&Done",IDCANCEL,               150, 65,  42, 14, WS_TABSTOP
+END
+
+IDD_SETUP DIALOG DISCARDABLE  0, 0, 310, 270
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Create",IDC_STATIC,                                                                     5,   5, 200, 25
+    CONTROL         "Maximized",IDC_CREATE_MAX,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,                    10,  15,  50, 10
+    CONTROL         "Default",IDC_CREATE_DEF,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,                      60,  15,  50, 10
+    CONTROL         "Dual",IDC_CREATE_DUAL,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,                       110,  15,  50, 10
+    CONTROL         "One Instance",IDC_ONE_APP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,                        5,  35,  60, 10
+    CONTROL         "Load files at startup",IDC_LOAD_F,"Button", BS_AUTOCHECKBOX | WS_TABSTOP,               5,  50,  80, 10
+    CONTROL         "Strip whitespace when saving",IDC_STRIP_WS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,       5,  65, 110, 10
+    CONTROL         "Short names on NavigatorBar", IDC_SHORT_NAMES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,    5,  80, 110, 10
+    CONTROL         "Use User Menu", IDC_USE_USER_MENU,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,              120,  35,  90, 10
+    CONTROL         "Horz. Scroll Bar", IDC_HORZ_SCROLLBAR, "BUTTON", BS_AUTOCHECKBOX | WS_TABSTOP,        120,  50,  90, 10
+    CONTROL         "Vert. Scroll Bar", IDC_VERT_SCROLLBAR, "BUTTON", BS_AUTOCHECKBOX | WS_TABSTOP,        120,  65,  90, 10
+    CONTROL         "Sticky mark", IDC_STICKY_MARK, "Button",   BS_AUTOCHECKBOX | WS_TABSTOP,              120,  80,  90, 10
+    CONTROL         "Visible tabs", IDC_VISIBLE_TABS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,              120,  95,  90, 10
+    CONTROL         "Show line no." IDC_SHOW_LINE_NO, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,              120, 110,  90, 10
+    CONTROL         "Debug Tools", IDC_DEBUG_TOOLS,   "Button", BS_AUTOCHECKBOX | WS_TABSTOP,              120, 125,  90, 10
+    CONTROL         "Frame Current Line", IDC_FRAME_LINE, "Button", BS_AUTOCHECKBOX | WS_TABSTOP,            5,  95,  90, 10
+    LTEXT           "Minutes between Rebuild tags:", IDC_STATIC,                                             5, 110, 100,  8
+    EDITTEXT        IDC_AUTO_REBUILD_CTRL,                                                                   5, 120,  35, 14, ES_NUMBER
+    CONTROL         "Spin1",IDC_AUTO_REBUILD_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 40, 120, 11, 14
+    LTEXT           "Temp path:",IDC_STATIC,                                                                 5, 135, 119,  8,SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_TPATH,                                                                         5, 146, 160, 12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",ID_SETUP_BROWSE_TPATH,                                                        170, 145,  32, 14,WS_GROUP
+    LTEXT           "Include path:",IDC_STATIC,                                                              5, 160, 119,  8,SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_IPATH,                                                                         5, 170, 160, 12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",ID_SETUP_BROWSE_IPATH,                                                        170, 169,  32, 14,WS_GROUP
+    GROUPBOX        "Mouse Marking Mode", IDC_STATIC,                                                        5, 190, 200, 25
+    CONTROL         "CUA marking", IDC_MARKING_CUA, "Button", BS_AUTORADIOBUTTON | WS_TABSTOP,              10, 200,  70, 10
+    CONTROL         "Column marking", IDC_MARKING_COLUMN, "Button", BS_AUTORADIOBUTTON | WS_TABSTOP,        90, 200,  70, 10
+    GROUPBOX        "Undo buffer", IDC_STATIC,                                                               5, 220, 200, 25
+    RADIOBUTTON     "Flush when saving", IDC_FLUSH_SAVE,                                                    10, 230,  75, 10, WS_TABSTOP
+    RADIOBUTTON     "Max entries",       IDC_MAX_ENTRIS,                                                    85, 230,  50, 10, WS_TABSTOP
+    EDITTEXT        IDC_MAX_ENTRIS_EDIT,                                                                   140, 228,  50, 14, WS_TABSTOP | ES_AUTOHSCROLL
+
+    LTEXT           "Time Format:", IDC_STATIC,  220,   5,  70,  8, SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_TIME_FORMAT,       220,  15,  70, 14, WS_TABSTOP | ES_AUTOHSCROLL
+    LTEXT           "Date Format:", IDC_STATIC,  220,  35,  70,  8, SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_DATE_FORMAT,       220,  45,  70, 14, WS_TABSTOP | ES_AUTOHSCROLL
+    LTEXT           "Seperator", IDC_STATIC,     220,  65,  70,  8, SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_TIME_SEP,          220,  75,  70, 14, WS_TABSTOP | ES_AUTOHSCROLL
+    LTEXT           "User ID:", IDC_STATIC,      220,  95,  70,  8, SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_USER_ID,           220, 105,  70, 14, WS_TABSTOP | ES_AUTOHSCROLL
+
+    LTEXT           "Project Extension", IDC_STATIC,      220, 125,  90,  8, SS_NOPREFIX
+    EDITTEXT        IDC_SETUP_PROJ_EXT,          220, 135,  70, 14, WS_TABSTOP | ES_AUTOHSCROLL
+
+
+    DEFPUSHBUTTON   "OK",IDOK,                                                                               5, 250,  32, 14, WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,                                                                      45, 250,  32, 14, WS_GROUP
+END
+
+IDD_COLOR DIALOG DISCARDABLE  0, 0, 305, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Color"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LISTBOX         IDC_COLOR_LIST,             5,   5, 100,  80, WS_VSCROLL | WS_HSCROLL | WS_GROUP
+  PUSHBUTTON      "Load", IDC_LOAD_SCHEME,    5,  80,  30,  14, WS_TABSTOP
+  PUSHBUTTON      "Save", IDC_SAVE_SCHEME,   40,  80,  30,  14, WS_TABSTOP
+  PUSHBUTTON      "Verify",IDC_VERIFY_COLOR, 75,  80,  30,  14, WS_TABSTOP
+
+  GROUPBOX        "Text", IDC_STATIC,         5,  97, 145,  38
+  LTEXT           "Red:",IDC_STATIC,         10, 105,  40,   8, SS_NOPREFIX
+  LTEXT           "Green:",IDC_STATIC,       45, 105,  40,   8, SS_NOPREFIX
+  LTEXT           "Blue:",IDC_STATIC,        80, 105,  30,   8, SS_NOPREFIX
+  EDITTEXT        IDC_RED_EC,                10, 115,  30,  14, ES_AUTOHSCROLL | ES_WANTRETURN | ES_NUMBER
+  CONTROL         "Spin1",IDC_RED_SCROLL,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT,  40, 115, 10, 14
+  EDITTEXT        IDC_GREEN_EC,          45, 115,  30,  14, ES_AUTOHSCROLL | ES_WANTRETURN | ES_NUMBER
+  CONTROL         "Spin2",IDC_GREEN_SCROLL,"msctls_updown32", UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT, 75, 115, 10, 14
+  EDITTEXT        IDC_BLUE_EC,           80, 115,  30,  14,ES_AUTOHSCROLL | ES_NUMBER
+  CONTROL         "Spin3",IDC_BLUE_SCROLL,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT, 110,115,10,14
+  PUSHBUTTON      "Select", IDC_CD_SEL_FORG, 115, 115, 30,  14, WS_TABSTOP
+
+  GROUPBOX        "Background", IDC_STATIC,     155,  97, 145,  38
+  LTEXT           "Red:",IDC_STATIC,            160, 105,  40,   8, SS_NOPREFIX
+  LTEXT           "Green:",IDC_STATIC,          195, 105,  40,   8, SS_NOPREFIX
+  LTEXT           "Blue:",IDC_STATIC,           230, 105,  30,   8, SS_NOPREFIX
+  EDITTEXT        IDC_RED_BG_EC,                160, 115,  30,  14, ES_AUTOHSCROLL | ES_WANTRETURN | ES_NUMBER
+  CONTROL         "Spin1",IDC_RED_BG_SCROLL,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT,   190, 115, 10, 14
+  EDITTEXT        IDC_GREEN_BG_EC,              195, 115,  30,  14, ES_AUTOHSCROLL | ES_WANTRETURN | ES_NUMBER
+  CONTROL         "Spin2",IDC_GREEN_BG_SCROLL,"msctls_updown32", UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT,225, 115, 10, 14
+  EDITTEXT        IDC_BLUE_BG_EC,               230, 115,  30,  14,ES_AUTOHSCROLL | ES_NUMBER
+  CONTROL         "Spin3",IDC_BLUE_BG_SCROLL,"msctls_updown32",UDS_SETBUDDYINT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_ALIGNRIGHT, 260,115,10,14
+  PUSHBUTTON      "Select", IDC_CD_SEL_BACK,   265, 115, 30,  14, WS_TABSTOP
+
+END
+
+IDD_KEYWORD_SETUP DIALOG DISCARDABLE  0, 0, 220, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Keyword Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LISTBOX         IDC_KEYGROUP_LIST,           5,   5,  60, 85,WS_VSCROLL | WS_HSCROLL | WS_GROUP | WS_TABSTOP
+  LISTBOX         IDC_KEYWORD_LIST,           70,   5, 125, 85,WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  EDITTEXT        IDC_KEYWORD_EDIT,            5,  90, 125, 12,ES_AUTOHSCROLL
+  CONTROL         "Ignore Case", IDC_KEYWORD_IC, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 135, 90, 60, 10
+  DEFPUSHBUTTON   "&Add",IDC_KEYWORD_APPLY,    5, 110,  35, 14
+  PUSHBUTTON      "&Delete",IDC_KEYWORD_DEL,  45, 110,  35, 14
+END
+
+IDD_LANG_OPT_SETUP DIALOG DISCARDABLE 0, 0, 265, 180
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Langauge Options"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT        "Seperators:"  IDC_STATIC,              5,   5, 100,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_SEPS,                            5,  15, 100,  12, ES_AUTOHSCROLL
+
+  LTEXT        "Block Begin:" IDC_STATIC,              5,  30,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_BBEGIN,                          5,  40,  60,  12, ES_AUTOHSCROLL
+  LTEXT        "Block End:",  IDC_STATIC              70,  30,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_BEND,                           70,  40,  60,  12, ES_AUTOHSCROLL
+
+  LTEXT        "Braces:", IDC_STATIC,                  5,  55,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_BRACES,                          5,  65,  60,  12, ES_AUTOHSCROLL
+  LTEXT        "PreProcessor:", IDC_STATIC,           70,  55,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_PREPROCESSOR,                   70,  65,  60,  12, ES_AUTOHSCROLL
+
+  LTEXT        "String:", IDC_STATIC,                  5,  80,  35,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_STRING,                          5,  90,  35,  12, ES_AUTOHSCROLL
+  LTEXT        "Char:", IDC_STATIC,                   45,  80,  35,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_CHAR,                           45,  90,  35,  12, ES_AUTOHSCROLL
+  LTEXT        "Literal", IDC_STATIC,                 85,  80,  35,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_LITERAL                         85,  90,  35,  12, ES_AUTOHSCROLL
+
+  LTEXT        "Line Comment:", IDC_STATIC,          135,   5,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_LINE_COMMENT,                  135,  15,  60,  12, ES_AUTOHSCROLL
+  CONTROL      "Seperate Word", IDC_LO_COM_WHOLE_WORDS, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 200, 10, 60, 10
+  CONTROL      "First Word",    IDC_LO_COM_FIRST_WORD,  "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 200, 20, 60, 10
+
+
+  LTEXT        "Comment Begin:", IDC_STATIC,         135,  30,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_COMMENT_BEGIN,                 135,  40,  60,  12, ES_AUTOHSCROLL
+
+  LTEXT        "Comment End:", IDC_STATIC,           200,  30,  60,   8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_COMMENT_END,                   200,  40,  60,  12, ES_AUTOHSCROLL
+
+  LTEXT        "Line Continuation:", IDC_STATIC      135,  55,  60,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_LINE_CON,                      135,  65,  40, 12, ES_AUTOHSCROLL
+
+  LTEXT        "Tab size:", IDC_STATIC,              135,  80,  60,  8
+  EDITTEXT     IDC_TAB_SIZE_EDIT,                    135,  90,  35, 14, ES_NUMBER
+  CONTROL      "Spin2",IDC_TAB_SIZE_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 155,  90,  11, 12
+
+  LTEXT        "Indent:", IDC_STATIC,                200,  80,  60,  8
+  EDITTEXT     IDC_INDENT_EDIT,                      200,  90,  35, 14, ES_NUMBER
+  CONTROL      "Spin3",IDC_INDENT_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 200,  90,  11, 12
+
+  LTEXT        "Tab pos.:", IDC_STATIC               200,  55,  60,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_TAB_POS                        200,  65,  50, 12, ES_AUTOHSCROLL
+
+  LTEXT        "PreProcessor Words:", IDC_STATIC,      5, 105,  80,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_PREPROC_WORDS,                   5, 115, 100, 12, ES_AUTOHSCROLL
+  LTEXT        "Number reg exp:",     IDC_STATIC     110  105,  80,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_NUMBER_STR,                    110, 115, 100, 12, ES_AUTOHSCROLL
+
+  LTEXT        "Block Start Words:", IDC_STATIC,        5, 130,  80,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_BLOCK_START_WORDS,                5, 140, 100, 12, ES_AUTOHSCROLL
+  LTEXT        "Block End Words:",     IDC_STATIC,    110  130,  80,  8, SS_NOPREFIX
+  EDITTEXT     IDC_LO_BLOCK_END_WORDS,                110, 140, 100, 12, ES_AUTOHSCROLL
+
+  // LTEXT        "Indent after",        IDC_STATIC       5, 130, 80, 8, SS_NOPREFIX
+  // LTEXT        "Unless",              IDC_STATIC      90, 130, 80, 8, SS_NOPREFIX
+  // LTEXT        "Unindent",            IDC_STATIC     175, 130, 80, 8, SS_NOPREFIX
+
+  // EDITTEXT     IDC_LO_INDENT_AFTER,                    5, 140, 80, 12, ES_AUTOHSCROLL
+  // EDITTEXT     IDC_LO_INDENT_UNLESS,                  90, 140, 80, 12, ES_AUTOHSCROLL
+  // EDITTEXT     IDC_LO_UNINDENT,                      175, 140, 80, 12, ES_AUTOHSCROLL
+END
+
+IDD_TAG_SETUP_PROP DIALOG DISCARDABLE  0, 0, 220, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tags"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT           "Tag program name:",IDC_STATIC,   5,   5, 100,   8
+  EDITTEXT        IDC_TS_PROG,                      5,  15, 160,  12, ES_AUTOHSCROLL
+  PUSHBUTTON      "Browse",IDC_TS_LOOKUP,         170,  15,  32,  14
+  LTEXT           "Options:",IDC_STATIC,            5,  30, 100,   8
+  EDITTEXT        IDC_TS_OPT,                       5,  40, 160,  12, ES_AUTOHSCROLL
+  LTEXT           "Tag file:",IDC_STATIC,           5,  55, 100,   8
+  EDITTEXT        IDC_TS_TAG_FILE,                  5,  65, 160, 12,ES_AUTOHSCROLL
+  CONTROL         "Use tag color", IDC_TS_COLOR, "Button", BS_AUTOCHECKBOX  | WS_TABSTOP, 5, 85, 80, 10
+END
+
+IDD_TEMPLATE_PROP DIALOG DISCARDABLE  0, 0, 300, 140
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Templates"
+FONT 8, "MS Sans Serif"
+BEGIN
+  COMBOBOX   IDC_TEMP_LIST,               5,   5, 100,  90, CBS_DROPDOWN | WS_VSCROLL | WS_GROUP | WS_TABSTOP
+  EDITTEXT   IDC_TEMP_EDIT                5,  23, 290, 115, ES_AUTOHSCROLL | WS_TABSTOP | ES_MULTILINE | ES_WANTRETURN
+  PUSHBUTTON "Delete", IDC_TEMP_DELETE  110,   5,  35,  14, WS_TABSTOP
+  PUSHBUTTON "New",    IDC_TEMP_NEW     150,   5,  35,  14, WS_TABSTOP
+  PUSHBUTTON "Update", IDC_TEMP_OK      190,   5,  35,  14, WS_TABSTOP
+END
+
+IDD_LANG_SEL_SETUP DIALOG DISCARDABLE 0, 0, 205, 130
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Langauge Options"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT         "Type:" IDC_STATIC,         5,   5,  60,   8, SS_NOPREFIX
+  LISTBOX       IDC_LS_TYPE_LIST,           5,  15,  90,  85, WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  LTEXT         "Extensions:" IDC_STATIC, 100,   5,  60,   8, SS_NOPREFIX
+  LISTBOX       IDC_LS_EXT_LIST,          100,  15, 100,  85, WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  EDITTEXT      IDC_LS_TYPE_EDIT,           5,  90,  90,  12, ES_AUTOHSCROLL | WS_TABSTOP
+  EDITTEXT      IDC_LS_EXT_EDIT,          100,  90, 100,  12, ES_AUTOHSCROLL | WS_TABSTOP
+  DEFPUSHBUTTON "Edit", IDC_LS_SELECT       5, 110,  35,  14, WS_TABSTOP
+  PUSHBUTTON    "Done", IDOK,              45, 110,  35,  14, WS_TABSTOP
+  PUSHBUTTON    "Clone",  IDC_LS_CLONE,    85, 110,  35,  14, WS_TABSTOP
+  PUSHBUTTON    "New",    IDC_LS_NEW,     125, 110,  35,  14, WS_TABSTOP
+  PUSHBUTTON    "Remove", IDC_LS_REMOVE,  165, 110,  35,  14, WS_TABSTOP
+END
+
+IDD_LANG_SEL_NEW_SETUP DIALOG DISCARDABLE 0, 0, 105, 115
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Extention Type"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT         "Type:" IDC_STATIC,         5,   5,  60,   8, SS_NOPREFIX
+  EDITTEXT      IDC_LS_N_TYPE_EDIT,         5,  15,  90,  12, WS_HSCROLL | WS_TABSTOP
+  LTEXT         "Extentions:", IDC_STATIC,  5,  35,  60,   8, SS_NOPREFIX
+  EDITTEXT      IDC_LS_N_EXT_EDIT,          5,  45,  90,  12, WS_HSCROLL | WS_TABSTOP
+  LTEXT         "FileName:", IDC_STATIC,    5,  65,  60,   8, SS_NOPREFIX
+  EDITTEXT      IDC_LS_N_FILE_EDIT,         5,  75,  90,  12, WS_HSCROLL | WS_TABSTOP
+  DEFPUSHBUTTON "Ok", IDOK,                 5,  95,  35,  14, WS_TABSTOP
+  PUSHBUTTON    "Cancel" IDCANCEL,         45,  95,  35,  14, WS_TABSTOP
+END
+
+IDD_NAVIGATOR_DIALOG DIALOGEX 0, 0, 190, 60
+STYLE WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Sans Serif"
+BEGIN
+  PUSHBUTTON      "Setup",IDB_SETUP,          7, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Make",IDB_MAKE,           42, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Open",IDB_OPEN,           77, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Manage",IDB_MANAGE,      112, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "ReRead",IDB_REREAD,        7, 22, 35, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Build",IDB_TAG_BUILD,      7, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "ReBuild",IDB_TAG_REBUILD,  7, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Setup",IDB_TAG_SETUP,     42, 22, 30, 14, WS_DISABLED | WS_TABSTOP
+  PUSHBUTTON      "Connect", IDB_FTP         47, 22, 50, 14, WS_DISABLED | WS_TABSTOP
+  COMBOBOX        IDB_COMBO,                 47, 22, 30, 75, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+  EDITTEXT        IDB_SEARCH,                 5, 65,185, 12, ES_AUTOHSCROLL | WS_TABSTOP
+END
+
+IDD_FTP_CONNECT_DIALOG DIALOG DISCARDABLE 0, 0, 175, 115
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FTP connection settings"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT           "HostName:", IDC_STATIC,              5,   5, 100,  8, SS_NOPREFIX
+  EDITTEXT        IDC_FTP_HOSTNAME,                     5,  15, 165, 12, WS_HSCROLL | WS_TABSTOP | WS_GROUP
+  LTEXT           "UserName:", IDC_STATIC,              5,  30, 100,  8, SS_NOPREFIX
+  EDITTEXT        IDC_FTP_USERNAME,                     5,  40, 165, 12, WS_HSCROLL | WS_TABSTOP
+  LTEXT           "PassWord:", IDC_STATIC,              5,  55, 100,  8, SS_NOPREFIX
+  EDITTEXT        IDC_FTP_PASSWORD,                     5,  65, 165, 12, WS_HSCROLL | WS_TABSTOP | ES_PASSWORD
+  CONTROL         "Save Password", IDC_FTP_SAVE_PASS, "Button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP, 5, 80, 100, 10
+  PUSHBUTTON      "Ok", IDOK,                           5,  95,  35, 14, WS_TABSTOP
+  DEFPUSHBUTTON   "Connect", IDC_FTP_CONNECT           45,  95,  35, 14, WS_TABSTOP
+  PUSHBUTTON      "Cancel", IDCANCEL,                  85,  95,  35, 14, WS_TABSTOP
+END
+
+IDD_TOOLBAR_DIALOG DIALOGEX 0, 0, 190, 24
+STYLE WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Sans Serif"
+BEGIN
+
+END
+
+IDD_PAGE_BAR_DIALOG DIALOGEX 0, 0, 190, 73
+STYLE WS_CHILD | WS_VISIBLE
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 8, "MS Sans Serif"
+BEGIN
+
+END
+
+IDC_FTP_WAIT_DIALOG DIALOG DISCARDABLE 0, 0, 150, 50
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FTP connection in progress"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LTEXT           "Please Wait", IDC_FTP_WAIT_STATIC   5,  5, 140,  8, SS_NOPREFIX
+  PUSHBUTTON      "Cancel", IDCANCEL,                 57, 25,  35, 14, WS_TABSTOP
+END
+
+IDD_PROJ_SETUP_DIALOG DIALOG DISCARDABLE  0, 0, 800, 400
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Project setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Make file:",IDC_STATIC,5,5,100,8
+    EDITTEXT        IDC_PS_FILE,5,16,413,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_PS_BROWSE,425,15,32,14,WS_GROUP
+
+    GROUPBOX        "Capture",IDC_STATIC,10,123,47,35
+    CONTROL         "Stdout",IDC_PS_MAKE_CSO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,132,37,10
+    CONTROL         "Stderr",IDC_PS_MAKE_CSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,145,35,10
+    GROUPBOX        "Mode",IDC_STATIC,60,123,55,35
+    CONTROL         "DOS",IDC_PS_MAKE_MD,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,65,132,31,10
+    CONTROL         "Windows",IDC_PS_MAKE_MW,"Button",BS_AUTORADIOBUTTON,65,145,45,10
+
+    PUSHBUTTON      "Add",    IDC_PS_MAKE_ADD,    425,120,32,14,WS_TABSTOP
+    PUSHBUTTON      "Delete", IDC_PS_MAKE_DELETE, 465,120,32,14,WS_TABSTOP
+    PUSHBUTTON      "Clone",  IDC_PS_MAKE_CLONE,  505,120,32,14,WS_TABSTOP
+
+    CONTROL         "Low Priority",IDC_PS_MAKE_LOW,"Button",BS_AUTOCHECKBOX |WS_TABSTOP,120,125,50,10
+    CONTROL         "Save docs",IDC_PS_MAKE_SD,"Button",BS_AUTOCHECKBOX |WS_TABSTOP,120,138,50,10
+    CONTROL         "Ask for arguments",IDC_PS_MAKE_AA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,120,151,73,10
+
+    GROUPBOX        "Run",IDC_STATIC,195,123,52,35
+    CONTROL         "Normal",IDC_PS_MAKE_RUN_NORM,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,200,132,38,10
+    CONTROL         "Hidden",IDC_PS_MAKE_RUN_HIDDEN,"Button",BS_AUTORADIOBUTTON,200,  145,  39, 10
+
+    // LTEXT           "Line Regexp", IDC_STATIC,                                  10, 165, 205,  8
+    // EDITTEXT        IDC_PS_LINE_REGEXP,                                         10, 175, 305, 12, ES_AUTOHSCROLL | WS_TABSTOP
+
+    GROUPBOX        "Capture",IDC_STATIC,           10, 293,  47, 35
+    CONTROL         "Stdout",IDC_PS_EXE_CSO,"Button",BS_AUTOCHECKBOX |WS_TABSTOP, 15, 302, 37, 10
+    CONTROL         "Stderr",IDC_PS_EXE_CSE,"Button",BS_AUTOCHECKBOX |WS_TABSTOP, 15, 315, 35, 10
+    GROUPBOX        "Mode",IDC_STATIC,                                            60, 293, 55, 35
+    CONTROL         "DOS",IDC_PS_EXE_MD,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP, 65, 302, 31, 10
+    CONTROL         "Windows",IDC_PS_EXE_MW,"Button",BS_AUTORADIOBUTTON,                     65, 315, 45, 10
+
+    PUSHBUTTON      "Add",    IDC_PS_EXE_ADD,    425,300,32,14,WS_TABSTOP
+    PUSHBUTTON      "Delete", IDC_PS_EXE_DELETE, 465,300,32,14,WS_TABSTOP
+    PUSHBUTTON      "Clone",  IDC_PS_EXE_CLONE,  505,300,32,14,WS_TABSTOP
+
+    CONTROL         "Low Priority", IDC_PS_EXE_LOW,   "Button",BS_AUTOCHECKBOX | WS_TABSTOP, 120, 290,  73, 10
+    CONTROL         "Save Docs",      IDC_PS_EXE_SAVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP, 120, 305,  73, 10
+    CONTROL         "Ask for arguments",IDC_PS_EXE_AA,"Button",BS_AUTOCHECKBOX | WS_TABSTOP, 120, 320,  73, 10
+
+    GROUPBOX        "Run",IDC_STATIC,195,290,52,35
+    CONTROL         "Normal", IDC_PS_EXE_RUN_NORM, "Button", BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP, 200,300,38,10
+    CONTROL         "Hidden",IDC_PS_EXE_RUN_HIDDEN,"Button", BS_AUTORADIOBUTTON, 200,  312,  39, 10
+
+    LTEXT           "Include path:", IDC_STATIC,                         10, 342, 100,  8
+    EDITTEXT        IDC_PS_INC_PATH,                                     10, 352, 405, 12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_PS_INC_BROWSE,                         420, 351,  32, 14
+    DEFPUSHBUTTON   "&OK",IDOK,                                          10, 375, 35, 14, WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,                                  50, 375, 35, 14, WS_GROUP
+    PUSHBUTTON      "&Tags", IDC_PROJ_TAGS,                              90, 375, 35, 14, WS_GROUP
+END
+
+IDD_TOOL_ARG_BOX DIALOG DISCARDABLE  0, 0, 300, 70
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tool Arguments"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Program:",IDC_TOOL_ARG_PROG,5,5,290,8
+    LTEXT           "Path:",IDC_STATIC,5,15,40,8
+    LTEXT           "Arguments:",IDC_STATIC,5,35,40,8
+    EDITTEXT        IDC_TOOL_ARG_PATH,45,15,250,14, ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_TOOL_ARG_ARG,45,35,250,14,  ES_AUTOHSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "&OK",IDOK,5,53,30,14,WS_TABSTOP
+    PUSHBUTTON      "&Cancel",IDCANCEL,40,53,30,14,WS_TABSTOP
+    CONTROL         "&Append", IDC_TOOL_ARG_APPEND, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 75, 53, 100, 10
+END
+
+IDD_TAG_SETUP_DIALOG DIALOG DISCARDABLE  0, 0, 207, 130
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tag setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Tag program name:",IDC_STATIC,    5,   5, 100,   8
+    EDITTEXT        IDC_TS_PROG,                       5,  15, 160,  12, ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_TS_LOOKUP,          170,  15,  32,  14
+    LTEXT           "Options:",IDC_STATIC,             5,  30, 100,   8
+    EDITTEXT        IDC_TS_OPT,                        5,  40, 160,  12, ES_AUTOHSCROLL
+    LTEXT           "Files:",IDC_TS_FILES,             5,  55, 100,   8
+    EDITTEXT        IDC_TS_FILE,                       5,  65, 160,  12,ES_AUTOHSCROLL
+    LTEXT           "Tag file:",IDC_STATIC,            5,  80, 100,   8
+    EDITTEXT        IDC_TS_TAG_FILE,                   5,  90, 160,  12,ES_AUTOHSCROLL
+    CONTROL         "Track Tags", IDC_TS_TRACK, "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 75, 110, 80, 10
+    DEFPUSHBUTTON   "Ok",IDOK,                         5, 110,  30,  14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,                40, 110,  30,  14
+END
+
+IDD_TAG_LIST_DIALOG DIALOG DISCARDABLE  0, 0, 400, 170
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Tag List"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Ok",     IDOK,                           10, 150,  32,  14, WS_GROUP
+    PUSHBUTTON      "Cancel", IDCANCEL,                       50, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Peek",  IDC_TAG_LIST_PEEK,              90, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Type",  IDC_TAG_LIST_TYPE,             130, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Class", IDC_TAG_LIST_CLASS,            170, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "P&eek Class", IDC_TAG_LIST_PEAK_CLASS,  210, 150,  32,  14, WS_TABSTOP
+END
+
+IDD_CLASS_LIST_DIALOG DIALOG DISCARDABLE  0, 0, 400, 170
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Class Tree"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Ok",     IDOK,                           10, 150,  32,  14, WS_GROUP
+    PUSHBUTTON      "Cancel", IDCANCEL,                       50, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Peek",  IDC_TAG_LIST_PEEK,              90, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Type",  IDC_TAG_LIST_TYPE,             130, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Class", IDC_TAG_LIST_CLASS,            170, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "P&eek Class", IDC_TAG_LIST_PEAK_CLASS,  210, 150,  32,  14, WS_TABSTOP
+END
+
+IDD_WORD_LIST_DIALOG DIALOG DISCARDABLE  0, 0, 400, 170
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "Word List"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Ok",     IDOK,                           10, 150,  32,  14, WS_GROUP
+    PUSHBUTTON      "Cancel", IDCANCEL,                       50, 150,  32,  14, WS_TABSTOP
+    PUSHBUTTON      "&Peek",  IDC_WORD_LIST_PEEK,             90, 150,  32,  14, WS_TABSTOP
+END
+
+IDD_SIMPLE_DIALOG DIALOG DISCARDABLE 0, 0, 200, 50
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select"
+FONT 8, "MS Sans Serif"
+BEGIN
+    EDITTEXT        IDC_SIMPLE_EDIT,5,5,190,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Ok",IDOK,5,30,32,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,40,30,32,14,WS_GROUP
+END
+
+IDC_PRINT_SETUP DIALOG DISCARDABLE 0, 0, 220, 135
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Print Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+   CONTROL       "Wrap long lines", IDC_PRINT_WRAP,      "Button", BS_AUTOCHECKBOX   | WS_TABSTOP | WS_GROUP,  5,  5,  70, 10
+   CONTROL       "Line Numbers",    IDC_PRINT_LINE_NO,   "Button", BS_AUTOCHECKBOX   | WS_TABSTOP,             5, 18,  70, 10
+   LTEXT         "Scale %",         IDC_STATIC,                                                               75   5,  70,  8
+   EDITTEXT                         IDC_PRINT_SCALE,                                                          75, 15,  70,  14, WS_TABSTOP | ES_AUTOHSCROLL
+   CONTROL       "Spin1",IDC_PRINT_SCALE_SPIN,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 110, 15, 11, 14
+   GROUPBOX      "Color", IDC_STATIC,                                                                      5, 30, 210, 22
+   CONTROL       "Black and White", IDC_PRINT_COLOR_BW,  "Button", BS_AUTORADIOBUTTON| WS_TABSTOP | WS_GROUP, 10, 38,  70, 10
+   CONTROL       "As Document",     IDC_PRINT_COLOR_DOC, "Button", BS_AUTORADIOBUTTON| WS_TABSTOP           , 90, 38,  55, 10
+   CONTROL       "As Specified",    IDC_PRINT_COLOR_SPEC,"Button", BS_AUTORADIOBUTTON| WS_TABSTOP           ,150, 38,  55, 10
+   LTEXT         "Left Margin",     IDC_STATIC,                                                          155,  5,  80,  8
+   EDITTEXT      IDC_PRINT_MARGIN,                                                                       155, 15,  30, 12, WS_TABSTOP
+   CONTROL       "Spin2", IDC_PRINT_SPIN,"msctls_updown32", UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS, 185,  15,  11, 12
+   LTEXT         "mm",              IDC_STATIC,                                                          190, 15,  30,  8
+   LTEXT         "Header",          IDC_STATIC,                                                            5, 55,  60,  8
+   EDITTEXT      IDC_PRINT_HEADER,                                                                         5, 65, 210, 12, WS_TABSTOP | ES_AUTOHSCROLL
+   LTEXT         "Footer",          IDC_STATIC,                                                            5, 85,  60,  8
+   EDITTEXT      IDC_PRINT_FOOTER,                                                                         5, 95, 210, 12, WS_TABSTOP | ES_AUTOHSCROLL
+   PUSHBUTTON    "Font",            IDC_PRINT_FONT,                                                        5,115,  35, 14, WS_TABSTOP
+   PUSHBUTTON    "Color",           IDC_PRINT_COLOR,                                                      45,115,  35, 14, WS_TABSTOP
+   PUSHBUTTON    "Cancel",          IDCANCEL,                                                             85,115,  35, 14, WS_TABSTOP
+   DEFPUSHBUTTON "Ok",              IDOK,                                                                125,115,  35, 14, WS_TABSTOP
+END
+
+IDD_BOOKMARK_LIST_DIALOG DIALOG DISCARDABLE 0, 0, 240, 120
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "BookMarkList"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LISTBOX        IDC_BOOKMARK_LIST, 5, 5, 230, 100, WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+  DEFPUSHBUTTON  "Goto",   IDOK,      5, 100, 32, 14,WS_GROUP
+  PUSHBUTTON     "Cancel", IDCANCEL, 40, 100, 32, 14,WS_GROUP
+END
+
+IDD_UNDO_TAG_LIST_DIALOG  DIALOG DISCARDABLE 0, 0, 240, 120
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Tag Jump List"
+FONT 8, "MS Sans Serif"
+BEGIN
+  LISTBOX        IDC_TAG_JUMP_LIST, 5, 5, 230, 100, WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | LVS_REPORT
+  DEFPUSHBUTTON  "Goto",   IDOK,      5, 100, 32, 14,WS_GROUP
+  PUSHBUTTON     "Cancel", IDCANCEL, 40, 100, 32, 14,WS_GROUP
+END
+
+IDC_PROJECT_EDIT_DIALOG DIALOG  DISCARDABLE 0, 0, 810, 220
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Parameters"
+FONT 8, "MS Sans Serif"
+BEGIN
+   LTEXT         "Program",          IDC_STATIC,                                                           5,  5,  60,  8
+   EDITTEXT      IDC_PROJ_EXE_PROG,                                                                        5, 14, 750, 12, WS_TABSTOP | ES_AUTOHSCROLL
+   PUSHBUTTON    "Browse", IDC_PROJ_EXE_PROG_BROWSE,                                                     760, 13,  32, 14,WS_GROUP
+
+   LTEXT         "Arguments",          IDC_STATIC,                                                         5, 30,  60,  8
+   EDITTEXT      IDC_PROJ_EXE_ARG,                                                                         5, 39, 800, 12, WS_TABSTOP | ES_AUTOHSCROLL
+
+   LTEXT         "Path",               IDC_STATIC,                                                         5, 55,  60,  8
+   EDITTEXT      IDC_PROJ_EXE_PATH,                                                                        5, 64, 750, 12, WS_TABSTOP | ES_AUTOHSCROLL
+   PUSHBUTTON    "Browse", IDC_PROJ_EXE_PATH_BROWSE,                                                     760, 63,  32, 14,WS_GROUP
+
+   LTEXT         "Line Regex",               IDC_STATIC,                                                   5, 80,  60,  8
+   EDITTEXT      IDC_PROJ_EXE_LINE_REGEX,                                                                  5, 89, 800, 12, WS_TABSTOP | ES_AUTOHSCROLL
+
+   LTEXT         "Line Find Regex",               IDC_STATIC,                                              5,105, 100,  8
+   EDITTEXT      IDC_PROJ_EXE_PATH_FIND,                                                                   5,114, 800, 12, WS_TABSTOP | ES_AUTOHSCROLL
+
+   LTEXT         "Line Replace Regex",               IDC_STATIC,                                           5,130, 100,  8
+   EDITTEXT      IDC_PROJ_EXE_PATH_REPLACE,                                                                5,139, 800, 12, WS_TABSTOP | ES_AUTOHSCROLL
+
+
+   LTEXT         "Name",                         IDC_STATIC,                                              5,155, 100,  8
+   EDITTEXT      IDC_PROJ_EXE_NAME,                                                                       5,164, 800, 12, WS_TABSTOP | ES_AUTOHSCROLL
+
+   DEFPUSHBUTTON  "OK",    IDOK,                                                                              5, 195, 32, 14,WS_GROUP
+   PUSHBUTTON     "Cancel",IDCANCEL,                                                                         40, 195, 32, 14,WS_GROUP
+END
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     ".\\..\\res\\WAIN.ico"
+IDR_WAINTYPE            ICON    DISCARDABLE     ".\\..\\res\\WainDoc.ico"
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   ".\\..\\res\\Toolbar.bmp"
+IDB_SMALLICONS          BITMAP  FIXED IMPURE    ".\\..\\res\\smallico.bmp"
+IDR_VIEW_CURSOR         CURSOR  FIXED IMPURE    ".\\..\\Res\\Cursor1.cur"
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      IDM_FILE_OPEN
+    BUTTON      IDV_SAVE_FILE
+    SEPARATOR
+    BUTTON      IDM_SEARCH
+    BUTTON      IDV_SEARCH_NEXT
+    BUTTON      IDV_SEARCH_PREV
+    SEPARATOR
+    BUTTON      IDM_BOOKMARK_LIST
+    BUTTON      ID_TAG_LIST
+    SEPARATOR
+    BUTTON      IDM_TOOL_OUTPUT_NEXT
+    BUTTON      IDM_TOOL_OUTPUT_PREV
+    SEPARATOR
+    BUTTON      IDM_PROJ_MAKE
+    BUTTON      IDV_MDI_DUAL
+    BUTTON      IDM_UNDO_JUMP_TO_TAG
+    BUTTON      IDV_TAG_PEEK
+    BUTTON      IDM_VIEW_CALL_TREE
+END
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        IDM_FILE_NEW
+        MENUITEM "&Open...",                    IDM_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        POPUP "Recent &Projects"
+        BEGIN
+          MENUITEM "Project0"                   IDM_RECENT_PROJ0
+          MENUITEM "Project1"                   IDM_RECENT_PROJ1
+          MENUITEM "Project2"                   IDM_RECENT_PROJ2
+          MENUITEM "Project3"                   IDM_RECENT_PROJ3
+          MENUITEM "Project4"                   IDM_RECENT_PROJ4
+          MENUITEM "Project5"                   IDM_RECENT_PROJ5
+          MENUITEM "Project6"                   IDM_RECENT_PROJ6
+          MENUITEM "Project7"                   IDM_RECENT_PROJ7
+          MENUITEM "Project8"                   IDM_RECENT_PROJ8
+          MENUITEM "Project9"                   IDM_RECENT_PROJ9
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "&Navigator Bar",              IDM_VIEW_NAVIGATOR_BAR
+    END
+    POPUP "&Options"
+    BEGIN
+        MENUITEM "&Doc Properties",             IDM_DOC_PROP_SETUP
+        MENUITEM "&Setup",                      IDM_SETUP
+        MENUITEM "&Font",                       IDM_SET_FONT
+        MENUITEM "&List Font",                  IDM_SET_NAVIGATOR_FONT
+        MENUITEM "List &Color",                 IDL_COLOR_SETUP
+        MENUITEM "Key&board",                   IDM_KEY_SETUP
+        MENUITEM "&Macros",                     IDM_MACRO_SETUP
+        MENUITEM "&PopupMenu",                  IDM_POPUP_MENU_SETUP
+    END
+    POPUP "&User"
+    BEGIN
+        MENUITEM "&Setup"                       IDM_USER_MENU_SETUP
+    END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "&Setup",                      IDM_TOOL_SETUP
+    END
+    POPUP "&Project"
+    BEGIN
+        MENUITEM "&Setup",                      IDM_PROJ_SETUP
+        MENUITEM "&Make",                       IDM_PROJ_MAKE
+        // MENUITEM "Make &All",                   IDM_PROJ_MAKE_ALL
+        MENUITEM "&Execute",                    IDM_PROJ_EXE
+        MENUITEM "&Open",                       IDM_PROJ_OPEN
+        MENUITEM "&Save",                       IDM_PROJ_SAVE
+        MENUITEM "Manage &Files",               IDM_PROJ_MANAGE
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help Topics",                ID_HELP_FINDER
+        MENUITEM SEPARATOR
+        MENUITEM "&About Wain...",              ID_APP_ABOUT
+    END
+END
+
+IDR_WAINTYPE MENU PRELOAD DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New",                        IDM_FILE_NEW
+        MENUITEM "&Open...",                    IDM_FILE_OPEN
+        MENUITEM "&Close",                      IDM_CLOSE_FILE
+        MENUITEM "&Save",                       IDV_SAVE_FILE
+        MENUITEM "Save &As...",                 IDV_SAVE_FILE_AS
+        MENUITEM "&Reload",                     IDV_RELOAD_FILE
+        MENUITEM "&Info",                       IDV_FILE_INFO
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...",                   IDV_PRINT
+//        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+//        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        POPUP "Recent &Projects"
+        BEGIN
+          MENUITEM "Project0"                   IDM_RECENT_PROJ0
+          MENUITEM "Project1"                   IDM_RECENT_PROJ1
+          MENUITEM "Project2"                   IDM_RECENT_PROJ2
+          MENUITEM "Project3"                   IDM_RECENT_PROJ3
+          MENUITEM "Project4"                   IDM_RECENT_PROJ4
+          MENUITEM "Project5"                   IDM_RECENT_PROJ5
+          MENUITEM "Project6"                   IDM_RECENT_PROJ6
+          MENUITEM "Project7"                   IDM_RECENT_PROJ7
+          MENUITEM "Project8"                   IDM_RECENT_PROJ8
+          MENUITEM "Project9"                   IDM_RECENT_PROJ9
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo",                       IDV_EDIT_UNDO     // Don't move this
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t",                        IDV_MARK_CUT
+        MENUITEM "&Copy",                       IDV_COPY_CLIP
+        MENUITEM "&Paste",                      IDV_PASTE_CLIP
+        MENUITEM SEPARATOR
+        MENUITEM "Search",                      IDM_SEARCH
+        MENUITEM "Replace",                     IDM_REPLACE
+        MENUITEM "Project Replace",             IDM_PROJECT_REPLACE
+        MENUITEM "Global Replace",              IDM_GLOBAL_REPLACE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "&Navigator Bar",              IDM_VIEW_NAVIGATOR_BAR
+    END
+    POPUP "&Options"
+    BEGIN
+        MENUITEM "&Doc Properties",             IDM_DOC_PROP_SETUP
+        MENUITEM "Curr Doc Prop",               IDM_CURR_DOC_PROP_SETUP
+        MENUITEM "&Setup",                      IDM_SETUP
+        MENUITEM "&Font",                       IDM_SET_FONT
+        MENUITEM "&List Font",                  IDM_SET_NAVIGATOR_FONT
+        MENUITEM "List &Color",                 IDL_COLOR_SETUP
+        MENUITEM "Key&board",                   IDM_KEY_SETUP
+        MENUITEM "&Macros",                     IDM_MACRO_SETUP
+        MENUITEM "&PopupMenu",                  IDM_POPUP_MENU_SETUP
+        MENUITEM "TabViewColor",                IDM_TAB_VIEW_COLOR
+    END
+    POPUP "&User"
+    BEGIN
+        MENUITEM "&Setup"                       IDM_USER_MENU_SETUP
+    END
+    POPUP "&Tools"
+    BEGIN
+        MENUITEM "&Setup",                      IDM_TOOL_SETUP
+    END
+    POPUP "&Macro"
+    BEGIN
+        MENUITEM "S&etup",                      IDM_MACRO_SETUP
+        MENUITEM "&Record Start/Stop",          IDM_MACRO_RECORD
+        MENUITEM "&Playback",                   IDM_MACRO_PLAYBACK
+        MENUITEM "&Save",                       IDM_MACRO_SAVE
+        MENUITEM "&Load",                       IDM_MACRO_LOAD
+        MENUITEM SEPARATOR
+        MENUITEM "&Macro 0"                     IDM_RUN_MACRO_0
+    END
+    POPUP "&Project"
+    BEGIN
+        MENUITEM "&Setup",                      IDM_PROJ_SETUP
+        MENUITEM "&Make",                       IDM_PROJ_MAKE
+        // MENUITEM "Make &All",                   IDM_PROJ_MAKE_ALL
+        MENUITEM "&Execute",                    IDM_PROJ_EXE
+        MENUITEM "&Open",                       IDM_PROJ_OPEN
+        MENUITEM "&Save",                       IDM_PROJ_SAVE
+        MENUITEM "Add &Current File",           IDM_PROJ_ADD_CUR_FILE
+        MENUITEM "Manage &Files",               IDM_PROJ_MANAGE
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&Cascade",                    IDV_MDI_CAS
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+        MENUITEM "&Maximize",                   IDV_MDI_MAX
+        MENUITEM "&Dual",                       IDV_MDI_DUAL
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help Topics",                ID_HELP_FINDER
+        MENUITEM SEPARATOR
+        MENUITEM "&About Wain...",              ID_APP_ABOUT
+    END
+END
+
+IDR_COMP_POPUP_MENU MENU DISCARDABLE
+BEGIN
+    POPUP "1"
+    BEGIN
+        MENUITEM "Word0",                       IDM_COMP_ITEM0
+        MENUITEM "Word1",                       IDM_COMP_ITEM1
+        MENUITEM "Word2",                       IDM_COMP_ITEM2
+        MENUITEM "Word3",                       IDM_COMP_ITEM3
+    END
+END
+
+IDR_ASSOC_LIST MENU DISCARDABLE
+BEGIN
+    POPUP "1"
+    BEGIN
+        MENUITEM "Word0",                       IDM_ASSOC_ITEM0
+        MENUITEM "Word1",                       IDM_ASSOC_ITEM1
+    END
+END
+
+IDD_POPUP_MENU MENU DISCARDABLE
+BEGIN
+  POPUP "1"
+  BEGIN
+      MENUITEM "Open",                        IDM_FILE_OPEN
+  END
+END
+
+IDL_POPUP_MENU MENU DISCARDABLE
+BEGIN
+  POPUP "1"
+  BEGIN
+      MENUITEM "Open",                        IDM_FILE_OPEN
+  END
+END
+
+IDC_CT_POPUP MENU DISCARDABLE
+BEGIN
+  POPUP "1"
+  BEGIN
+      MENUITEM "Open",                        IDM_FILE_OPEN
+  END
+END
+
+IDC_PT_POPUP MENU DISCARDABLE
+BEGIN
+  POPUP "1"
+  BEGIN
+      MENUITEM "Open",                        IDM_FILE_OPEN
+  END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDB_LIST_VIEW ACCELERATORS PRELOAD MOVEABLE PURE
+BEGIN
+    VK_UP,          IDL_MOVE_UP,            VIRTKEY
+    VK_DOWN,        IDL_MOVE_DOWN,          VIRTKEY
+    VK_PRIOR,       IDL_MOVE_PAGE_UP,       VIRTKEY
+    VK_PRIOR,       IDL_MOVE_CTRL_PAGE_UP,  VIRTKEY, CONTROL
+    VK_BACK,        IDL_MOVE_BACK,          VIRTKEY
+    VK_NEXT,        IDL_MOVE_PAGE_DOWN,     VIRTKEY
+    VK_DELETE,      IDL_DELETE,             VIRTKEY
+    VK_INSERT,      IDL_INSERT,             VIRTKEY
+    "E",            IDB_EDIT,               VIRTKEY, ALT
+    VK_APPS,        IDL_VIEW_POPUP,         VIRTKEY
+END
+
+IDB_LIST_TREE ACCELERATORS PRELOAD MOVEABLE PURE
+BEGIN
+    "E",            IDC_CT_EDIT,               VIRTKEY, ALT
+    VK_APPS,        IDC_CT_VIEW_POPUP,         VIRTKEY
+END
+
+IDB_LIST_PROJ_TREE ACCELERATORS PRELOAD MOVEABLE PURE
+BEGIN
+    VK_APPS,        IDC_PT_VIEW_POPUP,      VIRTKEY
+    VK_DELETE,      IDL_DELETE,             VIRTKEY
+    VK_INSERT,      IDL_INSERT,             VIRTKEY
+    "E",            IDB_EDIT,               VIRTKEY, ALT
+END
+
+IDD_NAVIGATOR_DIALOG ACCELERATORS PRELOAD MOVEABLE PURE
+BEGIN
+    "N",            IDB_NEXT,               VIRTKEY, ALT
+    "P",            IDB_PREV,               VIRTKEY, ALT
+    "E",            IDB_EDIT,               VIRTKEY, ALT
+    "D",            IDB_VIEW_DIR,           VIRTKEY, ALT
+    "F",            IDB_VIEW_FILES,         VIRTKEY, ALT
+    "T",            IDB_VIEW_TAGS,          VIRTKEY, ALT
+    "A",            IDB_VIEW_CLASS,         VIRTKEY, ALT
+    "L",            IDB_VIEW_CLASS,         VIRTKEY, ALT
+    "J",            IDB_VIEW_PROJ,          VIRTKEY, ALT
+    "C",            IDB_VIEW_CURR,          VIRTKEY, ALT
+    "A",            IDB_TAG_PEEK,           VIRTKEY, CONTROL
+END
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE
+BEGIN
+   VK_ESCAPE,          IDV_HANDLE_ESC,         VIRTKEY
+END
+
+#ifndef _MAC
+  VS_VERSION_INFO VERSIONINFO
+  FILEVERSION 1,1,6
+  PRODUCTVERSION 1,1,6
+  FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+  FILEFLAGS 0x1L
+#else
+  FILEFLAGS 0x0L
+#endif
+  FILEOS 0x4L
+  FILETYPE 0x1L
+  FILESUBTYPE 0x0L
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName", "\0"
+      VALUE "FileDescription", "Wain\0"
+      VALUE "FileVersion", "1,1,6\0"
+      VALUE "InternalName", "Wain\0"
+      VALUE "LegalCopyright", "Copyright Bertel Brander 2021\0"
+      VALUE "LegalTrademarks", "None\0"
+      VALUE "OriginalFilename", "Wain.exe\0"
+      VALUE "ProductName", "Wain\0"
+      VALUE "ProductVersion", "1,1,6\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1200
+  END
+END
+
+#endif    // !_MAC
+
+STRINGTABLE PRELOAD DISCARDABLE
+BEGIN
+    IDR_WAINTYPE            "\nWain\nWain\n\n\nWain.Document\nWain Document"
+    IDR_MAINFRAME           "Wain"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE
+BEGIN
+    AFX_IDS_APP_TITLE       "Wain"
+    AFX_IDS_IDLEMESSAGE     ""
+    AFX_IDS_HELPMODEMESSAGE "Select an object on which to get Help"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_SB_LINE_STATUS       "L:            C:                 "
+    ID_SB_MARK_STATUS       "MARK"
+    ID_SB_INS_STATUS        "OVR"
+    ID_SB_MACRO_REC         "REC"
+    ID_SB_MOD_STATUS        "MOD"
+    ID_SB_CRLF_STATUS       "Unix"
+    ID_SB_STATUS_TEXT       "                                  "
+    ID_SB_SPECIAL_MODE      "Column Mark"
+    ID_SB_SCROLL_LOCK       "                "
+    ID_SB_READ_ONLY         "RO"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    IDV_SAVE_FILE_AS        "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+    IDV_RELOAD_FILE         "Reload the current file\nReload"
+    IDM_RECENT_PROJ0        "Open this project\nProject"
+    IDM_RECENT_PROJ1        "Open this project\nProject"
+    IDM_RECENT_PROJ2        "Open this project\nProject"
+    IDM_RECENT_PROJ3        "Open this project\nProject"
+    IDM_RECENT_PROJ4        "Open this project\nProject"
+    IDM_RECENT_PROJ5        "Open this project\nProject"
+    IDM_RECENT_PROJ6        "Open this project\nProject"
+    IDM_RECENT_PROJ7        "Open this project\nProject"
+    IDM_RECENT_PROJ8        "Open this project\nProject"
+    IDM_RECENT_PROJ9        "Open this project\nProject"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_APP_ABOUT            "Display program information\nAbout"
+    IDM_APP_EXIT            "Quit the application; prompts to save documents\nExit"
+    ID_HELP_INDEX           "Opens Help\nHelp Topics"
+    ID_HELP_FINDER          "List Help topics\nHelp Topics"
+    ID_HELP_USING           "Display instructions about how to use help\nHelp"
+    ID_CONTEXT_HELP         "Display help for clicked on buttons, menus and windows\nHelp"
+    ID_HELP                 "Display help for current task or command\nHelp"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_REDO            "Redo the previously UnDone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+  IDV_MARK_CUT              "Cut the selection and put it on the Clipboard\nCut"
+  IDV_COPY_CLIP             "Copy the selection and put it on the Clipboard\nCopy"
+  IDV_PASTE_CLIP            "Insert Clipboard contents\nPaste"
+  IDM_FILE_OPEN             "Open an existing document\nOpen"
+  IDV_SAVE_FILE             "Save the active document\nSave"
+  IDM_FILE_NEW              "Create a new document\nNew"
+  IDM_SEARCH                "Search for a string in the active document\nSearch"
+  IDV_SEARCH_NEXT           "Search for the next match\nSearchNext"
+  IDV_SEARCH_PREV           "Search for the previous match\nSearchPrevious"
+  IDM_REPLACE               "Search and Replace in the active document\nReplace"
+  IDM_PROJECT_REPLACE       "Search and Replace in all project files\nProject Replace"
+  IDM_GLOBAL_REPLACE        "Global Search and Replace\nGlobal Replace"
+  IDM_SETUP                 "Setup general editor options\nSetup"
+  IDM_SET_FONT              "Select font for your documents\nFont"
+  IDM_SET_NAVIGATOR_FONT    "Select font for navigator bar list\nList Font"
+  IDM_KEY_SETUP             "Define your keyboard mapping\nKey Mapping"
+  IDM_TOOL_SETUP            "Tool setup\nTool Setup"
+  IDM_PROJ_SETUP            "Project Setup\nProject Setup"
+  IDM_PROJ_MAKE             "Make your project\nMake"
+  // IDM_PROJ_MAKE_ALL         "Rebuild your project\nRbuild"
+  IDM_PROJ_EXE              "Execute your projct\nProject Execute"
+  IDM_PROJ_OPEN             "Open a new project\nOpen Project"
+  IDM_PROJ_SAVE             "Save project settings\nproject Save"
+  IDM_PROJ_ADD_CUR_FILE     "Add Current File to Project\nAdd File to Project"
+  IDV_MDI_MAX               "Maximize the current document\nMaximize"
+  IDV_MDI_DUAL              "Arrange documents in two\nDual Windows"
+  IDM_RUN_TOOL_0            "Run this tool\nRun"
+  IDM_RUN_TOOL_1            "Run this tool\nRun"
+  IDM_RUN_TOOL_2            "Run this tool\nRun"
+  IDM_RUN_TOOL_3            "Run this tool\nRun"
+  IDM_RUN_TOOL_4            "Run this tool\nRun"
+  IDM_RUN_TOOL_5            "Run this tool\nRun"
+  IDM_RUN_TOOL_6            "Run this tool\nRun"
+  IDM_RUN_TOOL_7            "Run this tool\nRun"
+  IDM_RUN_TOOL_8            "Run this tool\nRun"
+  IDM_RUN_TOOL_9            "Run this tool\nRun"
+  IDM_RUN_TOOL_10           "Run this tool\nRun"
+  IDM_RUN_TOOL_11           "Run this tool\nRun"
+  IDM_RUN_TOOL_12           "Run this tool\nRun"
+  IDM_RUN_TOOL_13           "Run this tool\nRun"
+  IDM_RUN_TOOL_14           "Run this tool\nRun"
+  IDM_RUN_TOOL_15           "Run this tool\nRun"
+  IDM_RUN_TOOL_16           "Run this tool\nRun"
+  IDM_RUN_TOOL_17           "Run this tool\nRun"
+  IDM_RUN_TOOL_18           "Run this tool\nRun"
+  IDM_RUN_TOOL_19           "Run this tool\nRun"
+  IDM_CLOSE_FILE            "Close the active document\nClose"
+  IDM_MACRO_RECORD          "Toggle macro recording\nRecord"
+  IDM_MACRO_PLAYBACK        "Playback macro\nPlayback"
+  IDM_MACRO_SAVE            "Save the current macro\nMacro Save"
+  IDM_MACRO_LOAD            "Load a macro from a file\nMacro Load"
+  IDM_DOC_PROP_SETUP        "Setup properties for document types\nDocument Properties"
+  IDM_BOOKMARK_LIST         "List Bookmarks\nBookMarks"
+  ID_TAG_LIST               "List Tags of current word\nList Tags"
+  IDM_TOOL_OUTPUT_NEXT      "Jump to the next tool output line\nToolOutputNext"
+  IDM_TOOL_OUTPUT_PREV      "Jump to the previous tool output line\nToolOutputPrev"
+  IDM_UNDO_JUMP_TO_TAG      "Undo jump to tag\nUndoJumpToTag"
+  IDV_TAG_PEEK              "Display the default tag in a debug view\nTagPeek"
+  IDV_MDI_CAS               "CascadeWindow"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDV_EDIT_UNDO           "Undo the last action\nUndo"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+#ifndef APSTUDIO_INVOKED
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "afxres.rc"    // Standard components
+#include "afxprint.rc"  // printing/print preview resources
+#endif
+#endif    // not APSTUDIO_INVOKED
+

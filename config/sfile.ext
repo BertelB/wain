@@ -1,0 +1,108 @@
+[ExtensionFile]
+EXTENSIONTYPE: S-files
+EXTENSIONS: *.s;*.q;*.asm
+SEPS: !%&/()=?+-.,:;*^~><\\#[]{}|\t\\\\\\\\\\\\\\\"'´` 
+STRING: "
+CHAR: '
+LITERAL: 
+LINECONTINUATION: 
+BRACES: 
+BLOCKBEGIN: 
+BLOCKEND: 
+LINECOMMENT: ;
+COMMENTBEGIN: 
+COMMENTEND: 
+COMMENTWHOLEWORD: 0
+COMMENTFIRSTWORD: 0
+PREPROCESSOR: 
+IGNORECASE: 1
+IndentAfter:
+IndentUnless:
+UnIndent:
+TabSize: 4
+Indent: 4
+Numbers: [0-9a-fA-F]+[H|h]+|[0-9]
+TabPos: 
+PreProcWords:
+[COLOR]
+MarkText: 0x000000
+MarkBackGround: 0xA0A0A0
+TextText: 0x000000
+TextBackGround: 0xFFFFFF
+SeperatorsText: 0xFF0000
+SeperatorsBackGround: 0xFFFFFF
+PreProcessorText: 0x00A000
+PreProcessorBackGround: 0xFFFFFF
+CommentsText: 0xA0A0A0
+CommentsBackGround: 0xFFFFFF
+StringsText: 0x800000
+StringsBackGround: 0xFFFFFF
+NumbersText: 0xFF00FF
+NumbersBackGround: 0xFFFFFF
+TagsText: 0x800000
+TagsBackGround: 0xFFFFFF
+Keyword0Text: 0x0000E6
+Keyword0BackGround: 0xFFFFFF
+Keyword1Text: 0x0000D2
+Keyword1BackGround: 0xFFFFFF
+Keyword2Text: 0x0000BE
+Keyword2BackGround: 0xFFFFFF
+Keyword3Text: 0x0000AA
+Keyword3BackGround: 0xFFFFFF
+Keyword4Text: 0x000096
+Keyword4BackGround: 0xFFFFFF
+[TAGS]
+Program: ctags.exe
+Options: -u
+File: $T$$FFE$.tag
+UseTagColor: 1
+[Templates]
+[Keyword 0]
+[Keyword 1]
+ADD
+ADR
+BEQ
+BIC
+BX
+BXHI
+CMP
+LDMFD
+MCR
+MCREQ
+MOV
+MRC
+MRCEQ
+MRS
+MSR
+MUL
+ORR
+STMFD
+SUB
+[Keyword 2]
+a1
+a2
+a3
+lr
+r0
+r1
+r2
+r3
+r4
+r5
+[Keyword 3]
+[Keyword 4]
+and
+call
+dec
+hlt
+in
+inc
+jmp
+jnz
+jz
+mov
+out
+pop
+push
+ret
+test

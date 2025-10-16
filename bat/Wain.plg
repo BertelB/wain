@@ -1,0 +1,107 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: WAIN - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSPCE9D.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /Zi /O2 /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /FR".\..\Debug/" /Fp".\..\Debug/Wain.pch" /Yu".\..\src\stdafx.h" /Fo".\..\Debug/" /Fd".\..\Debug/" /FD /c 
+"c:\bkb\Wain\SRC\WainFunc.cpp"
+]
+Creating command line "cl.exe @C:\Users\lenovo\AppData\Local\Temp\RSPCE9D.tmp" 
+Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSPCE9E.tmp" with contents
+[
+MPR.LIB /nologo /subsystem:windows /incremental:yes /pdb:".\..\Debug/Wain.pdb" /debug /machine:I386 /out:".\..\Debug/Wain.exe" 
+\bkb\Wain\Debug\ChildFrm.obj
+\bkb\Wain\Debug\classview.obj
+\bkb\Wain\Debug\DockBar.obj
+\bkb\Wain\Debug\DocProp.obj
+\bkb\Wain\Debug\FileSelD.obj
+\bkb\Wain\Debug\GlobSet.obj
+\bkb\Wain\Debug\KeySetup.obj
+\bkb\Wain\Debug\Line.obj
+\bkb\Wain\Debug\Macro.obj
+\bkb\Wain\Debug\MainFrm.obj
+\bkb\Wain\Debug\NavigatorDlg.obj
+\bkb\Wain\Debug\NavigatorFile.obj
+\bkb\Wain\Debug\NavigatorList.obj
+\bkb\Wain\Debug\nrex.obj
+\bkb\Wain\Debug\PageDlg.obj
+\bkb\Wain\Debug\Print.obj
+\bkb\Wain\Debug\Project.obj
+\bkb\Wain\Debug\regexp.obj
+\bkb\Wain\Debug\Search.obj
+\bkb\Wain\Debug\SimpleDialog.obj
+\bkb\Wain\Debug\StdAfx.obj
+\bkb\Wain\Debug\TabView.obj
+\bkb\Wain\Debug\TagList.obj
+\bkb\Wain\Debug\Tags.obj
+\bkb\Wain\Debug\Tools.obj
+\bkb\Wain\Debug\Undo.obj
+\bkb\Wain\Debug\ViewList.obj
+\bkb\Wain\Debug\Wain.obj
+\bkb\Wain\Debug\WainDoc.obj
+\bkb\Wain\Debug\WainEdit.obj
+\bkb\Wain\Debug\WainFTP.obj
+\bkb\Wain\Debug\WainFunc.obj
+\bkb\Wain\Debug\WainMark.obj
+\bkb\Wain\Debug\WainView.obj
+\bkb\Wain\Debug\Wain.res
+]
+Creating command line "link.exe @C:\Users\lenovo\AppData\Local\Temp\RSPCE9E.tmp"
+<h3>Output Window</h3>
+Compiling...
+WainFunc.cpp
+Linking...
+WainFunc.obj : error LNK2005: "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl SubStr(int,int,char const *)" (?SubStr@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HHPBD@Z) already defined in Project.obj
+Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSPD1BC.tmp" with contents
+[
+/nologo /o".\..\Debug/Wain.bsc" 
+\bkb\Wain\Debug\StdAfx.sbr
+\bkb\Wain\Debug\ChildFrm.sbr
+\bkb\Wain\Debug\classview.sbr
+\bkb\Wain\Debug\DockBar.sbr
+\bkb\Wain\Debug\DocProp.sbr
+\bkb\Wain\Debug\FileSelD.sbr
+\bkb\Wain\Debug\GlobSet.sbr
+\bkb\Wain\Debug\KeySetup.sbr
+\bkb\Wain\Debug\Line.sbr
+\bkb\Wain\Debug\Macro.sbr
+\bkb\Wain\Debug\MainFrm.sbr
+\bkb\Wain\Debug\NavigatorDlg.sbr
+\bkb\Wain\Debug\NavigatorFile.sbr
+\bkb\Wain\Debug\NavigatorList.sbr
+\bkb\Wain\Debug\nrex.sbr
+\bkb\Wain\Debug\PageDlg.sbr
+\bkb\Wain\Debug\Print.sbr
+\bkb\Wain\Debug\Project.sbr
+\bkb\Wain\Debug\regexp.sbr
+\bkb\Wain\Debug\Search.sbr
+\bkb\Wain\Debug\SimpleDialog.sbr
+\bkb\Wain\Debug\TabView.sbr
+\bkb\Wain\Debug\TagList.sbr
+\bkb\Wain\Debug\Tags.sbr
+\bkb\Wain\Debug\Tools.sbr
+\bkb\Wain\Debug\Undo.sbr
+\bkb\Wain\Debug\ViewList.sbr
+\bkb\Wain\Debug\Wain.sbr
+\bkb\Wain\Debug\WainDoc.sbr
+\bkb\Wain\Debug\WainEdit.sbr
+\bkb\Wain\Debug\WainFTP.sbr
+\bkb\Wain\Debug\WainFunc.sbr
+\bkb\Wain\Debug\WainMark.sbr
+\bkb\Wain\Debug\WainView.sbr]
+Creating command line "bscmake.exe @C:\Users\lenovo\AppData\Local\Temp\RSPD1BC.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+Wain.exe - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
