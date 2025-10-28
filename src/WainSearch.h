@@ -49,7 +49,7 @@ class ReplaceDialogClass : public DialogBaseClass
    void GetReplaceString(void); // sets ReplaceString
    void ClearFromStart(void);
 public:
-   enum ReplaceResultEnum
+   enum class ReplaceResult
    {
       ReplaceEnd,
       ReplaceContinue,

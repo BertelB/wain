@@ -452,11 +452,10 @@ void ReplaceDialogClass::ReplaceAll(void)
    s[0] = m_searchString.c_str();
    s[1] = m_replaceString.c_str();
 
-   ReplaceResultEnum replaceResult;
-   replaceResult = (ReplaceResultEnum )::SendMessage(GetMf()->m_hWnd, ReplaceMessageId, (WPARAM )s, sflags);
+   ReplaceResult replaceResult = (ReplaceResult )::SendMessage(GetMf()->m_hWnd, ReplaceMessageId, (WPARAM )s, sflags);
    m_first = false;
    ClearFromStart();
-   if(m_isGlobal && replaceResult == ReplaceDone)
+   if(m_isGlobal && replaceResult == ReplaceResult::ReplaceDone)
    {
       GetDlgItem(IDC_REPLACE_NEXT)->ModifyStyle(0, WS_DISABLED);
       GetDlgItem(IDC_REPLACE_SKIP)->ModifyStyle(0, WS_DISABLED);
@@ -491,9 +490,9 @@ bool ReplaceDialogClass::DoReplace(void)
    s[0] = m_searchString.c_str();
    s[1] = m_replaceString.c_str();
 
-   ReplaceResultEnum ReplaceResult = (ReplaceResultEnum )::SendMessage(GetMf()->m_hWnd, ReplaceMessageId, (WPARAM )s, sflags);
+   ReplaceResult replaceResult = (ReplaceResult )::SendMessage(GetMf()->m_hWnd, ReplaceMessageId, (WPARAM )s, sflags);
 
-   if(m_isGlobal && ReplaceResult == ReplaceDone)
+   if(m_isGlobal && replaceResult == ReplaceResult::ReplaceDone)
    {
       GetDlgItem(IDC_REPLACE_NEXT)->ModifyStyle(0, WS_DISABLED);
       GetDlgItem(IDC_REPLACE_SKIP)->ModifyStyle(0, WS_DISABLED);
@@ -727,7 +726,7 @@ LRESULT MainFrame::SearchFunc(WPARAM wparm, LPARAM lparm)
   return FALSE;
 }
 
-LRESULT MainFrame::ReplaceFunc(WPARAM wparm, LPARAM lparm)
+LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
 {
    if(m_replaceIdx >= 0)
    {
@@ -770,7 +769,7 @@ LRESULT MainFrame::ReplaceFunc(WPARAM wparm, LPARAM lparm)
          if(m_globalSearchFiles.empty())
          {
             SetStatusText("Search string not found");
-            return ReplaceDialogClass::ReplaceDone;
+            return LRESULT(ReplaceDialogClass::ReplaceResult::ReplaceDone);
          }
          lparm |= SEARCH_FROM_START;
       }
@@ -818,7 +817,7 @@ LRESULT MainFrame::ReplaceFunc(WPARAM wparm, LPARAM lparm)
          if(m_globalSearchFiles.empty())
          {
             SetStatusText("Search string not found");
-            return ReplaceDialogClass::ReplaceDone;
+            return LRESULT(ReplaceDialogClass::ReplaceResult::ReplaceDone);
          }
          lparm |= SEARCH_FROM_START;
       }
@@ -863,26 +862,26 @@ LRESULT MainFrame::ReplaceFunc(WPARAM wparm, LPARAM lparm)
                }
                else
                {
-                  return ReplaceDialogClass::ReplaceContinue;
+                  return LRESULT(ReplaceDialogClass::ReplaceResult::ReplaceContinue);
                }
             }
 
          }
       }
       while(Doc && !Found);
-      return ReplaceDialogClass::ReplaceDone;
+      return LRESULT(ReplaceDialogClass::ReplaceResult::ReplaceDone);
    }
    else
    {
       ChildFrame *cf = (ChildFrame *)MDIGetActive();
       if(cf)
       {
-         return cf->m_view->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? ReplaceDialogClass::ReplaceContinue : ReplaceDialogClass::ReplaceDone;
+         return LRESULT(cf->m_view->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? ReplaceDialogClass::ReplaceResult::ReplaceContinue : ReplaceDialogClass::ReplaceResult::ReplaceDone);
       }
       else
       {
          SetStatusText("No document to search in");
       }
    }
-   return ReplaceDialogClass::ReplaceDone;
+   return LRESULT(ReplaceDialogClass::ReplaceResult::ReplaceDone);
 }

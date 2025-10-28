@@ -172,6 +172,7 @@ BOOL WainView::ReplaceFunc(const char *_string[], unsigned int flags)
          uint32_t toMove = max(min(strlen(_string[0]), strlen(_string[1])), 1);
          m_columnNo += toMove;
          m_undoList.AddEntry(UNDO_MOVE_ENTRY, toMove, 0);
+         flags &= ~SEARCH_FIRST;
       }
       while(SearchFunc(_string[0], flags) && (!(GetAsyncKeyState(VK_ESCAPE) & 0x8000)));
       UpdateAll();

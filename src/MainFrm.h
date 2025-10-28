@@ -346,7 +346,7 @@ protected:
   afx_msg void RedoTag(void);
 
   afx_msg LRESULT SearchFunc(WPARAM wparm, LPARAM lparam);
-  afx_msg LRESULT ReplaceFunc(WPARAM wparm, LPARAM lparam);
+  afx_msg LRESULT GlobalReplaceFunc(WPARAM wparm, LPARAM lparam);
   afx_msg void ToolSetup(void);
   afx_msg void RunTool(UINT id);
   afx_msg void RunMacro(UINT id);

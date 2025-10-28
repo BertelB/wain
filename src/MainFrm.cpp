@@ -118,7 +118,7 @@ BEGIN_MESSAGE_MAP(MainFrame, CMDIFrameWnd)
   ON_COMMAND(IDM_POPUP_MENU_SETUP,    PopupMenuSetup)
   ON_COMMAND(IDM_CURR_DOC_PROP_SETUP, DocPropSetup)
   ON_REGISTERED_MESSAGE(search_message_id, SearchFunc)
-  ON_REGISTERED_MESSAGE(ReplaceMessageId, ReplaceFunc)
+  ON_REGISTERED_MESSAGE(ReplaceMessageId, GlobalReplaceFunc)
   // The line below is to catch the "More Windows ..." message
   // Instead of using the silly tiny standard box, simply go to NavigatorBar in files mode
   ON_COMMAND(AFX_IDM_FIRST_MDICHILD + 9, ViewFiles)
