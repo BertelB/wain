@@ -20,8 +20,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#pragma warning (disable : 4100) // unreferenced formal parameter
-
 BOOL WainView::SearchFunc(const char* _string, unsigned int _flags)
 //  Description:
 //    Message handler, called from main_frame_class::SearchFunc()
@@ -71,31 +69,31 @@ void WainView::SearchNext(void)
 //  Description:
 //    Message handler, find the next match
 {
-  WainDoc *doc = GetDocument();
-  int i = m_lineNo;
-  int old_column = m_columnNo;
-  TxtLine *l;
-  l = doc->FindString(m_currentTextLine, m_searchString, &m_columnNo, &i, SEARCH_FORWARD | m_searchFlags);
-  if(l)
-  {
-    HandlePreActions(PA_REMOVE_CURSOR);
-    m_undoList.AddEntry(UNDO_MOVE_ENTRY, m_columnNo - old_column, i);
-    m_currentTextLine = l;
-    m_lineNo += i;
-    RemoveMark();
-    m_markType = COLUMN_MARK;
-    m_markStartX = m_columnNo;
-    m_markEndX = m_columnNo + strlen(m_searchString);
-    m_markStartY = m_markEndY = m_lineNo;
-    DrawMarkLines(m_markStartY, m_markEndY);
-    HandlePostActions(PA_SET_CURSOR | PA_UPDATE_CURSOR_POS | PA_SCROLL_TO_VISIBLE);
-  }
-  else
-  {
-    HandlePreActions(PA_REMOVE_CURSOR);
-    RemoveMark();
-    HandlePostActions(PA_SET_CURSOR);
-  }
+   WainDoc *doc = GetDocument();
+   int i = m_lineNo;
+   int old_column = m_columnNo;
+   TxtLine *l;
+   l = doc->FindString(m_currentTextLine, m_searchString, &m_columnNo, &i, SEARCH_FORWARD | m_searchFlags);
+   if(l)
+   {
+      HandlePreActions(PA_REMOVE_CURSOR);
+      m_undoList.AddEntry(UNDO_MOVE_ENTRY, m_columnNo - old_column, i);
+      m_currentTextLine = l;
+      m_lineNo += i;
+      RemoveMark();
+      m_markType = COLUMN_MARK;
+      m_markStartX = m_columnNo;
+      m_markEndX = m_columnNo + strlen(m_searchString);
+      m_markStartY = m_markEndY = m_lineNo;
+      DrawMarkLines(m_markStartY, m_markEndY);
+      HandlePostActions(PA_SET_CURSOR | PA_UPDATE_CURSOR_POS | PA_SCROLL_TO_VISIBLE);
+   }
+   else
+   {
+      HandlePreActions(PA_REMOVE_CURSOR);
+      RemoveMark();
+      HandlePostActions(PA_SET_CURSOR);
+   }
 }
 
 void WainView::SearchPrev(void)

@@ -11,6 +11,7 @@
 #include ".\..\src\childfrm.h"
 #include ".\..\src\waindoc.h"
 #include ".\..\src\NavigatorList.h"
+#include "SimpleDialog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -366,7 +367,7 @@ void TagListDialogClass::OnGetMinMaxInfo(MINMAXINFO FAR *min_max_info)
 
 void WainView::TagList(void)
 {
-  TagListXxx(TL_ANY);
+   TagListXxx(TL_ANY);
 }
 
 int operator << (int _n, TagIndexType _type)
@@ -437,48 +438,57 @@ void WainView::TagListXxx(unsigned int flags)
 //    mainframes jump to tag Undo list
 //  Parameters:
 {
-  std::string temp;
-  WainDoc *doc = GetDocument();
-  if(doc->GetCurrentWord(temp, m_columnNo, m_currentTextLine))
-  {
-    GetMf()->m_lastTag = temp;
-    TagListDialogClass tl(this, temp, flags);
-    int res = tl.DoModal();
-    if(res == IDOK || res == ID_JUST_ONE)
-    {
-      if(doc->GetPathName().IsEmpty())
-        SetStatusText("Unable to add Undo jump to tag entry");
+   std::string temp;
+   WainDoc *doc = GetDocument();
+   if(!doc->GetCurrentWord(temp, m_columnNo, m_currentTextLine))
+   {
+      SimpleDialog sd("The tag to find", "", this);
+      if(sd.DoModal() == IDOK)
+      {
+         temp = sd.m_msg;
+      }
       else
-        GetMf()->AddJumpToTag(doc->GetPathName(), m_lineNo, m_columnNo);
+      {
+         return;
+      }
+   }
+   GetMf()->m_lastTag = temp;
+   TagListDialogClass tl(this, temp, flags);
+   int res = tl.DoModal();
+   if(res == IDOK || res == ID_JUST_ONE)
+   {
+      if(doc->GetPathName().IsEmpty())
+         SetStatusText("Unable to add Undo jump to tag entry");
+      else
+         GetMf()->AddJumpToTag(doc->GetPathName(), m_lineNo, m_columnNo);
       GetTagElemClass *elem = new GetTagElemClass(tl.m_tagList->m_list[tl.m_selectedIndex]);
       GetMf()->m_navigatorDialog.JumpToTag(elem);
-    }
-    else if(tl.m_peekElem)
-    {
-       if (tl.m_isPeekClass)
-       {
-          TagElemClass tag;
-          if (GetMf()->m_navigatorDialog.m_globalTags.m_tagList->FindClass(tag, tl.m_peekElem->m_signature.c_str()))
-          {
-             GetTagElemClass* getTag = new GetTagElemClass(GetMf()->m_navigatorDialog.m_globalTags.m_fileList->GetFullName(tag.m_fileIdx),
-                                                           GetMf()->m_navigatorDialog.m_globalTags.m_fileList->GetShortName(tag.m_fileIdx),
-                                                           tag.m_lineNo,
-                                                           tag.m_tag.c_str(),
-                                                           tag.m_indexType,
-                                                           tag.m_signature.c_str());
-             GetMf()->AddAutoTagList(getTag->m_fullName.c_str(), getTag->m_lineNo, 0);
-             wainApp.SetTagPeek(getTag);
-          }
-          delete tl.m_peekElem;
-          tl.m_peekElem = 0;
-       }
-       else
-       {
+   }
+   else if(tl.m_peekElem)
+   {
+      if (tl.m_isPeekClass)
+      {
+         TagElemClass tag;
+         if (GetMf()->m_navigatorDialog.m_globalTags.m_tagList->FindClass(tag, tl.m_peekElem->m_signature.c_str()))
+         {
+            GetTagElemClass* getTag = new GetTagElemClass(GetMf()->m_navigatorDialog.m_globalTags.m_fileList->GetFullName(tag.m_fileIdx),
+                                                          GetMf()->m_navigatorDialog.m_globalTags.m_fileList->GetShortName(tag.m_fileIdx),
+                                                          tag.m_lineNo,
+                                                          tag.m_tag.c_str(),
+                                                          tag.m_indexType,
+                                                          tag.m_signature.c_str());
+            GetMf()->AddAutoTagList(getTag->m_fullName.c_str(), getTag->m_lineNo, 0);
+            wainApp.SetTagPeek(getTag);
+         }
+         delete tl.m_peekElem;
+         tl.m_peekElem = 0;
+      }
+      else
+      {
          GetMf()->AddAutoTagList(tl.m_peekElem->m_fullName.c_str(), tl.m_peekElem->m_lineNo, 0);
          wainApp.SetTagPeek(tl.m_peekElem);
-       }
-    }
-  }
+      }
+   }
 }
 
 void MainFrame::RedoTag()
