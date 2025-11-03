@@ -419,8 +419,7 @@ void TagClass::HandleTagsRead(ReadTagClass *aReadTag)
       aReadTag->SetTagList(0);
 
       delete aReadTag;
-      SetStatusText("Tags has been read");
-  }
+ }
   else
   {
      SetStatusText("Failed to build tags");
@@ -485,7 +484,7 @@ void TagClass::ReadTagFile(const char *aCommand, const char *aFileName, bool aRe
       }
    }
    ReadParm->m_readTagsMsgId = m_readTagsMsgId;
-   m_tagThread = AfxBeginThread(ThreadReadTagFile, ReadParm, THREAD_PRIORITY_BELOW_NORMAL, 0, CREATE_SUSPENDED);
+   m_tagThread = AfxBeginThread(ThreadReadTagFile, ReadParm, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
    m_tagThread->m_bAutoDelete = FALSE;
    m_tagThread->ResumeThread();
 }

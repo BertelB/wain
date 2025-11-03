@@ -579,7 +579,7 @@ void NavigatorDialog::ViewCurrentTags(void)
     ChildFrame *child_frame = (ChildFrame *)GetMf()->MDIGetActive();
     if(child_frame)
     {
-      WainDoc *doc = child_frame->m_view->GetDocument();
+      WainDoc *doc = child_frame->GetView()->GetDocument();
       if(strcmp(m_lastCurrentFile, doc->GetPathName()))
         SetFileName(doc->GetPathName(), doc->GetPropIndex());
       else
@@ -725,9 +725,9 @@ void NavigatorDialog::DoSelect(int selection)
         ChildFrame *child_frame = (ChildFrame *)mf->MDIGetActive();
         if(child_frame)
         {
-          ::SetFocus(child_frame->m_view->m_hWnd);
-          GetMf()->SetActiveView(child_frame->m_view);
-          child_frame->m_view->GotoLineNo(m_currentTags.m_tagList->Get(selection).m_lineNo);
+          ::SetFocus(child_frame->GetView()->m_hWnd);
+          GetMf()->SetActiveView(child_frame->GetView());
+          child_frame->GetView()->GotoLineNo(m_currentTags.m_tagList->Get(selection).m_lineNo);
         }
       }
       break;
@@ -772,7 +772,7 @@ void NavigatorDialog::DoBuildTags(const char *aFile, bool aForce, bool aAutoBuil
    m_project->StartWordThread();
 
    ChildFrame *childFrame = (ChildFrame *)GetMf()->MDIGetActive();
-   std::string path = aFile ? aFile : (childFrame ? (const char *)childFrame->m_doc->GetPathName() : (const char *)"");
+   std::string path = aFile ? aFile : (childFrame ? (const char *)childFrame->GetDocument()->GetPathName() : (const char *)"");
   if(m_project->GetTagFile().empty())
   {
     if(!aAutoBuild)
@@ -855,8 +855,8 @@ void NavigatorDialog::ReBuildTags(void)
     return;
   std::string TagFile;
 
-  TagFile = child_frame->m_doc->m_prop->m_tagFile;
-  std::string path = (const char *)child_frame->m_doc->GetPathName();
+  TagFile = child_frame->GetDocument()->m_prop->m_tagFile;
+  std::string path = (const char *)child_frame->GetDocument()->GetPathName();
   RtvStatus error;
   if((error = wainApp.ReplaceTagValues(TagFile, path)) != RtvStatus::rtv_no_error)
   {
@@ -864,10 +864,10 @@ void NavigatorDialog::ReBuildTags(void)
     return;
   }
   std::string command;
-  command = child_frame->m_doc->m_prop->m_tagProgram;
+  command = child_frame->GetDocument()->m_prop->m_tagProgram;
   command += " ";
-  command += child_frame->m_doc->m_prop->m_tagOptions;
-  if(!strstr(child_frame->m_doc->m_prop->m_tagOptions.c_str(), "--excmd=number"))
+  command += child_frame->GetDocument()->m_prop->m_tagOptions;
+  if(!strstr(child_frame->GetDocument()->m_prop->m_tagOptions.c_str(), "--excmd=number"))
     command += " --excmd=number";
   command += " \"-f";
   command += TagFile;
@@ -916,16 +916,16 @@ void NavigatorDialog::TagSetup(void)
     ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
     if(cf)
     {
-      ts.m_prog    = cf->m_doc->m_prop->m_tagProgram;
-      ts.m_options = cf->m_doc->m_prop->m_tagOptions;
+      ts.m_prog    = cf->GetDocument()->m_prop->m_tagProgram;
+      ts.m_options = cf->GetDocument()->m_prop->m_tagOptions;
       ts.m_files = "";
-      ts.m_tagFile = cf->m_doc->m_prop->m_tagFile;
+      ts.m_tagFile = cf->GetDocument()->m_prop->m_tagFile;
       if(ts.DoModal() == IDOK)
       {
-        cf->m_doc->m_prop->m_tagProgram = ts.m_prog;
-        cf->m_doc->m_prop->m_tagOptions = ts.m_options;
-        cf->m_doc->m_prop->m_tagFile = ts.m_tagFile;
-        cf->m_doc->m_prop->m_modified = TRUE;
+        cf->GetDocument()->m_prop->m_tagProgram = ts.m_prog;
+        cf->GetDocument()->m_prop->m_tagOptions = ts.m_options;
+        cf->GetDocument()->m_prop->m_tagFile = ts.m_tagFile;
+        cf->GetDocument()->m_prop->m_modified = TRUE;
       }
     }
   }
@@ -1255,7 +1255,7 @@ void NavigatorDialog::HandleAutoRebuildTimeout(void)
           {
             if(f_stat.st_mtime > t_stat.st_mtime)
             { /* The file is more recet than the tagfile, rebuild the tag file */
-              if(cf && celem->m_name == (const char *)cf->m_view->GetDocument()->GetPathName())
+              if(cf && celem->m_name == (const char *)cf->GetView()->GetDocument()->GetPathName())
               { /* This elem is the active one, rebuild tags as normal */
                 ReBuildTags();
                 c++;
@@ -1297,7 +1297,7 @@ void NavigatorDialog::HandleAutoRebuildTimeout(void)
     }
     if(j)
     {
-      m_autoRebuildThread = AfxBeginThread(ThreadAutoRebuildTag, ReadParm, THREAD_PRIORITY_BELOW_NORMAL, 0, CREATE_SUSPENDED);
+      m_autoRebuildThread = AfxBeginThread(ThreadAutoRebuildTag, ReadParm, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
       m_autoRebuildThread->m_bAutoDelete = FALSE;
       m_autoRebuildThread->ResumeThread();
     }
@@ -1595,7 +1595,7 @@ void NavigatorDialog::GotoEditor(void)
   ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
   if(cf)
   {
-    cf->m_view->SetFocus();
+    cf->GetView()->SetFocus();
   }
 }
 

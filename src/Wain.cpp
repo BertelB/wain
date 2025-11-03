@@ -13,6 +13,7 @@
 #include ".\..\src\TagList.h"
 #include ".\..\src\WordListThread.h"
 #include <stdio.h>
+#include <chrono>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -22,6 +23,8 @@ static char THIS_FILE[] = __FILE__;
 #pragma warning (disable : 4100) // unreferenced formal parameter
 
 // WainIni wainIni("wain.cfg");
+
+auto GetUSec() {  return std::chrono::microseconds().count(); }
 
 BEGIN_MESSAGE_MAP(WainApp, CWinApp)
   ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
@@ -69,7 +72,7 @@ WainApp::WainApp()
 
 WainApp wainApp;
 
-LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam);
 HHOOK msg_hook;
 char CommandLineFile[_MAX_PATH];
 int CommandLineLineNo;
@@ -204,7 +207,7 @@ BOOL WainApp::InitInstance()
     pMainFrame->ViewNavigatorBar();
   pMainFrame->DragAcceptFiles(TRUE);
 
-  msg_hook = SetWindowsHookEx(WH_GETMESSAGE, get_msg_proc, NULL, m_nThreadID);
+  msg_hook = SetWindowsHookEx(WH_GETMESSAGE, GetMsgProc, NULL, m_nThreadID);
   return TRUE;
 }
 
@@ -717,7 +720,7 @@ void WainApp::Exit(void)
 
 extern void DeallocateTagsRead(WPARAM w);
 
-LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
 {
   if(code == HC_ACTION)
   {
@@ -729,10 +732,13 @@ LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
       {
         if(wParam == PM_REMOVE)
         {
+          auto tStart = GetUSec();
           if(wainApp.m_pMainWnd)
             mf->m_navigatorDialog.GlobalTagReadFunc((ReadTagClass *)msg->wParam);
           else if(msg->wParam)
             DeallocateTagsRead(msg->wParam);
+          auto diff = GetUSec() - tStart;
+          SetStatusText("Tags has been read %u", uint32_t(diff));
           return 0;
         }
       }
@@ -740,10 +746,13 @@ LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
       {
         if(wParam == PM_REMOVE)
         {
+          auto tStart = GetUSec();
           if(wainApp.m_pMainWnd)
             mf->m_navigatorDialog.TagReadFunc((ReadTagClass *)msg->wParam);
           else if(msg->wParam)
             DeallocateTagsRead(msg->wParam);
+          auto diff = GetUSec() - tStart;
+          SetStatusText("Tags has been read %u", uint32_t(diff));
           return 0;
         }
       }
@@ -755,7 +764,6 @@ LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
              DeallocateTagsRead(msg->wParam);
           return 0;
         }
-
       }
       else if(msg->message == IDC_FTP_WAIT_THREAD_MSG)
       {
@@ -765,6 +773,7 @@ LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
       {
          if (wParam == PM_REMOVE)
          {
+            auto tStart = GetUSec();
             WordThreadParam* parm = (WordThreadParam*)msg->wParam;
             if (!parm->m_replace)
             {
@@ -776,7 +785,8 @@ LRESULT CALLBACK get_msg_proc(int code, WPARAM wParam, LPARAM lParam)
                mf->m_navigatorDialog.m_project->ReplaceWordParm(parm);
                delete parm;
             }
-            SetStatusText("Word parameters has been read");
+            auto diff = GetUSec() - tStart;
+            SetStatusText("Word parameters has been read %u", uint32_t(diff));
          }
       }
       else if(msg->message == GetIconMsgId && wParam == PM_REMOVE)
@@ -1044,7 +1054,7 @@ WainDoc *WainApp::OpenDocument(const char *file_name, unsigned int flags)
   context.m_pNewViewClass = RUNTIME_CLASS(WainView);
   context.m_pNewDocTemplate = m_docTemplate;
   doc->m_childFrame = frame;
-  frame->m_doc = doc;
+  frame->SetDocument(doc);
   frame->LoadFrame(IDR_WAINTYPE, WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, AfxGetMainWnd(), &context);
 
   doc->m_isDebugFile = FALSE;

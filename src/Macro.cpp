@@ -441,7 +441,7 @@ void MainFrame::RunMacro(UINT id)
     {
       ChildFrame *cf = (ChildFrame *)MDIGetActive();
       if(cf)
-        cf->m_view->PlaybackMacro();
+        cf->GetView()->PlaybackMacro();
     }
   }
 }

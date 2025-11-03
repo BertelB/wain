@@ -1270,7 +1270,7 @@ BOOL LangSelectDialogClass::OnInitDialog(void)
    m_currentSel = 0;
    ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
    if(cf)
-     m_currentSel = cf->m_doc->GetPropIndex();
+     m_currentSel = cf->GetDocument()->GetPropIndex();
 
    lb->SetCurSel(m_currentSel);
    lb->GetText(m_currentSel, text);

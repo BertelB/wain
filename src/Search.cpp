@@ -621,7 +621,7 @@ void MainFrame::Replace(void)
   if(cf)
   {
     std::string word;
-    cf->m_view->GetCurrentWord(word);
+    cf->GetView()->GetCurrentWord(word);
     if(!m_replaceDialog)
     {
       m_replaceDialog = new ReplaceDialogClass();
@@ -666,7 +666,7 @@ void MainFrame::ProjectReplace()
    std::string word = "";
    if(cf)
    {
-      cf->m_view->GetCurrentWord(word);
+      cf->GetView()->GetCurrentWord(word);
       m_replaceDialog->SetSearchString(word);
    }
    m_replaceDialog->SetGlobal(true);
@@ -701,7 +701,7 @@ void MainFrame::GlobalReplace()
          std::string word = "";
          if(cf)
          {
-            cf->m_view->GetCurrentWord(word);
+            cf->GetView()->GetCurrentWord(word);
             m_replaceDialog->SetSearchString(word);
          }
          m_replaceDialog->SetGlobal(true);
@@ -832,8 +832,8 @@ LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
 
          if((cf = (ChildFrame *)MDIGetActive()) != 0)
          {
-            if(FileName == (const char *)cf->m_doc->GetPathName())
-               Doc = cf->m_doc;
+            if(FileName == (const char *)cf->GetDocument()->GetPathName())
+               Doc = cf->GetDocument();
          }
 
          if(!FileName.empty())
@@ -844,7 +844,7 @@ LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
             }
             if(Doc)
             {
-               Found = Doc->m_view->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? true : false;
+               Found = Doc->GetView()->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? true : false;
                if(!Found)
                {
                   m_replaceIdx++;
@@ -876,7 +876,7 @@ LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
       ChildFrame *cf = (ChildFrame *)MDIGetActive();
       if(cf)
       {
-         return LRESULT(cf->m_view->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? ReplaceDialogClass::ReplaceResult::ReplaceContinue : ReplaceDialogClass::ReplaceResult::ReplaceDone);
+         return LRESULT(cf->GetView()->ReplaceFunc((const char **)wparm, (unsigned int )lparm) ? ReplaceDialogClass::ReplaceResult::ReplaceContinue : ReplaceDialogClass::ReplaceResult::ReplaceDone);
       }
       else
       {

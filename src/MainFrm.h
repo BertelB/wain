@@ -28,6 +28,8 @@ public:
   std::string m_shortName;
   class WainView *m_myView;
   int m_nr;
+  int GetPosition() const { return m_position; }
+  void SetPosition(int _position) { m_position = _position; }
   int m_position;
   int m_iconIndex;
   void SetName(const char* _fileName, bool _isFtpFile);

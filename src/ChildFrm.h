@@ -7,11 +7,10 @@
 
 class ChildFrame : public CMDIChildWnd
 {
-  DECLARE_DYNCREATE(ChildFrame)
-  BOOL m_first;
-  void SetTabViewSize(void);
+   DECLARE_DYNCREATE(ChildFrame)
 public:
-  ChildFrame();
+   ChildFrame();
+   virtual ~ChildFrame();
 
   BOOL Create(LPCTSTR aClassName,
               LPCTSTR aWindowName,
@@ -20,31 +19,33 @@ public:
               CMDIFrameWnd *pParentWnd = 0,
               CCreateContext *pContext = 0);
 
-  class TabViewClass *m_tabView;
-public:
-  class WainView *m_view;
-  class WainDoc *m_doc;
-
-public:
-  void ShowLineNo(bool aShow);
-  int m_position;
-  CreateModeType m_displayMode;
-  virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
-
-public:
-
-  virtual ~ChildFrame();
+   void ShowLineNo(bool _show);
+   virtual BOOL PreCreateWindow(CREATESTRUCT &cs);
+   class WainView* GetView() { return m_view; }
+   class WainDoc* GetDocument() { return m_doc; }
+   void SetDocument(class WainDoc* _doc) { m_doc = _doc; }
+   int GetPosition() const { return m_position; }
+   void SetPosition(int _position) { m_position = _position; }
+   void TogglePosition() { m_position ^= 1; }
+   CreateModeType GetDisplayMode() const { return m_displayMode; }
+   void SetDisplayMode(CreateModeType _displayMode) { m_displayMode = _displayMode; }
 #ifdef _DEBUG
-  virtual void AssertValid() const;
-  virtual void Dump(CDumpContext& dc) const;
+   virtual void AssertValid() const;
+   virtual void Dump(CDumpContext& dc) const;
 #endif
-
 protected:
-  afx_msg void OnSize(UINT type, int cx, int cy);
-  afx_msg void OnPaint(void);
-  afx_msg void OnClose(void);
-  afx_msg void OnSysCommand(UINT aId, LPARAM aLParam);
-  DECLARE_MESSAGE_MAP();
+   afx_msg void OnSize(UINT type, int cx, int cy);
+   afx_msg void OnPaint(void);
+   afx_msg void OnClose(void);
+   afx_msg void OnSysCommand(UINT aId, LPARAM aLParam);
+   DECLARE_MESSAGE_MAP();
+   BOOL m_first;
+   void SetTabViewSize(void);
+   class TabViewClass *m_tabView;
+   int m_position;
+   class WainView *m_view;
+   class WainDoc *m_doc;
+   CreateModeType m_displayMode;
 };
 
 #endif // CHILDFRM_H

@@ -152,7 +152,7 @@ void HdDirClass::UpdateDir(void)
   m_dlg->m_navigatorList->Setup(m_dirInfoList.size(), 2, m_dlg->m_sysImageList);
 
   /* It's time to get the icons */
-  AfxBeginThread(ThreadGetIcon, req, THREAD_PRIORITY_BELOW_NORMAL);
+  AfxBeginThread(ThreadGetIcon, req, THREAD_PRIORITY_LOWEST);
 }
 
 void FtpDirClass::UpdateDir(void)

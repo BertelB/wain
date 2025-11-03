@@ -72,7 +72,7 @@ int ViewList::AddView(WainView *view, const char *file_name, bool IsFtpFile)
   new_elem->m_myView = view;
   new_elem->SetName(file_name, IsFtpFile);
   new_elem->m_nr = i;
-  new_elem->m_position = view->GetDocument()->m_childFrame->m_position;
+  new_elem->m_position = view->GetDocument()->m_childFrame->GetPosition();
 
   BrowseListType::iterator idx;
   BOOL Found;
@@ -419,7 +419,7 @@ void MainFrame::SetBookmark(UINT id)
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
   if(active_child)
   {
-    AddBookmark(active_child->m_view, active_child->m_view->m_columnNo, active_child->m_view->m_lineNo, b_mark);
+    AddBookmark(active_child->GetView(), active_child->GetView()->m_columnNo, active_child->GetView()->m_lineNo, b_mark);
   }
   else
     SetStatusText("No active view");
@@ -469,7 +469,7 @@ void MainFrame::BookmarkList(void)
    else if(cf)
    {
       cf->MDIActivate();
-      cf->m_view->SetFocus();
+      cf->GetView()->SetFocus();
    }
 }
 
@@ -574,11 +574,11 @@ void MainFrame::PrevWin(void)
 void MainFrame::SwapWin(void)
 {
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
-  if(!active_child || active_child->m_displayMode != CreateModeType::CREATE_DUAL)
+  if(!active_child || active_child->GetDisplayMode() != CreateModeType::CREATE_DUAL)
     return;
-  ASSERT(active_child->m_position < 2);
-  ViewListElem *elem = m_viewList.GetViewNr(active_child->m_view->m_winNr);
-  ASSERT(m_viewList.m_topView[active_child->m_position] == elem);
+  ASSERT(active_child->GetPosition() < 2);
+  ViewListElem *elem = m_viewList.GetViewNr(active_child->GetView()->m_winNr);
+  ASSERT(m_viewList.m_topView[active_child->GetPosition()] == elem);
   ASSERT(m_viewList.m_currentView == elem);
 
   ViewListElem *p = elem->m_rankPrev;
@@ -598,22 +598,22 @@ void MainFrame::SwapWin(void)
   {
     m_viewList.m_topView[elem->m_position] = NULL;
   }
-  active_child->m_position ^= 1;
+  active_child->TogglePosition();
   m_viewList.m_currentView->m_position ^= 1;
   m_viewList.m_topView[elem->m_position] = elem;
   RECT r;
-  CalcWinRect(&r, active_child->m_position);
+  CalcWinRect(&r, active_child->GetPosition());
   active_child->MoveWindow(&r);
 }
 
 void MainFrame::OtherWin(void)
 {
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
-  if(!active_child || active_child->m_displayMode != CreateModeType::CREATE_DUAL)
+  if(!active_child || active_child->GetDisplayMode() != CreateModeType::CREATE_DUAL)
     return;
-  ASSERT(active_child->m_position < 2);
-  if(m_viewList.m_topView[active_child->m_position ^ 1])
-    m_viewList.m_topView[active_child->m_position ^ 1]->m_myView->GetDocument()->m_childFrame->MDIActivate();
+  ASSERT(active_child->GetPosition() < 2);
+  if(m_viewList.m_topView[active_child->GetPosition() ^ 1])
+    m_viewList.m_topView[active_child->GetPosition() ^ 1]->m_myView->GetDocument()->m_childFrame->MDIActivate();
 }
 
 void MainFrame::NextWinHere(void)
@@ -621,7 +621,7 @@ void MainFrame::NextWinHere(void)
   if(m_viewList.m_currentView == &m_viewList.m_list)
     return;
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
-  if(active_child->m_displayMode != CreateModeType::CREATE_DUAL)
+  if(active_child->GetDisplayMode() != CreateModeType::CREATE_DUAL)
   {
     NextWin();
     return;
@@ -650,9 +650,9 @@ void MainFrame::NextWinHere(void)
   WainDoc *doc;
   doc = elem->m_myView->GetDocument();
   RECT r;
-  doc->m_childFrame->m_position = m_viewList.m_currentView->m_position;
-  elem->m_position = m_viewList.m_currentView->m_position;
-  CalcWinRect(&r, doc->m_childFrame->m_position);
+  doc->m_childFrame->SetPosition(m_viewList.m_currentView->GetPosition());
+  elem->SetPosition(m_viewList.m_currentView->GetPosition());
+  CalcWinRect(&r, doc->m_childFrame->GetPosition());
   m_updateList = FALSE;
   doc->m_childFrame->MoveWindow(&r);
   m_updateList = FALSE;
@@ -664,13 +664,13 @@ void MainFrame::PrevWinHere(void)
   if(m_viewList.m_currentView == &m_viewList.m_list)
     return;
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
-  if(active_child->m_displayMode != CreateModeType::CREATE_DUAL)
+  if(active_child->GetDisplayMode() != CreateModeType::CREATE_DUAL)
   {
     NextWin();
     return;
   }
 
-  ViewListElem *top_elem = m_viewList.m_topView[m_viewList.m_currentView->m_position ^ 1];
+  ViewListElem *top_elem = m_viewList.m_topView[m_viewList.m_currentView->GetPosition() ^ 1];
   if(top_elem == NULL)
   {
     NextWin();
@@ -693,9 +693,9 @@ void MainFrame::PrevWinHere(void)
   WainDoc *doc;
   doc = elem->m_myView->GetDocument();
   RECT r;
-  doc->m_childFrame->m_position = m_viewList.m_currentView->m_position;
-  elem->m_position = m_viewList.m_currentView->m_position;
-  CalcWinRect(&r, doc->m_childFrame->m_position);
+  doc->m_childFrame->SetPosition(m_viewList.m_currentView->GetPosition());
+  elem->SetPosition(m_viewList.m_currentView->GetPosition());
+  CalcWinRect(&r, doc->m_childFrame->GetPosition());
   m_updateList = FALSE;
   doc->m_childFrame->MoveWindow(&r);
   m_updateList = FALSE;
@@ -709,7 +709,7 @@ void MainFrame::GotoOtherView(void)
   { // We are in the page bar
     ChildFrame *cf = (ChildFrame *)MDIGetActive();
     if(cf)
-      SetActiveView(cf->m_view);
+      SetActiveView(cf->GetView());
   }
   else if(av)
     SetActiveView(av);
@@ -727,8 +727,8 @@ void MainFrame::UpdateViews(BOOL hard)
     else
     {
       ChildFrame *cf = (ChildFrame *)MDIGetActive();
-      if(cf && cf->m_view)
-        cf->m_view->InvalidateRect(NULL, TRUE);
+      if(cf && cf->GetView())
+        cf->GetView()->InvalidateRect(NULL, TRUE);
     }
   }
   else

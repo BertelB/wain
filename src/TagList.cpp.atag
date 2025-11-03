@@ -47,12 +47,12 @@ DoDataExchange	C:/bkb/wain/src/TagList.cpp	226;"	f	class:TagListDialogClass	type
 DoInitDialog	C:/bkb/wain/src/TagList.cpp	242;"	f	class:TagListDialogClass	typeref:typename:BOOL
 GetPopupPos	C:/bkb/wain/src/TagList.cpp	492;"	f	class:WainView	typeref:typename:void
 IMPLEMENT_DYNAMIC	C:/bkb/wain/src/TagList.cpp	49;"	f
-ListCtrlClass	C:/bkb/wain/src/TagList.cpp	23;"	f	class:ListCtrlClass
+ListCtrl  C:/bkb/wain/src/TagList.cpp	23;"	f	class:ListCtrl
 OnCancel	C:/bkb/wain/src/TagList.cpp	70;"	f	class:TagListDialogClass	typeref:typename:void
 OnClass	C:/bkb/wain/src/TagList.cpp	165;"	f	class:TagListDialogClass	typeref:typename:void
 OnGetMinMaxInfo	C:/bkb/wain/src/TagList.cpp	348;"	f	class:TagListDialogClass	typeref:typename:void
 OnInitDialog	C:/bkb/wain/src/TagList.cpp	231;"	f	class:TagListDialogClass	typeref:typename:BOOL
-OnLButtonDblClk	C:/bkb/wain/src/TagList.cpp	29;"	f	class:ListCtrlClass	typeref:typename:void
+OnLButtonDblClk	C:/bkb/wain/src/TagList.cpp	29;"	f	class:ListCtrl  typeref:typename:void
 OnOk	C:/bkb/wain/src/TagList.cpp	75;"	f	class:TagListDialogClass	typeref:typename:void
 OnPeek	C:/bkb/wain/src/TagList.cpp	99;"	f	class:TagListDialogClass	typeref:typename:void
 OnPeekClass	C:/bkb/wain/src/TagList.cpp	198;"	f	class:TagListDialogClass	typeref:typename:void

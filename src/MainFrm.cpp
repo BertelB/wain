@@ -257,7 +257,7 @@ void MainFrame::OnClose(void)
   int i;
   char n_str[20];
   ChildFrame *acf = (ChildFrame *)MDIGetActive();
-  if(acf && acf->m_view && acf->m_view->GetDocument()->m_isDebugFile)
+  if(acf && acf->GetView() && acf->GetView()->GetDocument()->m_isDebugFile)
     acf = NULL;
   for(i = acf ? 1 : 0; ((elem = m_viewList.GetRankNext(elem)) != NULL) && i < 50;)
   {
@@ -276,7 +276,7 @@ void MainFrame::OnClose(void)
       }
       if(!elem->m_myView->GetDocument()->m_newFile && !elem->m_ftpFile)
       {
-        if(acf && acf->m_view == elem->m_myView)
+        if(acf && acf->GetView() == elem->m_myView)
         {
           sprintf(n_str, "Nr: %d", 0);
           wainApp.WriteProfileString("Last Files", n_str, elem->m_name.c_str());
@@ -376,7 +376,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
    if(diff > 24*60*60)
    { /* More than 1 day since last check, so run the temp path cleanup thread */
       char *path = strdup(wainApp.gs.m_tempPath.c_str());
-      m_cleanupThread = AfxBeginThread(CleanupThreadFunc, path, THREAD_PRIORITY_IDLE, 0, CREATE_SUSPENDED);
+      m_cleanupThread = AfxBeginThread(CleanupThreadFunc, path, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
       m_cleanupThread->m_bAutoDelete = FALSE;
       m_cleanupThread->ResumeThread();
    }
@@ -617,9 +617,9 @@ void MainFrame::RecalcChildPos(bool aForce)
          while((elem = m_viewList.GetRankNext(elem)) != NULL)
          {
             frame = elem->m_myView->GetDocument()->m_childFrame;
-            if(frame->m_displayMode == CreateModeType::CREATE_MAX)
+            if(frame->GetDisplayMode() == CreateModeType::CREATE_MAX)
                frame->ShowWindow(SW_RESTORE);
-            frame->m_displayMode = CreateModeType::CREATE_DUAL;
+            frame->SetDisplayMode(CreateModeType::CREATE_DUAL);
          }
          elem = NULL;
       }
@@ -637,7 +637,7 @@ void MainFrame::RecalcChildPos(bool aForce)
             WainMessageBox(this, "No frame", IDC_MSG_OK, IDI_ERROR_ICO);
             return;
          }
-         CalcWinRect(&rect, frame->m_position);
+         CalcWinRect(&rect, frame->GetPosition());
          frame->MoveWindow(&rect);
       }
    }
@@ -1075,7 +1075,7 @@ void MainFrame::ProjectAddCurrentFile(void)
    ChildFrame *cf = (ChildFrame *)MDIGetActive();
    if(cf)
    {
-      m_navigatorDialog.m_project->AddFile((const char *)cf->m_doc->GetPathName());
+      m_navigatorDialog.m_project->AddFile((const char *)cf->GetDocument()->GetPathName());
    }
 }
 
@@ -1117,7 +1117,7 @@ void MainFrame::RemoveFile(const char *name, BOOL do_close)
       }
       ChildFrame *cf = (ChildFrame *)MDIGetActive();
       if(cf)
-        SetFileName(cf->m_doc->GetPathName(), cf->m_doc->GetPropIndex());
+        SetFileName(cf->GetDocument()->GetPathName(), cf->GetDocument()->GetPropIndex());
       return;
     }
   }
@@ -1126,7 +1126,7 @@ void MainFrame::RemoveFile(const char *name, BOOL do_close)
   ChildFrame *cf = (ChildFrame *)MDIGetActive();
   if(cf)
   {
-    SetActiveView(cf->m_view);
+    SetActiveView(cf->GetView());
   }
 
   // It was not one of the MDI childs, so try on the page bar.
@@ -1162,7 +1162,7 @@ bool MainFrame::CloseDebugFile(const char *aFileName, bool aCloseBar, bool aCanC
     ChildFrame *cf = (ChildFrame *)MDIGetActive();
     if(cf)
     {
-      SetActiveView(cf->m_view);
+      SetActiveView(cf->GetView());
     }
   }
   return true;
@@ -1191,7 +1191,7 @@ void MainFrame::CloseFile(void)
       {
          ChildFrame *active_child = (ChildFrame *)MDIGetActive();
          if(active_child)
-            SetActiveView(active_child->m_view);
+            SetActiveView(active_child->GetView());
          else
             SetActiveView(NULL);
          ShowControlBar(&m_pageBar, FALSE, FALSE);
@@ -1210,10 +1210,10 @@ void MainFrame::CloseNormalDoc(ChildFrame *frame)
   if(frame)
   {
     SetActiveView(NULL);
-    frame->m_doc->DoCloseFile();
+    frame->GetDocument()->DoCloseFile();
     frame = (ChildFrame *)MDIGetActive();
     if(frame)
-      SetActiveView(frame->m_view);
+      SetActiveView(frame->GetView());
     else if(av)
       SetActiveView(av);
   }
@@ -1231,7 +1231,7 @@ int MainFrame::TryCloseFile(const char *file_name)
       elem->m_myView->GetDocument()->DoCloseFile();
       ChildFrame *frame = (ChildFrame *)MDIGetActive();
       if(frame)
-        SetActiveView(frame->m_view);
+        SetActiveView(frame->GetView());
       else
       {
         WainView *av = ((PageBarDialogClass *)m_pageBar.m_myDialog)->GetActiveView();
@@ -1752,9 +1752,9 @@ void MainFrame::AssocList(void)
     for(pos = popup.GetMenuItemCount() - 1; pos >= 0; pos--)
       popup.DeleteMenu(pos, MF_BYPOSITION);
     char file[_MAX_PATH], org_name[_MAX_PATH];
-    MySplitPath(cf->m_doc->GetPathName(), SP_DRIVE | SP_DIR | SP_FILE, file);
-    MySplitPath(cf->m_doc->GetPathName(), SP_FILE | SP_EXT, org_name);
-    MySplitPath(cf->m_doc->GetPathName(), SP_DRIVE | SP_DIR, m_assocPath);
+    MySplitPath(cf->GetDocument()->GetPathName(), SP_DRIVE | SP_DIR | SP_FILE, file);
+    MySplitPath(cf->GetDocument()->GetPathName(), SP_FILE | SP_EXT, org_name);
+    MySplitPath(cf->GetDocument()->GetPathName(), SP_DRIVE | SP_DIR, m_assocPath);
     strcat(file, ".*");
     struct _finddata_t fileinfo;
     long handle = _findfirst(file, &fileinfo);
@@ -1779,7 +1779,7 @@ void MainFrame::AssocList(void)
       return;
     }
     POINT p;
-    cf->m_view->GetPopupPos(&p, m_assocFileList.size());
+    cf->GetView()->GetPopupPos(&p, m_assocFileList.size());
     popup.TrackPopupMenu(TPM_LEFTALIGN, p.x, p.y, this);
   }
 }
@@ -1833,8 +1833,8 @@ WainView *MainFrame::GetOtherView(WainView *m_view)
   {
     ChildFrame *cf = m_view->GetDocument()->m_childFrame;
     ASSERT(cf);
-    if(m_viewList.m_topView[cf->m_position ^ 1])
-      return m_viewList.m_topView[cf->m_position ^ 1]->m_myView;
+    if(m_viewList.m_topView[cf->GetPosition() ^ 1])
+      return m_viewList.m_topView[cf->GetPosition() ^ 1]->m_myView;
   }
   return NULL;
 }
@@ -1857,8 +1857,8 @@ WainView *MainFrame::GetActiveView(void)
   if(view && GetFocus() == view)
     return view;
   ChildFrame *cf = (ChildFrame *)MDIGetActive();
-  if(cf && cf->m_view)
-    return cf->m_view;
+  if(cf && cf->GetView())
+    return cf->GetView();
 
   return NULL; /* Bad luck */
 }

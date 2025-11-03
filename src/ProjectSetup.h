@@ -3,11 +3,11 @@
 
 #include "../src/ProjectOptions.h"
 // The list that show prog, arg, path on Project->Setup
-class ProjectListCtrlClass : public CListCtrl
+class ProjectListCtrl : public CListCtrl
 {
-   DECLARE_DYNAMIC(ProjectListCtrlClass);
+   DECLARE_DYNAMIC(ProjectListCtrl);
 public:
-   ProjectListCtrlClass(const ProjectExecParam* _param, uint32_t _default, const char* _title) : CListCtrl(), m_title(_title)
+   ProjectListCtrl(const ProjectExecParam* _param, uint32_t _default, const char* _title) : CListCtrl(), m_title(_title)
    {
       for (uint32_t i = 0; i < 4; i++)
       {
@@ -51,8 +51,8 @@ class ProjectSetupDialogClass : public DialogBaseClass
   DECLARE_DYNAMIC(ProjectSetupDialogClass);
 public:
    ProjectOptions m_projectOptions;
-   ProjectListCtrlClass* m_makeList = 0;
-   ProjectListCtrlClass* m_execList = 0;
+   ProjectListCtrl* m_makeList = 0;
+   ProjectListCtrl* m_execList = 0;
    ProjectSetupDialogClass(CWnd *aParent = 0);
    virtual ~ProjectSetupDialogClass(void);
    enum {IDD = IDD_PROJ_SETUP_DIALOG};

@@ -34,7 +34,7 @@ public:
    std::string m_markWord;
    int m_propIndex; // Make private !!
    DocPropClass* m_prop;
-   int GetPropIndex() { return m_propIndex; }
+   int GetPropIndex() const { return m_propIndex; }
    void GetExtType(const char *aName, bool aAll);
    void ReCalcTabLen(void);
 
@@ -89,9 +89,9 @@ protected:
 public:
    void ReloadFile(void);
    class ChildFrame *m_childFrame;
+   class WainView* GetView() { return m_view; };
    class WainView *m_view;
    void DoCloseFile(void);
-
 public:
    virtual BOOL OnNewDocument();
    virtual void Serialize(CArchive &ar);

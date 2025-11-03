@@ -21,18 +21,18 @@ static char THIS_FILE[] = __FILE__;
 
 #pragma warning (disable : 4100) // unreferenced formal parameter
 
-ListCtrlClass::ListCtrlClass(TagListDialogClass *dlg) :
+ListCtrl::ListCtrl(TagListDialogClass *dlg) :
    CListCtrl(),
    m_dlg(dlg)
 {
 }
 
-void ListCtrlClass::OnLButtonDblClk(UINT flags, CPoint point)
+void ListCtrl::OnLButtonDblClk(UINT flags, CPoint point)
 {
   m_dlg->OnOk();
 }
 
-BEGIN_MESSAGE_MAP(ListCtrlClass, CListCtrl)
+BEGIN_MESSAGE_MAP(ListCtrl, CListCtrl)
   ON_WM_LBUTTONDBLCLK()
 END_MESSAGE_MAP();
 
@@ -69,7 +69,7 @@ TagListDialogClass::TagListDialogClass(CWnd *aParent, const std::string& aWord, 
    m_parent = aParent;
    m_tagList = new GetTagListClass(aWord.c_str(), aTypes);
    m_selectedIndex = -1;
-   m_listBox = new ListCtrlClass(this);
+   m_listBox = new ListCtrl(this);
    m_oldSizeCx = -1;
    m_peekElem = 0;
 }
@@ -163,7 +163,7 @@ void TagListDialogClass::OnType(void)
          delete m_tagList;
          delete m_listBox;
          m_tagList = new GetTagListClass(m_tagWord.c_str(), m_types);
-         m_listBox = new ListCtrlClass(this);
+         m_listBox = new ListCtrl(this);
          if (DoInitDialog())
          {
             m_tagWord = oldTagWord;
@@ -682,5 +682,5 @@ void ReadTagsForFile(const std::string& _fileName)
    readParm->m_nr = 0;
    readParm->m_viewNr = 0;
    readParm->m_readTagsMsgId = IDB_AUTO_TAG_DONE;
-   AfxBeginThread(ThreadReadTagFile, (LPVOID)readParm, THREAD_PRIORITY_BELOW_NORMAL);
+   AfxBeginThread(ThreadReadTagFile, (LPVOID)readParm, THREAD_PRIORITY_LOWEST);
 }

@@ -33,7 +33,7 @@ void StartWordThread(std::vector<std::string>& _fileList, std::vector<std::strin
    parm->m_ignoreCase = _ignoreCase;
    parm->m_propIndex = _propIndex;
    parm->m_replace = _replace;
-   AfxBeginThread(ThreadGetWords, (LPVOID)parm, THREAD_PRIORITY_BELOW_NORMAL);
+   AfxBeginThread(ThreadGetWords, (LPVOID)parm, THREAD_PRIORITY_LOWEST);
 }
 
 bool IsKeyword(const std::string& _word, std::vector<std::string>& _keywords)

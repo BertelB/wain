@@ -421,7 +421,7 @@ void ProjectClass::SortFileList()
      req->m_nameList.push_back(it->m_name);
 
 
-  AfxBeginThread(ThreadGetIcon, req, THREAD_PRIORITY_BELOW_NORMAL);
+  AfxBeginThread(ThreadGetIcon, req, THREAD_PRIORITY_LOWEST);
 }
 
 void ProjectClass::Save(void)
@@ -687,7 +687,7 @@ void ProjectClass::DoMake(int _index)
    std::string dir = m_projectOptions.m_makeParam[_index].m_path;
    const char *s = NULL;
    if(child_frame)
-      s = child_frame->m_doc->GetPathName();
+      s = child_frame->GetDocument()->GetPathName();
   RtvStatus error;
   if((error = wainApp.ReplaceTagValues(command, std::string(s ? s : ""))) != RtvStatus::rtv_no_error)
   {
@@ -770,7 +770,7 @@ void ProjectClass::Execute(int _index)
 
   const char *s = NULL;
   if(child_frame)
-    s = child_frame->m_doc->GetPathName();
+    s = child_frame->GetDocument()->GetPathName();
   RtvStatus error;
   if((error = wainApp.ReplaceTagValues(command,  std::string(s ? s : ""))) != RtvStatus::rtv_no_error)
   {
@@ -1055,30 +1055,11 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
       {
          for (auto& wordMap : wordParam->m_wordMap)
          {
-#if 1
-    //std::string str2 = "Text\n with\tsome \t  whitespaces\n\n";
-    // str2.erase(std::remove_if(str2.begin(),
-    //                           str2.end(),
-    //                           [](unsigned char x) { return std::isspace(x); }),
-    //            str2.end());
             auto& info = wordMap.second;
             info.erase(std::remove_if(info.begin(),
                                       info.end(),
                                       [&] (auto& x) { return x.m_fnIdx < wordParam->m_fileNameX.size() && wordParam->m_fileNameX[x.m_fnIdx] == _parm->m_fileNameX[0]; }),
                                       info.end());
-#else
-            for (auto info = wordMap.second.begin(); info != wordMap.second.end(); )
-            {
-               if (info->m_fnIdx < wordParam->m_fileNameX.size() && wordParam->m_fileNameX[info->m_fnIdx] == _parm->m_fileNameX[0])
-               {
-                  info = wordMap.second.erase(info);
-               }
-               else
-               {
-                  info++;
-               }
-            }
-#endif
          }
       }
    }

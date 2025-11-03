@@ -48,7 +48,7 @@ BEGIN_MESSAGE_MAP(ProjectMakeExecParamDialog, CDialog)
   ON_BN_CLICKED(IDC_PROJ_EXE_PATH_BROWSE, PathBrowse)
 END_MESSAGE_MAP();
 
-void ProjectListCtrlClass::OnLButtonDblClk(UINT /* flags */, CPoint /* point */)
+void ProjectListCtrl::OnLButtonDblClk(UINT /* flags */, CPoint /* point */)
 {
    POSITION pos = GetFirstSelectedItemPosition();
    if (pos != NULL)
@@ -100,19 +100,19 @@ void ProjectMakeExecParamDialog::PathBrowse(void)
 }
 
 
-void ProjectListCtrlClass::UpdateData()
+void ProjectListCtrl::UpdateData()
 {
    for (uint32_t i = 0; i < 4; i++)
       if (GetCheck(i))
          m_default = i;
 }
 
-BEGIN_MESSAGE_MAP(ProjectListCtrlClass, CListCtrl)
+BEGIN_MESSAGE_MAP(ProjectListCtrl, CListCtrl)
   ON_WM_LBUTTONDBLCLK()
   ON_WM_CREATE()
 END_MESSAGE_MAP();
 
-IMPLEMENT_DYNAMIC(ProjectListCtrlClass, CListCtrl);
+IMPLEMENT_DYNAMIC(ProjectListCtrl, CListCtrl);
 
 void ProjectMakeExecParamDialog::DoDataExchange(CDataExchange *dx)
 {
@@ -125,7 +125,7 @@ void ProjectMakeExecParamDialog::DoDataExchange(CDataExchange *dx)
    DdxString(dx, IDC_PROJ_EXE_NAME, m_param.m_name);
 }
 
-int ProjectListCtrlClass::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int ProjectListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
    if (CListCtrl::OnCreate( lpCreateStruct) == -1)
    {
@@ -332,7 +332,7 @@ BOOL ProjectSetupDialogClass::OnInitDialog()
    cr.bottom = 60 + 120;
    m_inCheck = true;
 
-   m_makeList = new ProjectListCtrlClass(m_projectOptions.m_makeParam, m_projectOptions.m_makeDefault, "Make");
+   m_makeList = new ProjectListCtrl(m_projectOptions.m_makeParam, m_projectOptions.m_makeDefault, "Make");
    m_makeList->Create(LBS_NOTIFY | LVS_REPORT | WS_VISIBLE | WS_CHILD | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_TABSTOP, cr, this, IDC_PS_MAKE_GRID);
    m_makeList->SetExtendedStyle(m_makeList->GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES | LVS_EX_GRIDLINES | LVS_EX_AUTOSIZECOLUMNS);
    m_makeList->ModifyStyleEx(0, WS_EX_CLIENTEDGE, FALSE);
@@ -340,7 +340,7 @@ BOOL ProjectSetupDialogClass::OnInitDialog()
 
    cr.top = 325;
    cr.bottom = 325 + 120;
-   m_execList = new ProjectListCtrlClass(m_projectOptions.m_execParam, m_projectOptions.m_execDefault, "Exec");
+   m_execList = new ProjectListCtrl(m_projectOptions.m_execParam, m_projectOptions.m_execDefault, "Exec");
    m_execList->Create(LBS_NOTIFY | LVS_REPORT | WS_VISIBLE | WS_CHILD | LVS_SINGLESEL | LVS_SHOWSELALWAYS | WS_TABSTOP, cr, this, IDC_PS_EXEC_GRID);
    m_execList->SetExtendedStyle(m_execList->GetExtendedStyle() | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES | LVS_EX_GRIDLINES | LVS_EX_AUTOSIZECOLUMNS);
    m_execList->ModifyStyleEx(0, WS_EX_CLIENTEDGE, FALSE);

@@ -772,7 +772,7 @@ BOOL WainDoc::SaveFile(BOOL prompt)
 
   ViewListElem *elem = GetMf()->m_viewList.GetViewNr(m_view->m_winNr);
   if(m_newFile)
-    GetMf()->SetViewName(m_childFrame->m_view->m_winNr, name, m_isFtpFile);
+    GetMf()->SetViewName(m_childFrame->GetView()->m_winNr, name, m_isFtpFile);
 
   m_newFile = FALSE;
 

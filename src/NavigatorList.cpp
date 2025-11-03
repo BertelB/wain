@@ -152,59 +152,59 @@ void NavigatorList::OnInitialUpdate(void)
 
 void NavigatorList::Setup(int _nofItems, int _nofColumns, HIMAGELIST _imageList, int _widthRatio)
 {
-  m_itemCount = _nofItems;
-  m_iconList = _imageList;
-  m_columnCount = _nofColumns;
-  m_columnWidthRatio = _widthRatio;
-  m_init = true;
-  RECT cr;
-  GetClientRect(&cr);
-  CDC *dc = GetDC();
-  CFont *old_font = dc->SelectObject(m_navigatorListFont);
+   m_itemCount = _nofItems;
+   m_iconList = _imageList;
+   m_columnCount = _nofColumns;
+   m_columnWidthRatio = _widthRatio;
+   m_init = true;
+   RECT cr;
+   GetClientRect(&cr);
+   CDC *dc = GetDC();
+   CFont *old_font = dc->SelectObject(m_navigatorListFont);
 
-  if(m_columnCount == 3)
-  {
-    if(_widthRatio < 0)
-    {
-      m_columnWidth2 = dc->GetTextExtent("99WW", 4).cx;
-      m_columnWidth3 = cr.right - m_columnWidth2 - COLUMN_WIDTH_1;
+   if(m_columnCount == 3)
+   {
+      if(_widthRatio < 0)
+      {
+         m_columnWidth2 = dc->GetTextExtent("99WW", 4).cx;
+         m_columnWidth3 = cr.right - m_columnWidth2 - COLUMN_WIDTH_1;
+         m_canResizeColumn = FALSE;
+      }
+      else
+      {
+         if(m_columnWidthRatio > 100)
+         m_columnWidthRatio = 50;
+         int x = cr.right - COLUMN_WIDTH_1;
+         m_columnWidth2 = x*_widthRatio/100;
+         m_columnWidth3 = x*(100 - _widthRatio)/100;
+         m_canResizeColumn = TRUE;
+      }
+   }
+   else
+   {
+      m_columnWidth2 = cr.right - COLUMN_WIDTH_1;
+      m_columnWidth3 = 0;
       m_canResizeColumn = FALSE;
-    }
-    else
-    {
-      if(m_columnWidthRatio > 100)
-        m_columnWidthRatio = 50;
-      int x = cr.right - COLUMN_WIDTH_1;
-      m_columnWidth2 = x*_widthRatio/100;
-      m_columnWidth3 = x*(100 - _widthRatio)/100;
-      m_canResizeColumn = TRUE;
-    }
-  }
-  else
-  {
-    m_columnWidth2 = cr.right - COLUMN_WIDTH_1;
-    m_columnWidth3 = 0;
-    m_canResizeColumn = FALSE;
-  }
+   }
 
-  TEXTMETRIC tm;
-  dc->GetOutputTextMetrics(&tm);
-  if (tm.tmHeight < 0)
-    m_lineHeight = -tm.tmHeight;
-  else
-    m_lineHeight = (tm.tmHeight - tm.tmInternalLeading);
+   TEXTMETRIC tm;
+   dc->GetOutputTextMetrics(&tm);
+   if (tm.tmHeight < 0)
+      m_lineHeight = -tm.tmHeight;
+   else
+      m_lineHeight = (tm.tmHeight - tm.tmInternalLeading);
 
-  m_lineHeight += 3;
-  m_lineHeight = m_lineHeight < 16 ? 16 : m_lineHeight;
-  SetScrollSizes(MM_TEXT, CSize(0, m_lineHeight*m_itemCount),
+   m_lineHeight += 3;
+   m_lineHeight = m_lineHeight < 16 ? 16 : m_lineHeight;
+   SetScrollSizes(MM_TEXT, CSize(0, m_lineHeight*m_itemCount),
                           CSize(0, (cr.bottom/m_lineHeight  - 2)*m_lineHeight),
                           CSize(0, m_lineHeight));
 
-  dc->SelectObject(old_font);
-  ReleaseDC(dc);
-  m_selected = 0;
-  SetScrollPos(SB_VERT, 0, FALSE);
-  InvalidateRect(NULL, TRUE);
+   dc->SelectObject(old_font);
+   ReleaseDC(dc);
+   m_selected = 0;
+   SetScrollPos(SB_VERT, 0, FALSE);
+   InvalidateRect(NULL, TRUE);
 }
 
 void NavigatorList::MoveSel(int old_pos)
@@ -656,7 +656,7 @@ void NavigatorList::GotoEditor(void)
   ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
   if(cf)
   {
-    cf->m_view->SetFocus();
+    cf->GetView()->SetFocus();
   }
 }
 

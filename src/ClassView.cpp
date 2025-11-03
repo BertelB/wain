@@ -478,7 +478,7 @@ void AddClassInfoTreeCtrlClass::GotoEditor(void)
   ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
   if(cf)
   {
-    cf->m_view->SetFocus();
+    cf->GetView()->SetFocus();
   }
 }
 

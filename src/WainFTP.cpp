@@ -146,7 +146,7 @@ BOOL FtpWaitDialogClass::OnInitDialog(void)
   GetMf()->m_navigatorDialog.m_ftpConnections[GetMf()->m_navigatorDialog.m_inetConnectAttempt] = 0;
 
   thread_parm->m_ftpConnection = NULL;
-  m_thread = AfxBeginThread(ThreadCreateFtpCon, thread_parm, THREAD_PRIORITY_NORMAL, 0, CREATE_SUSPENDED);
+  m_thread = AfxBeginThread(ThreadCreateFtpCon, thread_parm, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
   m_thread->m_bAutoDelete = TRUE;
   GetMf()->m_navigatorDialog.m_inSetFtp = TRUE;
   thread_parm->m_thread = m_thread;

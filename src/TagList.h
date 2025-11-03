@@ -82,11 +82,11 @@ protected:
 };
 
 
-class ListCtrlClass : public CListCtrl
+class ListCtrl : public CListCtrl
 {
   TagListDialogClass *m_dlg;
 public:
-  ListCtrlClass(TagListDialogClass *dlg);
+  ListCtrl(TagListDialogClass *dlg);
   afx_msg void OnLButtonDblClk(UINT flags, CPoint point);
   DECLARE_MESSAGE_MAP();
 };

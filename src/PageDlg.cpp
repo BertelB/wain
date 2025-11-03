@@ -545,7 +545,7 @@ void PageBarDialogClass::OnClose(void)
    ChildFrame *cf = (ChildFrame *)(GetMf()->MDIGetActive());
    if(cf)
    {
-      GetMf()->SetActiveView(cf->m_view);
+      GetMf()->SetActiveView(cf->GetView());
    }
    if(m_buttonTimer)
    {

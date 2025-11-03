@@ -243,7 +243,7 @@ void MainFrame::RunTool(UINT id)
     SaveAllDocs();
   ChildFrame *active_child = (ChildFrame *)MDIGetActive();
   std::string tpath(tp->m_path);
-  const char *p = active_child ? (const char *)active_child->m_doc->GetPathName() : "";
+  const char *p = active_child ? (const char *)active_child->GetDocument()->GetPathName() : "";
   RtvStatus error;
   if((error = wainApp.ReplaceTagValues(tpath, std::string(p))) != RtvStatus::rtv_no_error)
   {
