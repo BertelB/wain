@@ -22,9 +22,10 @@ static char THIS_FILE[] = __FILE__;
 
 #pragma warning (disable : 4100) // unreferenced formal parameter
 
-// WainIni wainIni("wain.cfg");
-
-auto GetUSec() {  return std::chrono::microseconds().count(); }
+uint64_t GetUSec()
+{
+   return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+}
 
 BEGIN_MESSAGE_MAP(WainApp, CWinApp)
   ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
@@ -738,7 +739,7 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
           else if(msg->wParam)
             DeallocateTagsRead(msg->wParam);
           auto diff = GetUSec() - tStart;
-          SetStatusText("Tags has been read %u", uint32_t(diff));
+          SetStatusText("Tags has been read %f", uint32_t(diff) / 1000.0);
           return 0;
         }
       }
@@ -773,7 +774,7 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
       {
          if (wParam == PM_REMOVE)
          {
-            auto tStart = GetUSec();
+            // auto tStart = GetUSec();
             WordThreadParam* parm = (WordThreadParam*)msg->wParam;
             if (!parm->m_replace)
             {
@@ -785,8 +786,8 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
                mf->m_navigatorDialog.m_project->ReplaceWordParm(parm);
                delete parm;
             }
-            auto diff = GetUSec() - tStart;
-            SetStatusText("Word parameters has been read %u", uint32_t(diff));
+            // auto diff = GetUSec() - tStart;
+            // SetStatusText("Word parameters has been read %f", uint32_t(diff) / 1000.0);
          }
       }
       else if(msg->message == GetIconMsgId && wParam == PM_REMOVE)

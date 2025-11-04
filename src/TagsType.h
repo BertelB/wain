@@ -36,12 +36,12 @@ public:
 class TagClass
 {
 public:
-   const NavBarStateType m_state;
+   const NavBarState m_state;
    void Clear(bool aSetup = true);
    friend class AddClassInfoTreeCtrlClass;
    friend class AddClassInfoListClass;
 
-   TagClass(NavigatorDialog *aDlg, NavBarStateType aState)
+   TagClass(NavigatorDialog *aDlg, NavBarState aState)
     : m_dlg(aDlg),
       m_state(aState)
    {
@@ -51,7 +51,7 @@ public:
    }
    ~TagClass();
    virtual void UpdateTagList(void) = 0;
-   class TagFileListClass* m_fileList;
+   class TagFileList* m_fileList;
    class TagListClass* m_tagList;
 
    UINT m_readTagsMsgId;
@@ -71,7 +71,7 @@ class GlobalTagClass : public TagClass
 {
 public:
    GlobalTagClass(NavigatorDialog *aDlg) :
-      TagClass(aDlg, NavBarStateTags)
+      TagClass(aDlg, NavBarState::Tags)
    {
       m_viewNr = IDB_LIST_TREE_1;
       m_readTagsMsgId = IDB_GLOB_TAG_DONE;
@@ -89,7 +89,7 @@ private:
 class CurrentTagClass : public TagClass
 {
 public:
-   CurrentTagClass(NavigatorDialog *aDlg) : TagClass(aDlg, NavBarStateCurr)
+   CurrentTagClass(NavigatorDialog *aDlg) : TagClass(aDlg, NavBarState::Curr)
    {
       m_viewNr = 0;
       m_readTagsMsgId = IDB_TAG_DONE;

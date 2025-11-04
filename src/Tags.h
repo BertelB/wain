@@ -134,7 +134,7 @@ private:
 
 typedef std::vector<AutoRebuildTagClass *>AutoRebuildTagVector;
 
-class TagFileListClass
+class TagFileList
 {
 public:
   typedef std::vector<std::string>::size_type SizeType;
@@ -225,7 +225,7 @@ public:
    {
       return m_tagList;
    }
-   TagFileListClass *GetFileList()
+   TagFileList *GetFileList()
    {
       return m_fileList;
    }
@@ -248,7 +248,7 @@ public:
    {
       m_tagList = aTagList;
    }
-   void SetFileList(TagFileListClass *aFileList)
+   void SetFileList(TagFileList *aFileList)
    {
       m_fileList = aFileList;
    }
@@ -266,7 +266,7 @@ public:
 
 private:
    TagListClass *m_tagList = 0;
-   TagFileListClass *m_fileList = 0;
+   TagFileList *m_fileList = 0;
    AddClassInfoListClass *m_addClassInfo = 0;
    AddClassInfoTreeCtrlClass *m_treeX = 0;
    std::list<std::string >m_typerefList;

@@ -76,4 +76,5 @@ public:
 };
 
 extern WainApp wainApp;
+extern uint64_t GetUSec();
 #endif

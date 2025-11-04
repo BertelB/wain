@@ -106,7 +106,7 @@ NavigatorDialog::NavigatorDialog(CWnd *parent) :
 {
   m_init = false;
   m_skipUpdateSearch = 0;
-  m_navBarState = NavBarStateDisabled;
+  m_navBarState = NavBarState::Disabled;
   m_tagImageList.Create(IDB_SMALLICONS, 16, 1, RGB(255, 255, 255));
   m_project = CreateProject(this);
 
@@ -192,20 +192,20 @@ int NavigatorDialog::OnCreate(LPCREATESTRUCT lpCreateStruct)
    TC_ITEM tci;
    tci.mask = TCIF_TEXT;
    tci.pszText = "&Dir";
-   m_tabCtrl.InsertItem(NavBarStateDir, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Dir), &tci);
    tci.pszText = "FTP";
-   m_tabCtrl.InsertItem(NavBarStateFtp, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Ftp), &tci);
    tci.pszText = "&Files";
-   m_tabCtrl.InsertItem(NavBarStateFiles, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Files), &tci);
    tci.pszText = "&Tags";
-   m_tabCtrl.InsertItem(NavBarStateTags, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Tags), &tci);
    tci.pszText = "C&lass";
-   m_tabCtrl.InsertItem(NavBarStateClass, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Class), &tci);
    tci.pszText = "Pro&ject";
-   m_tabCtrl.InsertItem(NavBarStateProj, &tci);
+   m_tabCtrl.InsertItem(int(NavBarState::Project), &tci);
    tci.pszText = "&Current";
-   m_tabCtrl.InsertItem(NavBarStateCurr, &tci);
-   m_tabCtrl.SetCurSel(NavBarStateTags);
+   m_tabCtrl.InsertItem(int(NavBarState::Curr), &tci);
+   m_tabCtrl.SetCurSel(int(NavBarState::Tags));
 
    return 0;
 }
@@ -219,29 +219,29 @@ void NavigatorDialog::OnClose(void)
 
 void NavigatorDialog::OnTabSelChange(NMHDR *pNMHDR, LRESULT *pResult)
 {
-  NavBarStateType new_state = (NavBarStateType )m_tabCtrl.GetCurSel();
-  ASSERT(new_state < NavBarStateDisabled);
+  NavBarState new_state = (NavBarState )m_tabCtrl.GetCurSel();
+  ASSERT(new_state < NavBarState::Disabled);
   switch(new_state)
   {
-    case NavBarStateDir:
+    case NavBarState::Dir:
       ViewDir();
       break;
-    case NavBarStateFtp:
+    case NavBarState::Ftp:
       ViewFtp();
       return;
-    case NavBarStateFiles:
+    case NavBarState::Files:
       ViewFiles();
       break;
-    case NavBarStateTags:
+    case NavBarState::Tags:
       ViewTags();
       break;
-    case NavBarStateProj:
+    case NavBarState::Project:
       ViewProject();
       break;
-    case NavBarStateCurr:
+    case NavBarState::Curr:
       ViewCurrentTags();
       break;
-    case NavBarStateClass:
+    case NavBarState::Class:
       ViewClass();
       break;
   }
@@ -377,9 +377,9 @@ void NavigatorDialog::OnOK()
       CEdit *searchEdit = (CEdit *)GetDlgItem(IDB_SEARCH);
       if(GetFocus() == searchEdit)
       {
-         if(m_navBarState == NavBarStateClass && m_classViewTree)
+         if(m_navBarState == NavBarState::Class && m_classViewTree)
             ::SetFocus(m_classViewTree->m_hWnd);
-         else if (m_navBarState == NavBarStateProj && m_projectTree)
+         else if (m_navBarState == NavBarState::Project && m_projectTree)
             ::SetFocus(m_projectTree->m_hWnd);
          else
             ::SetFocus(m_navigatorList->m_hWnd);
@@ -387,24 +387,24 @@ void NavigatorDialog::OnOK()
    }
 }
 
-void NavigatorDialog::EnableButtons(NavBarStateType _newState)
+void NavigatorDialog::EnableButtons(NavBarState _newState)
 {
    int i;
    CButton *b;
    CComboBox *cb = (CComboBox *)GetDlgItem(IDB_COMBO);
    ASSERT(cb);
-   if(m_navBarState != NavBarStateDisabled)
+   if(m_navBarState != NavBarState::Disabled)
    {
-      if(ButtonEnableStatus[m_navBarState].m_useCombo)
+      if(ButtonEnableStatus[int(m_navBarState)].m_useCombo)
          cb->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
-      else if(ButtonEnableStatus[_newState].m_useCombo)
+      else if(ButtonEnableStatus[int(_newState)].m_useCombo)
          cb->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
 
     for(i = 0; i < 4; i++)
     {
-       if(ButtonEnableStatus[m_navBarState].m_enable[i])
+       if(ButtonEnableStatus[int(m_navBarState)].m_enable[i])
        {
-          b = (CButton *)GetDlgItem(ButtonEnableStatus[m_navBarState].m_enable[i]);
+          b = (CButton *)GetDlgItem(ButtonEnableStatus[int(m_navBarState)].m_enable[i]);
           ASSERT(b);
           b->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
         }
@@ -412,33 +412,33 @@ void NavigatorDialog::EnableButtons(NavBarStateType _newState)
   }
   for(i = 0; i < 4; i++)
   {
-    if(ButtonEnableStatus[_newState].m_enable[i])
+    if(ButtonEnableStatus[int(_newState)].m_enable[i])
     {
-      b = (CButton *)GetDlgItem(ButtonEnableStatus[_newState].m_enable[i]);
+      b = (CButton *)GetDlgItem(ButtonEnableStatus[int(_newState)].m_enable[i]);
       ASSERT(b);
       b->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
     }
   }
-  if((NavBarStateType )m_tabCtrl.GetCurSel() != _newState)
-    m_tabCtrl.SetCurSel(_newState);
+  if((NavBarState )m_tabCtrl.GetCurSel() != _newState)
+    m_tabCtrl.SetCurSel(int(_newState));
 
-   if (_newState == NavBarStateClass)
+   if (_newState == NavBarState::Class)
    {
       m_projectTree->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
       m_navigatorList->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
       m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
       m_classViewTree->SetWindowPos(&wndTop, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
    }
-   else if (_newState == NavBarStateProj)
+   else if (_newState == NavBarState::Project)
    {
       m_classViewTree->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
       m_navigatorList->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
       m_projectTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
       m_classViewTree->SetWindowPos(&wndTop, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
    }
-   else if (_newState == NavBarStateClass)
+   else if (_newState == NavBarState::Class)
    {
-      if (m_navBarState == NavBarStateClass)
+      if (m_navBarState == NavBarState::Class)
          m_classViewTree->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
       else
          m_navigatorList->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
@@ -461,10 +461,10 @@ void NavigatorDialog::ViewDir(void)
 //    Message handler, called when the user hits "Dir"
 //    Disable/enable the appropriate controls
 {
-  if(m_navBarState != NavBarStateDir)
+  if(m_navBarState != NavBarState::Dir)
   {
-    EnableButtons(NavBarStateDir);
-    m_navBarState = NavBarStateDir;
+    EnableButtons(NavBarState::Dir);
+    m_navBarState = NavBarState::Dir;
     m_hdDir.UpdateDir();
   }
 }
@@ -474,10 +474,10 @@ void NavigatorDialog::ViewFtp(void)
 //    Message handler, called when the user hits "FTP"
 //    Disable/enable the appropriate controls
 {
-  if(m_navBarState != NavBarStateFtp)
+  if(m_navBarState != NavBarState::Ftp)
   {
-    EnableButtons(NavBarStateFtp);
-    m_navBarState = NavBarStateFtp;
+    EnableButtons(NavBarState::Ftp);
+    m_navBarState = NavBarState::Ftp;
     m_ftpDir.UpdateDir();
   }
 }
@@ -487,10 +487,10 @@ void NavigatorDialog::ViewFiles(void)
 //    Message handler, called when the user hits "Files"
 //    Disable/enable the appropriate controls
 {
-  if(m_navBarState != NavBarStateFiles)
+  if(m_navBarState != NavBarState::Files)
   {
-    EnableButtons(NavBarStateFiles);
-    m_navBarState = NavBarStateFiles;
+    EnableButtons(NavBarState::Files);
+    m_navBarState = NavBarState::Files;
     m_fileList.UpdateFileView();
   }
 }
@@ -500,10 +500,10 @@ void NavigatorDialog::ViewTags(void)
 //    Message handler, called when the user hits "Tags"
 //    Disable/enable the appropriate controls
 {
-  if(m_navBarState != NavBarStateTags)
+  if(m_navBarState != NavBarState::Tags)
   {
-    EnableButtons(NavBarStateTags);
-    m_navBarState = NavBarStateTags;
+    EnableButtons(NavBarState::Tags);
+    m_navBarState = NavBarState::Tags;
     m_globalTags.UpdateTagList();
     if(m_projectChanged)
     {
@@ -522,10 +522,10 @@ void NavigatorDialog::ViewClass(void)
 //    Message handler, called when the user hits "class"
 //    Disable/enable the appropriate controls
 {
-   if(m_navBarState != NavBarStateClass)
+   if(m_navBarState != NavBarState::Class)
    {
-      EnableButtons(NavBarStateClass);
-      m_navBarState = NavBarStateClass;
+      EnableButtons(NavBarState::Class);
+      m_navBarState = NavBarState::Class;
       if(m_projectChanged)
       {
          m_projectChanged = false;
@@ -559,10 +559,10 @@ void NavigatorDialog::ViewProject(void)
 //    Message handler, called when the user hits "Project"
 //    Disable/enable the appropriate controls
 {
-   if(m_navBarState != NavBarStateProj)
+   if(m_navBarState != NavBarState::Project)
    {
-      EnableButtons(NavBarStateProj);
-      m_navBarState = NavBarStateProj;
+      EnableButtons(NavBarState::Project);
+      m_navBarState = NavBarState::Project;
       m_project->UpdateFileList(false);
   }
 }
@@ -572,10 +572,10 @@ void NavigatorDialog::ViewCurrentTags(void)
 //    Message handler, called when the user hits "Current"
 //    Disable/enable the appropriate controls
 {
-  if(m_navBarState != NavBarStateCurr)
+  if(m_navBarState != NavBarState::Curr)
   {
-    EnableButtons(NavBarStateCurr);
-    m_navBarState = NavBarStateCurr;
+    EnableButtons(NavBarState::Curr);
+    m_navBarState = NavBarState::Curr;
     ChildFrame *child_frame = (ChildFrame *)GetMf()->MDIGetActive();
     if(child_frame)
     {
@@ -604,9 +604,9 @@ void NavigatorDialog::ReReadDir(void)
 //  Description:
 //    Message handler, called when the user hits "ReRead"
 {
-  if(m_navBarState == NavBarStateDir)
+  if(m_navBarState == NavBarState::Dir)
     m_hdDir.UpdateDir();
-  else if(m_navBarState == NavBarStateFtp)
+  else if(m_navBarState == NavBarState::Ftp)
     m_ftpDir.UpdateDir();
 }
 
@@ -686,26 +686,26 @@ void NavigatorDialog::DoSelect(int selection)
   MainFrame *mf = GetMf();
   switch(m_navBarState)
   {
-    case NavBarStateDir:
+    case NavBarState::Dir:
       m_hdDir.DoSelect(selection);
       break;
-    case NavBarStateFtp:
+    case NavBarState::Ftp:
       m_ftpDir.DoSelect(selection);
       break;
-    case NavBarStateFiles:
+    case NavBarState::Files:
       const ViewListElem *elem;
       elem = mf->m_viewList.GetAbsNr(selection);
       if(elem && elem->m_nr != -1)
         mf->ActivateWin(elem->m_nr);
       break;
-    case NavBarStateProj:
+    case NavBarState::Project:
       {
          const std::string &Name = m_project->GetFileName(selection);
          if(!Name.empty())
             wainApp.OpenDocument(Name.c_str());
       }
       break;
-    case NavBarStateTags:
+    case NavBarState::Tags:
     {
       WainDoc *doc;
       const TagElemClass &tag = m_globalTags.m_tagList->Get(selection);
@@ -719,7 +719,7 @@ void NavigatorDialog::DoSelect(int selection)
       }
       break;
     }
-    case NavBarStateCurr:
+    case NavBarState::Curr:
       if(mf)
       {
         ChildFrame *child_frame = (ChildFrame *)mf->MDIGetActive();
@@ -842,7 +842,7 @@ void NavigatorDialog::BuildTags(bool aAutoBuild)
 
 void NavigatorDialog::FileHasBeenSaved(void)
 {
-  if(m_navBarState == NavBarStateCurr)
+  if(m_navBarState == NavBarState::Curr)
     ReBuildTags();
 }
 
@@ -901,7 +901,7 @@ void NavigatorDialog::TagSetup(void)
 //    Message handler, called when the user hits "Setup" in Tags or Current state
 {
 
-  if(m_navBarState == NavBarStateTags || m_navBarState == NavBarStateClass)
+  if(m_navBarState == NavBarState::Tags || m_navBarState == NavBarState::Class)
   {
     if(!m_project->GetProjectName().empty())
     {
@@ -910,7 +910,7 @@ void NavigatorDialog::TagSetup(void)
     else
       WainMessageBox(this, "You must first create/open a project before you can setup tags", IDC_MSG_OK, IDI_WARNING_ICO);
   }
-  else // if NavBarState == NavBarStateCurr
+  else // if NavBarState == NavBarState::Curr
   {
     TagSetupDialogClass ts(FALSE);
     ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
@@ -941,25 +941,25 @@ int NavigatorDialog::GetListIconNr(int item)
   int ret = -1;
   switch(m_navBarState)
   {
-    case NavBarStateDir:
+    case NavBarState::Dir:
       return m_hdDir.GetIconIndex(item);
-    case NavBarStateFtp:
+    case NavBarState::Ftp:
       break;
-    case NavBarStateFiles:
+    case NavBarState::Files:
       const ViewListElem *elem;
       elem = GetMf()->m_viewList.GetAbsNr(item);
       if(elem)
         ret = elem->m_iconIndex;
       break;
-    case NavBarStateTags:
+    case NavBarState::Tags:
       if(m_globalTags.m_tagList && item < (int )m_globalTags.m_tagList->GetNofTags())
          ret = int(m_globalTags.m_tagList->Get(item).m_indexType);
       break;
-    case NavBarStateCurr:
+    case NavBarState::Curr:
       if(m_currentTags.m_tagList && item < (int )m_currentTags.m_tagList->GetNofTags())
         ret = int(m_currentTags.m_tagList->Get(item).m_indexType);
       break;
-    case NavBarStateProj:
+    case NavBarState::Project:
       ret = m_project->GetFileIcon(item);
       break;
   }
@@ -979,13 +979,13 @@ const char *NavigatorDialog::GetListText(int item, int column, BOOL short_text)
 
   switch(m_navBarState)
   {
-    case NavBarStateDir:
+    case NavBarState::Dir:
       ret = m_hdDir.GetListText(item);
       break;
-    case NavBarStateFtp:
+    case NavBarState::Ftp:
       ret = m_ftpDir.GetListText(item);
       break;
-    case NavBarStateFiles:
+    case NavBarState::Files:
       const ViewListElem *elem;
       elem = GetMf()->m_viewList.GetAbsNr(item);
       if(elem)
@@ -1001,7 +1001,7 @@ const char *NavigatorDialog::GetListText(int item, int column, BOOL short_text)
           ret = elem->m_name.c_str();
       }
       break;
-    case NavBarStateTags:
+    case NavBarState::Tags:
       if(m_globalTags.m_tagList && item < (int )m_globalTags.m_tagList->GetNofTags())
       {
         if(column == 1)
@@ -1010,7 +1010,7 @@ const char *NavigatorDialog::GetListText(int item, int column, BOOL short_text)
           ret = m_globalTags.m_fileList->GetShortName(m_globalTags.m_tagList->Get(item).m_fileIdx);
       }
       break;
-    case NavBarStateCurr:
+    case NavBarState::Curr:
       if(m_currentTags.m_tagList && item < (int )m_currentTags.m_tagList->GetNofTags())
       {
         if(column == 1)
@@ -1019,7 +1019,7 @@ const char *NavigatorDialog::GetListText(int item, int column, BOOL short_text)
           ret = m_currentTags.m_fileList->GetShortName(m_currentTags.m_tagList->Get(item).m_fileIdx);
       }
       break;
-    case NavBarStateProj:
+    case NavBarState::Project:
       ret = m_project->GetFileName(item, short_text ? true : false).c_str();
       break;
   }
@@ -1033,7 +1033,7 @@ void NavigatorDialog::SetFileName(const char *file_name, int _propIndex)
 //    file_name, the name of the new editor file
 {
   RtvStatus error;
-  if(m_navBarState == NavBarStateCurr)
+  if(m_navBarState == NavBarState::Curr)
   {
     if(strcmp(file_name, m_lastCurrentFile))
     {
@@ -1068,7 +1068,7 @@ void NavigatorDialog::SetFileName(const char *file_name, int _propIndex)
       }
     }
   }
-  else if(m_navBarState == NavBarStateFiles)
+  else if(m_navBarState == NavBarState::Files)
   {
     MainFrame *mf = GetMf();
     if(mf)
@@ -1118,11 +1118,11 @@ void NavigatorDialog::HandleDelete(int sel)
 //  Parameters:
 //    sel, the selected item in the navigator list
 {
-  if(m_navBarState == NavBarStateProj)
+  if(m_navBarState == NavBarState::Project)
   {
     m_project->RemoveFile(sel);
   }
-  else if(m_navBarState == NavBarStateFiles)
+  else if(m_navBarState == NavBarState::Files)
   { // Close the selected file
     const char *s = GetListText(sel, 0, FALSE);
     if(s)
@@ -1132,19 +1132,19 @@ void NavigatorDialog::HandleDelete(int sel)
 
 void NavigatorDialog::OnListSetSel(int sel)
 {
-  if(m_navBarState == NavBarStateFiles && wainApp.gs.m_navigatorBarShortNames)
+  if(m_navBarState == NavBarState::Files && wainApp.gs.m_navigatorBarShortNames)
   {
     const char *s = GetListText(sel, 2, FALSE);
     if(s)
       SetStatusText(s);
   }
-  else if(m_navBarState == NavBarStateProj && wainApp.gs.m_navigatorBarShortNames)
+  else if(m_navBarState == NavBarState::Project && wainApp.gs.m_navigatorBarShortNames)
   {
     const char *s = GetListText(sel, 1, FALSE);
     if(s)
       SetStatusText(s);
   }
-  else if(m_navBarState == NavBarStateTags)
+  else if(m_navBarState == NavBarState::Tags)
   {
     if(m_globalTags.m_tagList && sel < (int )m_globalTags.m_tagList->GetNofTags())
     {
@@ -1159,11 +1159,11 @@ void NavigatorDialog::HandleListCtrlPageUp(void)
 //  Description:
 //    called from the brose list when the user hits CTRL+PRIOR
 {
-  if(m_navBarState == NavBarStateDir)
+  if(m_navBarState == NavBarState::Dir)
   {
     m_hdDir.HandlePrev();
   }
-  else if(m_navBarState == NavBarStateFtp)
+  else if(m_navBarState == NavBarState::Ftp)
   {
     m_ftpDir.HandlePrev();
   }
@@ -1388,7 +1388,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
    int index = 0; // Dummy initialization to keep Mr. Gates happy
    switch(m_navBarState)
    {
-   case NavBarStateDir:
+   case NavBarState::Dir:
       index = _from;
       found = m_hdDir.Search(&index, _direction, m_searchText);
       if(found)
@@ -1399,7 +1399,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
       else
          result = false;
       break;
-   case NavBarStateFtp:
+   case NavBarState::Ftp:
       index = _from;
       found = m_ftpDir.Search(&index, _direction, m_searchText);
       if(found)
@@ -1410,7 +1410,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
       else
          result = false;
       break;
-   case NavBarStateFiles:
+   case NavBarState::Files:
       const ViewListElem *elem;
       elem = GetMf()->m_viewList.GetAbsNr(_from);
       if(elem)
@@ -1440,7 +1440,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
       else
          result = FALSE;
       break;
-   case NavBarStateTags:
+   case NavBarState::Tags:
       if(!m_globalTags.m_tagList)
          result = FALSE;
       else
@@ -1470,7 +1470,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
          }
       }
       break;
-   case NavBarStateCurr:
+   case NavBarState::Curr:
       if(!m_currentTags.m_tagList)
          result = false;
       else
@@ -1495,11 +1495,11 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
             result = false;
       }
       break;
-   case NavBarStateProj:
+   case NavBarState::Project:
       index = _from;
       result = m_project->Search(_force ? _direction : 0, (const char *)m_searchText, _reset ? true : false, index);
       break;
-   case NavBarStateClass:
+   case NavBarState::Class:
       if(m_classViewTree)
          result = m_classViewTree->DoSearch(_direction, m_searchText, _reset, _offset);
       else
@@ -1509,7 +1509,7 @@ void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _res
    if(result)
    {
       m_lastSearchText = m_searchText;
-      if(m_navBarState != NavBarStateClass)
+      if(m_navBarState != NavBarState::Class)
          m_navigatorList->SetSel(index);
    }
    else
@@ -1730,7 +1730,7 @@ void NavigatorDialog::HandleGetIcon(void *aMsg)
   m_project->HandleGetIcon((ThreadGetIconConClass *)aMsg);
   ThreadGetIconConClass *con = (ThreadGetIconConClass *)aMsg;
 
-  if(m_navBarState == NavBarStateDir || m_navBarState == NavBarStateProj)
+  if(m_navBarState == NavBarState::Dir || m_navBarState == NavBarState::Project)
     m_navigatorList->UpdateIcons(m_sysImageList);
 
   delete con;
@@ -1741,17 +1741,17 @@ void NavigatorDialog::OpenAsTagPeek(void)
   int LineNo = -1;
   const char *fn = NULL;
 
-  if(m_navBarState == NavBarStateTags)
+  if(m_navBarState == NavBarState::Tags)
   {
     fn = m_globalTags.m_fileList->GetFullName(m_globalTags.m_tagList->Get(m_navigatorList->m_selected).m_fileIdx);
     LineNo = m_globalTags.m_tagList->Get(m_navigatorList->m_selected).m_lineNo;
   }
-  else if(m_navBarState == NavBarStateCurr)
+  else if(m_navBarState == NavBarState::Curr)
   {
     fn = m_currentTags.m_fileList->GetFullName(m_currentTags.m_tagList->Get(m_navigatorList->m_selected).m_fileIdx);
     LineNo = m_currentTags.m_tagList->Get(m_navigatorList->m_selected).m_lineNo;
   }
-  else if(m_navBarState == NavBarStateClass)
+  else if(m_navBarState == NavBarState::Class)
   {
     m_classViewTree->GetPeekParm(&fn, &LineNo);
   }

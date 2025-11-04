@@ -17,13 +17,13 @@ static char THIS_FILE[] = __FILE__;
 /* Implementation of FileList_class */
 void NavFileList::UpdateFileList()
 {
-  if(m_dlg->m_navBarState == NavBarStateFiles)
+  if(m_dlg->m_navBarState == NavBarState::Files)
     UpdateFileView();
 }
 
 void NavFileList::RemoveFile(void)
 {
-  if(m_dlg->m_navBarState == NavBarStateFiles)
+  if(m_dlg->m_navBarState == NavBarState::Files)
     UpdateFileView();
 }
 

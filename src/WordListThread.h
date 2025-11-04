@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../src/Project.h"
+#include <unordered_map>
 
 class WordMatchInfo
 {
@@ -20,9 +21,9 @@ public:
 class WordThreadParam
 {
 public:
-   std::vector<std::string> m_fileNameX; // The names of the files to scan
+   std::vector<std::string> m_fileName; // The names of the files to scan
    std::vector<std::string> m_keyWords;  // The keywords for this extension type, do not include these
-   std::map<std::string, std::list<WordMatchInfo>> m_wordMap; // Map of words and a list of info
+   std::unordered_map<std::string, std::list<std::shared_ptr<WordMatchInfo>>> m_wordMap; // Map of words and a list of info
    std::string m_seperators;
    bool m_ignoreCase = false;
    int m_propIndex = 0;

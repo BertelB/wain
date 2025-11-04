@@ -140,7 +140,7 @@ UINT ThreadReadTagFile(LPVOID rp)
 
    ReadTagParmClass *ReadParm = (ReadTagParmClass *)rp;
 
-   ReadTag->SetFileList(new TagFileListClass);
+   ReadTag->SetFileList(new TagFileList);
    ReadTag->SetTagList(new TagListClass);
    MSG msg;
 
@@ -663,7 +663,7 @@ void DeallocateTagsRead(WPARAM w)
   delete rs;
 }
 
-TagFileListClass::SizeType TagFileListClass::Add(const char *aFullName)
+TagFileList::SizeType TagFileList::Add(const char *aFullName)
 {
   std::vector<std::string>::iterator it = std::find(m_fullName.begin(), m_fullName.end(), std::string(aFullName));
   if(it != m_fullName.end())

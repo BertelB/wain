@@ -20,7 +20,7 @@ void StartWordThread(std::vector<std::string>& _fileList, std::vector<std::strin
    auto parm = new WordThreadParam;
    for (uint32_t i = 0; i < _fileList.size(); i++)
    {
-      parm->m_fileNameX.push_back(_fileList[i]);
+      parm->m_fileName.push_back(_fileList[i]);
    }
    for (uint32_t i = 0; i < /* _keyWordList->size() */ 5; i++)
    {
@@ -126,17 +126,17 @@ uint32_t FindWords(std::list<std::string>& _list,
    return nWords;
 }
 
-void AddToWordList(std::map<std::string, std::list<WordMatchInfo>>& _map, const std::string& _word, uint32_t _fileIdx, uint32_t _lineNo, const std::string& _line)
+void AddToWordList(std::unordered_map<std::string, std::list<std::shared_ptr<WordMatchInfo>>>& _map, const std::string& _word, uint32_t _fileIdx, uint32_t _lineNo, const std::string& _line)
 {
    auto mit = _map.find(_word);
    if (mit != _map.end())
    {
-      mit->second.push_back(WordMatchInfo(_fileIdx, _lineNo, _line));
+      mit->second.push_back(std::make_shared<WordMatchInfo>(_fileIdx, _lineNo, _line));
    }
    else
    {
-      std::list<WordMatchInfo> l;
-      l.push_back(WordMatchInfo(_fileIdx, _lineNo, _line));
+      std::list<std::shared_ptr<WordMatchInfo>> l;
+      l.push_back(std::make_shared<WordMatchInfo>(_fileIdx, _lineNo, _line));
       _map[_word] = l;
    }
 }
@@ -144,9 +144,9 @@ void AddToWordList(std::map<std::string, std::list<WordMatchInfo>>& _map, const 
 UINT ThreadGetWords(LPVOID _parm)
 {
    WordThreadParam* parm = (WordThreadParam*)_parm;
-   for (uint32_t fnIdx = 0; fnIdx < parm->m_fileNameX.size(); fnIdx++)
+   for (uint32_t fnIdx = 0; fnIdx < parm->m_fileName.size(); fnIdx++)
    {
-      std::ifstream f(parm->m_fileNameX[fnIdx]);
+      std::ifstream f(parm->m_fileName[fnIdx]);
       std::string line;
       std::list<std::string> wordList;
       uint32_t lineNo = 1;

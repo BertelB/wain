@@ -169,15 +169,15 @@ private:
    int m_autoRebuildTime;
    void HandleAutoRebuildTimeout(void);
    void HandleAutoTagFileTimer(void);
-   void EnableButtons(NavBarStateType aNewState);
+   void EnableButtons(NavBarState aNewState);
    NavigatorTabCtrlClass m_tabCtrl;
    CFont m_listFont;
    RECT GetListTreeRect();
 public:
    void OpenDirForFile(const char* _filename);
    void OpenProjectForFile(const char* _filename);
-   void SetClassList(AddClassInfoListClass *aAddInfo, TagFileListClass *aFileList, AddClassInfoTreeCtrlClass *aView);
-   AddClassViewClass m_addClassView;
+   void SetClassList(AddClassInfoListClass *aAddInfo, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView);
+   AddClassView m_addClassView;
 
    CBrush *m_buttonBrush;
    void HandleGetIcon(void *msg);
@@ -219,7 +219,7 @@ public:
 
    NavigatorDialog(CWnd *aParent = 0);
    ~NavigatorDialog();
-   NavBarStateType m_navBarState;
+   NavBarState m_navBarState;
 
    enum { IDD = IDD_NAVIGATOR_DIALOG };
    class NavigatorList *m_navigatorList;

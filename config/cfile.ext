@@ -390,6 +390,7 @@ regex_match
 regex_replace
 reinterpret_cast
 remove
+remove_if
 resize
 reverse
 rfind
@@ -426,6 +427,7 @@ true
 try
 typename
 unique
+unordered_map
 upper_bound
 uppercase
 using

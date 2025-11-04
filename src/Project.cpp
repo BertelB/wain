@@ -1021,7 +1021,7 @@ bool ProjectClass::GetWordInfo(std::vector<WordInfo>& _wordInfo, const std::stri
    }
    for (auto j : it->second)
    {
-      _wordInfo.push_back(WordInfo(m_wordParam[_propIndex]->m_fileNameX[j.m_fnIdx], j.m_lineNo, j.m_line));
+      _wordInfo.push_back(WordInfo(m_wordParam[_propIndex]->m_fileName[j->m_fnIdx], j->m_lineNo, j->m_line));
    }
    return !_wordInfo.empty();
 }
@@ -1036,9 +1036,9 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
    auto wordParam = m_wordParam[_parm->m_propIndex];
    uint32_t fnIdx;
    bool fnFound = false;
-   for (fnIdx = 0; fnIdx < wordParam->m_fileNameX.size() && !fnFound; )
+   for (fnIdx = 0; fnIdx < wordParam->m_fileName.size() && !fnFound; )
    {
-      if (wordParam->m_fileNameX[fnIdx] == _parm->m_fileNameX[0])
+      if (wordParam->m_fileName[fnIdx] == _parm->m_fileName[0])
       {
          fnFound = true;
       }
@@ -1047,39 +1047,38 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
          fnIdx++;
       }
    }
-
+   auto t1 = GetUSec();
    // First remove all entries with this file in the list
    if (fnFound)
    {
-      for (auto p : _parm->m_wordMap)
+      for (auto& wordMap : wordParam->m_wordMap)
       {
-         for (auto& wordMap : wordParam->m_wordMap)
-         {
-            auto& info = wordMap.second;
-            info.erase(std::remove_if(info.begin(),
-                                      info.end(),
-                                      [&] (auto& x) { return x.m_fnIdx < wordParam->m_fileNameX.size() && wordParam->m_fileNameX[x.m_fnIdx] == _parm->m_fileNameX[0]; }),
-                                      info.end());
-         }
+         auto& info = wordMap.second;
+         info.erase(std::remove_if(info.begin(),
+                                   info.end(),
+                                   [&] (auto& x) { return x->m_fnIdx == fnIdx; }),
+                                   info.end());
       }
    }
    else
    {
-      fnIdx = wordParam->m_fileNameX.size();
-      wordParam->m_fileNameX.push_back(_parm->m_fileNameX[0]);
+      fnIdx = wordParam->m_fileName.size();
+      wordParam->m_fileName.push_back(_parm->m_fileName[0]);
    }
+   auto t2 = GetUSec();
    // Then insert them again
    for (auto& newWordParm : _parm->m_wordMap)
    {
       bool found = false;
       for (auto& wordParm : wordParam->m_wordMap)
       {
-         if (newWordParm.first == wordParm.first)
+         if (newWordParm.first == wordParm.first && !found)
          {
             found = true;
             for (auto& entry : newWordParm.second)
             {
-               wordParm.second.push_back(WordMatchInfo(fnIdx, entry.m_lineNo, entry.m_line));
+               entry->m_fnIdx = fnIdx;
+               wordParm.second.push_back(entry);
             }
          }
       }
@@ -1088,6 +1087,8 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
          wordParam->m_wordMap[newWordParm.first] = newWordParm.second;
       }
    }
+   auto t3 = GetUSec();
+   SetStatusText("Word parameters has been read %.3f %.3f = %.3f", (t2 - t1) / 1000.0, (t3 - t2) / 1000.0, (t3 - t1) / 1000.0);
    //ToDo If a word is not used anymore, remove it from the list
 }
 

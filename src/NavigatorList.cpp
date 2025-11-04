@@ -675,9 +675,9 @@ void NavigatorList::PopupMenu(void)
 
 void NavigatorList::DoViewPopupMenu(POINT *p)
 {
-  if(m_dlg->m_navBarState == NavBarStateDisabled)
+  if(m_dlg->m_navBarState == NavBarState::Disabled)
     return;
-  if(m_dlg->m_navBarState == NavBarStateDir)
+  if(m_dlg->m_navBarState == NavBarState::Dir)
   {
     m_dlg->m_hdDir.DoPopupMenu(p);
     m_dlg->ReReadDir();
@@ -693,9 +693,9 @@ void NavigatorList::DoViewPopupMenu(POINT *p)
     for(pos = popup.GetMenuItemCount() - 1; pos >= 0; pos--)
       popup.DeleteMenu(pos, MF_BYPOSITION);
 
-    for(pos = 0; PopupMenuList[m_dlg->m_navBarState][pos].m_id != 0; pos++)
+    for(pos = 0; PopupMenuList[int(m_dlg->m_navBarState)][pos].m_id != 0; pos++)
     {
-      popup.AppendMenu(MF_STRING, PopupMenuList[m_dlg->m_navBarState][pos].m_id, PopupMenuList[m_dlg->m_navBarState][pos].m_text.c_str());
+      popup.AppendMenu(MF_STRING, PopupMenuList[int(m_dlg->m_navBarState)][pos].m_id, PopupMenuList[int(m_dlg->m_navBarState)][pos].m_text.c_str());
     }
 
     popup.TrackPopupMenu(TPM_LEFTALIGN, p->x, p->y, this);

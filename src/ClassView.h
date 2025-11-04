@@ -2,34 +2,35 @@
 #define CLASSVIEW_H_INC
 #include "../src/TagIndexType.h"
 
-class TagFileListClass;
+class TagFileList;
 
 class AddClassInfoTreeCtrlClass : public CTreeCtrl
 {
-  void DoPopUp(HTREEITEM item, POINT p);
-  unsigned int m_memberIndex;
-  unsigned int m_classIndex;
-  class NavigatorDialog *m_dlg;
-  bool UpdateIndex();
 public:
-  bool FindClassName(std::string &aName);
-  void OnInfoTip(NMTVGETINFOTIP *InfoTiP);
-  void DoSelect(void);
-  int DoSearch(int _direction, const char* _text, bool _reset, int _offset);
-  void GetPeekParm(const char **fn, int *LineNo);
-  class AddClassViewClass *m_addClassView;
-  virtual BOOL PreTranslateMessage(MSG *msg);
-  AddClassInfoTreeCtrlClass(class NavigatorDialog *Parent);
-  HACCEL m_accHandle;
-  afx_msg void OnRButtonDown(UINT flags, CPoint point);
-  afx_msg void OnLButtonDblClk(UINT flags, CPoint point);
-  afx_msg void PopupMenu(void);
-  afx_msg void TagPeek(void);
-  afx_msg void TagSelect(void);
-  afx_msg void TagExpand(void);
-  afx_msg void GotoEditor(void);
-  afx_msg void OnCustomDraw(NMHDR* pNMHDR, LRESULT* pResult);
-  DECLARE_MESSAGE_MAP();
+   bool FindClassName(std::string &aName);
+   void OnInfoTip(NMTVGETINFOTIP *InfoTiP);
+   void DoSelect(void);
+   int DoSearch(int _direction, const char* _text, bool _reset, int _offset);
+   void GetPeekParm(const char **fn, int *LineNo);
+   class AddClassView *m_addClassView;
+   virtual BOOL PreTranslateMessage(MSG *msg);
+   AddClassInfoTreeCtrlClass(class NavigatorDialog *Parent);
+   HACCEL m_accHandle;
+   afx_msg void OnRButtonDown(UINT flags, CPoint point);
+   afx_msg void OnLButtonDblClk(UINT flags, CPoint point);
+   afx_msg void PopupMenu(void);
+   afx_msg void TagPeek(void);
+   afx_msg void TagSelect(void);
+   afx_msg void TagExpand(void);
+   afx_msg void GotoEditor(void);
+   afx_msg void OnCustomDraw(NMHDR* pNMHDR, LRESULT* pResult);
+   DECLARE_MESSAGE_MAP();
+private:
+   void DoPopUp(HTREEITEM item, POINT p);
+   unsigned int m_memberIndex;
+   unsigned int m_classIndex;
+   class NavigatorDialog *m_dlg;
+   bool UpdateIndex();
 };
 
 class AddClassElementInfoClass
@@ -43,7 +44,7 @@ public:
    {
    }
    ~AddClassElementInfoClass();
-   void SetSignature(const std::string &aStr);
+   void SetSignature(const std::string& _str);
    int  m_fileIdx;
    int  m_lineNo;
    std::string m_tag;
@@ -99,18 +100,18 @@ public:
    ListClass m_list;
 };
 
-class AddClassViewClass
+class AddClassView
 {
 public:
-   AddClassViewClass();
-   ~AddClassViewClass();
-   void SetList(AddClassInfoListClass *aAddInfo_, TagFileListClass *aFileList, AddClassInfoTreeCtrlClass *aView);
+   AddClassView();
+   ~AddClassView();
+   void SetList(AddClassInfoListClass *aAddInfo_, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView);
 
    void Clear();
    void ClearTree();
    void OnClose();
    AddClassInfoListClass *m_addInfo;
-   TagFileListClass *m_fileList;
+   TagFileList *m_fileList;
    AddClassInfoTreeCtrlClass *m_view;
    CImageList m_imageList;
 private:

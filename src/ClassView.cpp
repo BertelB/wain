@@ -20,18 +20,18 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-AddClassViewClass::AddClassViewClass() : m_addInfo(0), m_view(0)
+AddClassView::AddClassView() : m_addInfo(0), m_view(0)
 {
   m_imageList.Create(IDB_SMALLICONS, 16, 1, RGB(255, 255, 255));
 }
 
-AddClassViewClass::~AddClassViewClass()
+AddClassView::~AddClassView()
 {
    ClearTree();
    Clear();
 }
 
-void AddClassViewClass::SetList(AddClassInfoListClass* _addInfo, TagFileListClass* _fileList, AddClassInfoTreeCtrlClass* _view)
+void AddClassView::SetList(AddClassInfoListClass* _addInfo, TagFileList* _fileList, AddClassInfoTreeCtrlClass* _view)
 {
    Clear();
    m_addInfo = _addInfo;
@@ -44,13 +44,13 @@ void AddClassViewClass::SetList(AddClassInfoListClass* _addInfo, TagFileListClas
    }
 }
 
-void AddClassViewClass::Clear()
+void AddClassView::Clear()
 {
    delete m_addInfo;
    m_addInfo = 0;
 }
 
-void AddClassViewClass::ClearTree(void)
+void AddClassView::ClearTree(void)
 {
    if(!m_view || !::IsWindow(m_view->m_hWnd))
       return;
@@ -58,7 +58,7 @@ void AddClassViewClass::ClearTree(void)
    m_view->DeleteAllItems();
 };
 
-void AddClassViewClass::OnClose()
+void AddClassView::OnClose()
 {
    ClearTree();
    Clear();
@@ -231,7 +231,7 @@ void AddClassElementInfoClass::SetSignature(const std::string &aStr)
    m_signature = aStr;
 }
 
-void NavigatorDialog::SetClassList(AddClassInfoListClass *aAddInfo, TagFileListClass *aFileList, AddClassInfoTreeCtrlClass *aView)
+void NavigatorDialog::SetClassList(AddClassInfoListClass *aAddInfo, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView)
 {
   // ASSERT(::IsWindow(view_->m_hWnd));
   aView->SetFont(&m_listFont);
@@ -243,7 +243,7 @@ void NavigatorDialog::SetClassList(AddClassInfoListClass *aAddInfo, TagFileListC
   CRect tr = GetListTreeRect();
   m_classViewTree->MoveWindow(tr, FALSE);
   tt->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
-  if(m_navBarState == NavBarStateClass)
+  if(m_navBarState == NavBarState::Class)
   {
     m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
     InvalidateRect(NULL, TRUE);

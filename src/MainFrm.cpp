@@ -789,7 +789,7 @@ void MainFrame::SelectNavigatorList(void)
 {
    if(m_navigatorBar.m_enabled)
    {
-    if(m_navigatorDialog.m_navBarState == NavBarStateClass)
+    if(m_navigatorDialog.m_navBarState == NavBarState::Class)
     {
       if(m_navigatorDialog.m_classViewTree)
       {
