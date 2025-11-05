@@ -1,0 +1,160 @@
+!Exe1 wsl
+!Exe2 exe2
+!Exe3 exe3
+!Exe4 exe4
+!ExeArg1 --cd c:\bkb\temp g++ FotoData.cpp -o FotoData -W -Wall -fdiagnostics-plain-output 2>&1
+!ExeArg2 
+!ExeArg3 
+!ExeArg4 
+!ExePath1 c:\
+!ExePath2 ep2
+!ExePath3 Ep3
+!ExePath4 Path Nr 4
+!ExePathFind1 
+!ExePathFind2 
+!ExePathFind3 
+!ExePathFind4 
+!ExePathReplace1 c:\bkb\temp\
+!ExePathReplace2 
+!ExePathReplace3 
+!ExePathReplace4 
+!ExeRegex1 ([^:]*):([0-9]*):([0-9]*).*
+!ExeRegex2 
+!ExeRegex3 
+!ExeRegex4 
+!ExecName1 SomeWSL
+!ExecName2 
+!ExecName3 
+!ExecName4 Hello
+!File c:\bkb\wain.hub\bat\wain.sln
+!IncPath 
+!Make1 cmd /C devenv $MFE$ /Build
+!Make2 cmd /C "c:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com"
+!Make3 cmd /C "c:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.com"
+!Make4 cmd /K
+!MakeArg1 
+!MakeArg2 $MFE$ /Build
+!MakeArg3 $MFE$ /rebuild
+!MakeArg4 pause
+!MakeName1 
+!MakeName2 MyBuild
+!MakeName3 
+!MakeName4 
+!MakePath1 c:\bkb\wain.hub\bat\
+!MakePath2 c:\bkb\wain.hub\bat\
+!MakePath3 c:\bkb\wain.hub\bat\
+!MakePath4 c:\bkb
+!MakePathFind1 
+!MakePathFind2 Find
+!MakePathFind3 
+!MakePathFind4 
+!MakePathReplace1 
+!MakePathReplace2 Replace
+!MakePathReplace3 
+!MakePathReplace4 
+!MakeRegex1 
+!MakeRegex2 [0-9]*>([^\(]*)\(([0-9]*),([0-9]*).*
+!MakeRegex3 [0-9]*>([^\(]*)\(([0-9]*),([0-9]*).*
+!MakeRegex4 
+!TagFile $T$$PFE$.tag
+!TagFiles 
+!TagOptions -u --c-kinds=+px-n --fields=+Si "-L$X$"
+!TagProgram c:\bkb\uctags\ctags.exe
+!ExeDefault 0
+!FirstFile 56
+!MakeDefault 1
+!TrackTags 0
+!Makeoptions Stdout Stderr Dos Save RunLow
+!Exeoptions Stdout Stderr Dos RunLow
+!FirstFile -1
+"C:\bkb\wain.hub\src\ChildFrm.cpp" -1
+"C:\bkb\wain.hub\src\ChildFrm.h" 0
+"C:\bkb\wain.hub\src\ClassList.cpp" -1
+"C:\bkb\wain.hub\src\ClassView.cpp" 244
+"C:\bkb\wain.hub\src\ClassView.h" 112
+"C:\bkb\wain.hub\src\Config.h" 152
+"C:\bkb\wain.hub\src\DialogBase.h" 266
+"C:\bkb\wain.hub\src\DockBar.cpp" -1
+"C:\bkb\wain.hub\src\DockBar.h" -1
+"C:\bkb\wain.hub\src\DocProp.cpp" 1271
+"C:\bkb\wain.hub\src\DocProp.h" -1
+"C:\bkb\wain.hub\src\FileSelD.cpp" -1
+"C:\bkb\wain.hub\src\FileSelD.h" -1
+"C:\bkb\wain.hub\src\GlobSet.cpp" -1
+"C:\bkb\wain.hub\src\GlobSet.h" -1
+"c:\bkb\wain.hub\src\Hello.cpp" -1
+"C:\bkb\wain.hub\src\KeySetup.cpp" 138
+"C:\bkb\wain.hub\src\KeySetup.h" -1
+"C:\bkb\wain.hub\src\Line.cpp" -1
+"C:\bkb\wain.hub\src\Line.h" -1
+"C:\bkb\wain.hub\src\Macro.cpp" 442
+"C:\bkb\wain.hub\src\Macro.h" 0
+"C:\bkb\wain.hub\src\MainFrm.cpp" 0
+"C:\bkb\wain.hub\src\MainFrm.h" 248
+"C:\bkb\wain.hub\src\NavigatorDlg.cpp" 421
+"C:\bkb\wain.hub\src\NavigatorDlg.h" 220
+"C:\bkb\wain.hub\src\NavigatorDlgType.h" 10
+"C:\bkb\wain.hub\src\NavigatorFile.cpp" 24
+"C:\bkb\wain.hub\src\NavigatorList.cpp" 696
+"C:\bkb\wain.hub\src\NavigatorList.h" -1
+"C:\bkb\wain.hub\src\NavigatorProjTree.cpp" 373
+"C:\bkb\wain.hub\src\NavigatorProjTree.h" -1
+"C:\bkb\wain.hub\src\nrex.cpp" -1
+"C:\bkb\wain.hub\src\nrex.h" -1
+"C:\bkb\wain.hub\src\PageDlg.cpp" 546
+"C:\bkb\wain.hub\src\PageDlg.h" -1
+"C:\bkb\wain.hub\src\Print.cpp" -1
+"C:\bkb\wain.hub\src\Project.cpp" 5
+"C:\bkb\wain.hub\src\Project.h" 5
+"C:\bkb\wain.hub\src\ProjectOptions.cpp" -1
+"C:\bkb\wain.hub\src\ProjectOptions.h" -1
+"C:\bkb\wain.hub\src\ProjectSetup.cpp" 341
+"C:\bkb\wain.hub\src\ProjectSetup.h" 53
+"C:\bkb\wain.hub\src\RegEx.h" -1
+"C:\bkb\wain.hub\src\RegExp.cpp" -1
+"C:\bkb\wain.hub\src\RegExp.h" -1
+"C:\bkb\wain.hub\src\Resource.h" -1
+"C:\bkb\wain.hub\src\Search.cpp" 845
+"C:\bkb\wain.hub\src\SimpleDialog.cpp" -1
+"C:\bkb\wain.hub\src\SimpleDialog.h" -1
+"C:\bkb\wain.hub\src\StdAfx.cpp" -1
+"C:\bkb\wain.hub\src\stdafx.h" 46
+"C:\bkb\wain.hub\src\TabView.cpp" -1
+"C:\bkb\wain.hub\src\TabView.h" -1
+"C:\bkb\wain.hub\src\TagIndexType.h" 2
+"C:\bkb\wain.hub\src\TagList.cpp" 668
+"C:\bkb\wain.hub\src\TagList.h" 71
+"C:\bkb\wain.hub\src\Tags.cpp" 664
+"C:\bkb\wain.hub\src\Tags.h" 267
+"C:\bkb\wain.hub\src\TagsType.h" 89
+"C:\bkb\wain.hub\src\ToolDialog.cpp" -1
+"C:\bkb\wain.hub\src\ToolDialog.h" -1
+"C:\bkb\wain.hub\src\ToolParm.h" -1
+"C:\bkb\wain.hub\src\Tools.cpp" 244
+"C:\bkb\wain.hub\src\Tools.h" -1
+"C:\bkb\wain.hub\src\Undo.cpp" -1
+"C:\bkb\wain.hub\src\ViewList.cpp" 695
+"C:\bkb\wain.hub\src\ViewList.h" 0
+"C:\bkb\wain.hub\src\Wain.cpp" 343
+"C:\bkb\wain.hub\src\wain.h" 77
+"C:\bkb\wain.hub\src\Wain.rc" -1
+"C:\bkb\wain.hub\src\WainCfg.h" -1
+"C:\bkb\wain.hub\src\WainDoc.cpp" 773
+"C:\bkb\wain.hub\src\WainDoc.cpp.atag" -1
+"C:\bkb\wain.hub\src\WainDoc.cpp.bak" -1
+"C:\bkb\wain.hub\src\WainDoc.h" 90
+"C:\bkb\wain.hub\src\WainDocUtil.h" -1
+"C:\bkb\wain.hub\src\WainEdit.cpp" -1
+"C:\bkb\wain.hub\src\WainFile.h" -1
+"C:\bkb\wain.hub\src\WainFTP.cpp" 147
+"C:\bkb\wain.hub\src\WainFunc.cpp" 1735
+"C:\bkb\wain.hub\src\WainMark.cpp" -1
+"C:\bkb\wain.hub\src\WainSearch.h" 50
+"C:\bkb\wain.hub\src\WainUtil.cpp" -1
+"C:\bkb\wain.hub\src\WainUtil.h" 89
+"C:\bkb\wain.hub\src\WainView.cpp" 44
+"C:\bkb\wain.hub\src\WainView.h" -1
+"C:\bkb\wain.hub\src\WordListDialog.cpp" 320
+"C:\bkb\wain.hub\src\WordListDialog.h" -1
+"C:\bkb\wain.hub\src\WordListThread.cpp" 141
+"C:\bkb\wain.hub\src\WordListThread.h" 6

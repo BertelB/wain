@@ -4,7 +4,7 @@
 //=============================================================================
 #ifndef PROJECT_H_INC
 #define PROJECT_H_INC
-#include "nrex.h"
+// #include "nrex.h"
 #include "WainUtil.h"
 
 class NavigatorDialog;

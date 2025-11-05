@@ -331,7 +331,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
  //  StatusBar.SetPaneInfo(0, ID_SEPARATOR, SBPS_NOBORDERS, 250);
    m_statusBar.SetPaneInfo(0, ID_SEPARATOR, 0, 250);
-   m_statusBar.SetPaneInfo(STATUS_DUMMY2, ID_SB_STATUS_TEXT, SBPS_STRETCH, 200);
+   m_statusBar.SetPaneInfo(int(StatusIndexType::DUMMY2), ID_SB_STATUS_TEXT, SBPS_STRETCH, 200);
 
    m_toolBar.SetBarStyle(m_toolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
    m_toolBar.EnableDocking(CBRS_ALIGN_ANY);
@@ -347,7 +347,7 @@ int MainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
    m_pageBar.SetWindowText("Pages");
 
    SetMarkStatus(FALSE);
-   m_statusBar.SetPaneText(STATUS_REC, "            ");
+   m_statusBar.SetPaneText(int(StatusIndexType::REC), "            ");
    m_keyboardSetupFile = wainApp.GetProfileString("Settings", "KeyFile", "");
    SetSpecialModeStatus(NULL);
    m_tools->ReadToolFile();
@@ -535,30 +535,30 @@ void MainFrame::SetMarkStatus(bool on)
 void MainFrame::SetCrLfStatus(BOOL unix)
 {
   if(unix)
-    m_statusBar.SetPaneText(STATUS_CRLF, "Unix");
+    m_statusBar.SetPaneText(int(StatusIndexType::CRLF), "Unix");
   else
-    m_statusBar.SetPaneText(STATUS_CRLF, "DOS");
+    m_statusBar.SetPaneText(int(StatusIndexType::CRLF), "DOS");
 }
 
 void MainFrame::SetReadOnlyStatus(bool aReadOnly)
 {
-   m_statusBar.SetPaneText(STATUS_READONLY, aReadOnly ? "RO" : "");
+   m_statusBar.SetPaneText(int(StatusIndexType::READONLY), aReadOnly ? "RO" : "");
 }
 
 void MainFrame::SetInsertStatus(bool on)
 {
   if(on)
-    m_statusBar.SetPaneText(STATUS_INS, "INS");
+    m_statusBar.SetPaneText(int(StatusIndexType::INS), "INS");
   else
-    m_statusBar.SetPaneText(STATUS_INS, "OVR");
+    m_statusBar.SetPaneText(int(StatusIndexType::INS), "OVR");
 }
 
 void MainFrame::SetSpecialModeStatus(const char *str)
 {
   if(str)
-    m_statusBar.SetPaneText(STATUS_SPECIAL_MODE, str);
+    m_statusBar.SetPaneText(int(StatusIndexType::SPECIAL_MODE), str);
   else
-    m_statusBar.SetPaneText(STATUS_SPECIAL_MODE, "");
+    m_statusBar.SetPaneText(int(StatusIndexType::SPECIAL_MODE), "");
 }
 
 void MainFrame::SetModifiedStatus(WainView *aView, bool aOn)
@@ -566,26 +566,26 @@ void MainFrame::SetModifiedStatus(WainView *aView, bool aOn)
    if(aView != GetActiveView())
       return;
    if(aOn)
-      m_statusBar.SetPaneText(STATUS_MODIFIED , "MOD");
+      m_statusBar.SetPaneText(int(StatusIndexType::MODIFIED), "MOD");
    else
-      m_statusBar.SetPaneText(STATUS_MODIFIED, "        ");
+      m_statusBar.SetPaneText(int(StatusIndexType::MODIFIED), "        ");
 }
 
 void MainFrame::SetMacroRecStatus(BOOL on)
 {
-   m_statusBar.SetPaneText(STATUS_REC, on ? "REC": "             ");
+   m_statusBar.SetPaneText(int(StatusIndexType::REC), on ? "REC": "             ");
 }
 
 void MainFrame::SetScrollLock_status(BOOL on)
 {
-  m_statusBar.SetPaneText(STATUS_SCROLLLOCK, on ? "ScrollLock": "                    ");
+  m_statusBar.SetPaneText(int(StatusIndexType::SCROLLLOCK), on ? "ScrollLock": "                    ");
 }
 
 void MainFrame::SetStatusText(const char *text)
 {
   if(IsWindow(m_statusBar.m_hWnd))
   {
-    m_statusBar.SetPaneText(STATUS_DUMMY2, text);
+    m_statusBar.SetPaneText(int(StatusIndexType::DUMMY2), text);
     if(m_statusBarTimer)
       KillTimer(m_statusBarTimer);
     m_statusBarTimer = SetTimer(IDM_STATUS_BAR_TIMER, 10000, NULL);
@@ -928,7 +928,7 @@ void MainFrame::OnTimer(UINT aTimerId)
   {
     KillTimer(m_statusBarTimer);
     m_statusBarTimer = 0;
-    m_statusBar.SetPaneText(STATUS_DUMMY2, "");
+    m_statusBar.SetPaneText(int(StatusIndexType::DUMMY2), "");
   }
   else if(aTimerId == m_fileCheckTimer)
   { // DoCheckFileStatus is polled in OnIdle(), which will call CheckFileStatus()
@@ -1901,8 +1901,6 @@ UINT CleanupThreadFunc(LPVOID rp)
 
 #define MIN_SHELL_ID 1
 #define MAX_SHELL_ID 30000
-LPCONTEXTMENU2 g_pIContext2; // active shell context menu
-LPCONTEXTMENU context_menu;
 
 LPITEMIDLIST GetNextItem (LPITEMIDLIST pidl)
 {
@@ -2072,9 +2070,9 @@ void MainFrame::DoContextMenu(CPoint pt, const char *fn)
   //-----------------
 
   // m_psfFolder: active IShellFolder; m_localPidl: selected item
-  HRESULT hr = GetSHContextMenu(shell_folder, *ppidl, (void **)&context_menu, &cmType);
+  HRESULT hr = GetSHContextMenu(shell_folder, *ppidl, (void **)&m_contextMenu, &cmType);
 
-  if(hr != NOERROR || context_menu == NULL)
+  if(hr != NOERROR || m_contextMenu == NULL)
   { /* Bad luck */
     pMalloc->Release();
     shell_folder->Release();
@@ -2082,14 +2080,14 @@ void MainFrame::DoContextMenu(CPoint pt, const char *fn)
   }
   // fill the menu with the standard shell items
   Menu.CreatePopupMenu();
-  context_menu->QueryContextMenu(Menu, 0, MIN_SHELL_ID, MAX_SHELL_ID, CMF_NORMAL);
+  m_contextMenu->QueryContextMenu(Menu, 0, MIN_SHELL_ID, MAX_SHELL_ID, CMF_NORMAL);
   // insert a single item of our own for demonstration
   // menu.InsertMenu(0, MF_BYPOSITION | MF_STRING, ID_APP_ABOUT, "&Custom");
 
 
   if(cmType > 1)
   {
-    g_pIContext2 = (LPCONTEXTMENU2 )context_menu; // cast ok for ICMv3
+    m_contextMenu2 = (LPCONTEXTMENU2 )m_contextMenu; // cast ok for ICMv3
     m_isContextMenu = TRUE;
   }
 
@@ -2098,17 +2096,17 @@ void MainFrame::DoContextMenu(CPoint pt, const char *fn)
   m_isContextMenu = FALSE;
 
   if(cmdID >= MIN_SHELL_ID && cmdID <= MAX_SHELL_ID)
-    ProcessCMCommand(context_menu, cmdID - MIN_SHELL_ID, fn);
+    ProcessCMCommand(m_contextMenu, cmdID - MIN_SHELL_ID, fn);
   else if(cmdID)
     PostMessage(WM_COMMAND, cmdID);
 
-  g_pIContext2 = NULL; // prevents accidental use
+  m_contextMenu2 = NULL; // prevents accidental use
 
-  /* TODO, We should release the context_menu. But it makes the program fail in case of Paste */
-  if(context_menu)
+  /* TODO, We should release the m_contextMenu. But it makes the program fail in case of Paste */
+  if(m_contextMenu)
   {
-    context_menu->Release();
-    context_menu = 0;
+    m_contextMenu->Release();
+    m_contextMenu = 0;
   }
   shell_folder->Release();
   pMalloc->Release();
@@ -2123,7 +2121,7 @@ void MainFrame::OnMenuSelect(UINT ItemID, UINT Flags, HMENU hSysMenu)
   }
   char Buf[256] = "";
 
-  g_pIContext2->GetCommandString(ItemID - MIN_SHELL_ID, GCS_HELPTEXT, NULL, Buf, sizeof(Buf)/sizeof(Buf[0]));
+  m_contextMenu2->GetCommandString(ItemID - MIN_SHELL_ID, GCS_HELPTEXT, NULL, Buf, sizeof(Buf)/sizeof(Buf[0]));
   SetMessageText(Buf);
 }
 
@@ -2135,7 +2133,7 @@ void MainFrame::OnInitMenuPopup(CMenu *PopupMenu, UINT Index, BOOL SysMenu)
     return;
   }
 
-  g_pIContext2->HandleMenuMsg(WM_INITMENUPOPUP, (WPARAM )PopupMenu->m_hMenu, Index | (SysMenu << 16));
+  m_contextMenu2->HandleMenuMsg(WM_INITMENUPOPUP, (WPARAM )PopupMenu->m_hMenu, Index | (SysMenu << 16));
 }
 
 void MainFrame::OnDrawItem(int IDCtl, LPDRAWITEMSTRUCT DrawItemStruct)
@@ -2146,7 +2144,7 @@ void MainFrame::OnDrawItem(int IDCtl, LPDRAWITEMSTRUCT DrawItemStruct)
     return;
   }
 
-  g_pIContext2->HandleMenuMsg(WM_DRAWITEM, IDCtl, (LPARAM )DrawItemStruct);
+  m_contextMenu2->HandleMenuMsg(WM_DRAWITEM, IDCtl, (LPARAM )DrawItemStruct);
 }
 
 void MainFrame::OnMeasureItem(int IDCtl, LPMEASUREITEMSTRUCT MeasureItemStruct)
@@ -2157,7 +2155,7 @@ void MainFrame::OnMeasureItem(int IDCtl, LPMEASUREITEMSTRUCT MeasureItemStruct)
     return;
   }
 
-  g_pIContext2->HandleMenuMsg(WM_MEASUREITEM, IDCtl, (LPARAM )MeasureItemStruct);
+  m_contextMenu2->HandleMenuMsg(WM_MEASUREITEM, IDCtl, (LPARAM )MeasureItemStruct);
 }
 
 #ifdef _DEBUG

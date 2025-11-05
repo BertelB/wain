@@ -19,17 +19,17 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#pragma warning (disable : 4100) // unreferenced formal parameter
-
-ListCtrl::ListCtrl(TagListDialogClass *dlg) :
+ListCtrl::ListCtrl(TagListDialogClass* _dlg) :
    CListCtrl(),
-   m_dlg(dlg)
+   m_dlg(_dlg)
 {
 }
 
-void ListCtrl::OnLButtonDblClk(UINT flags, CPoint point)
+void ListCtrl::OnLButtonDblClk(UINT _flags, CPoint _point)
 {
-  m_dlg->OnOk();
+   UNUSED_VAR(_flags);
+   UNUSED_VAR(_point);
+   m_dlg->OnOk();
 }
 
 BEGIN_MESSAGE_MAP(ListCtrl, CListCtrl)
@@ -61,17 +61,17 @@ END_MESSAGE_MAP();
 IMPLEMENT_DYNAMIC(TagListDialogClass, CDialog)
 IMPLEMENT_DYNAMIC(ClassListDialogClass, CDialog)
 
-TagListDialogClass::TagListDialogClass(CWnd *aParent, const std::string& aWord,  unsigned int aTypes) :
-   CDialog(TagListDialogClass::IDD, aParent),
-   m_tagWord(aWord),
-   m_types(aTypes)
+TagListDialogClass::TagListDialogClass(CWnd* _parent, const std::string& _word,  unsigned int _types) :
+   CDialog(TagListDialogClass::IDD, _parent),
+   m_tagWord(_word),
+   m_types(_types),
+   m_parent(_parent),
+   m_tagList(new GetTagListClass(_word.c_str(), _types)),
+   m_selectedIndex(-1),
+   m_listBox(new ListCtrl(this)),
+   m_oldSizeCx(-1),
+   m_peekElem(0)
 {
-   m_parent = aParent;
-   m_tagList = new GetTagListClass(aWord.c_str(), aTypes);
-   m_selectedIndex = -1;
-   m_listBox = new ListCtrl(this);
-   m_oldSizeCx = -1;
-   m_peekElem = 0;
 }
 
 TagListDialogClass::~TagListDialogClass()
@@ -312,9 +312,10 @@ BOOL TagListDialogClass::DoInitDialog()
   }
 }
 
-void TagListDialogClass::OnSize(UINT type, int cx, int cy)
+void TagListDialogClass::OnSize(UINT _type, int cx, int cy)
 {
-  SetSizes(cx, cy);
+   UNUSED_VAR(_type);
+   SetSizes(cx, cy);
 }
 
 void TagListDialogClass::SetSizes(int cx, int cy)
@@ -665,8 +666,6 @@ void WainView::CompletionFunc(UINT id)
     SetCursor();
   }
 }
-
-UINT ThreadReadTagFile(LPVOID rp);
 
 void ReadTagsForFile(const std::string& _fileName)
 {

@@ -177,5 +177,11 @@ public:
 };
 #define MAX_NOF_POPUP_MENU_ITEMS 32
 
+extern const char *MyStrIStr(const char *s1, const char *s2);
+extern const char *MyStrIStr2(const char *s1, const char *s2);
+extern bool IsFile(const char *filename);
+extern bool IsDir(const char *pathname);
+
+
 
 #endif

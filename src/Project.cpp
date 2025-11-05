@@ -25,10 +25,10 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-class ProjFileInfoSortClass
+class ProjFileInfoSorter
 {
 public:
-   ProjFileInfoSortClass(){}
+   ProjFileInfoSorter(){}
    bool operator () (const ProjFileInfo &lhs, const ProjFileInfo &rhs)
    {
       return stricmp(lhs.m_name.c_str(), rhs.m_name.c_str()) < 0;
@@ -396,7 +396,7 @@ void ProjectClass::SortFileList()
    }
    else
    {
-      ProjFileInfoSortClass Compare2;
+      ProjFileInfoSorter Compare2;
       std::sort(m_projFileList.begin(), m_projFileList.end(), Compare2);
    }
    std::vector<ProjFileInfo >::iterator it, j;
@@ -1072,7 +1072,7 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
       bool found = false;
       for (auto& wordParm : wordParam->m_wordMap)
       {
-         if (newWordParm.first == wordParm.first && !found)
+         if (!found && newWordParm.first == wordParm.first)
          {
             found = true;
             for (auto& entry : newWordParm.second)

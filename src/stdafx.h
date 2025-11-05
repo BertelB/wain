@@ -45,6 +45,8 @@
 #include <cderr.h>
 #include <ctype.h>
 
+#define UNUSED_VAR(var_) (void(var_))
+
 #pragma warning( disable : 4018 ) // Signed / unsigned mismatch
 
 #pragma comment(linker,"\"/manifestdependency:type='win32' \

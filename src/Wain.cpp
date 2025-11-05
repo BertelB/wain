@@ -308,14 +308,14 @@ BOOL WainApp::OnIdle(LONG lCount)
   {
     char str[60];
     sprintf(str, "L: %5d C: %5d", m_lineNo, m_columnNo);
-    GetMf()->m_statusBar.SetPaneText(STATUS_LINE, str);
+    GetMf()->m_statusBar.SetPaneText(int(StatusIndexType::LINE), str);
     if(m_markStatus & 0x8000)
     {
       m_markStatus &= ~0x8000;
       if(m_markStatus)
-        GetMf()->m_statusBar.SetPaneText(STATUS_MARK, "MARK");
+        GetMf()->m_statusBar.SetPaneText(int(StatusIndexType::MARK), "MARK");
       else
-        GetMf()->m_statusBar.SetPaneText(STATUS_MARK, "          ");
+        GetMf()->m_statusBar.SetPaneText(int(StatusIndexType::MARK), "          ");
     }
 
     if(m_lastTagStr != m_tagStr)

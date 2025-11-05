@@ -9,6 +9,8 @@
 #include ".\..\src\NavigatorDlg.h"
 #include ".\..\src\dockbar.h"
 #include ".\..\src\pagedlg.h"
+#include ".\..\src\ViewList.h"
+
 #define MAX_NOF_ACCELERATORS 1024
 
 extern CFont *TextWinFont;
@@ -17,90 +19,13 @@ extern UINT WainColumnTextFormat;
 class SearchDialogClass;
 class ReplaceDialogClass;
 
-class ViewListElem
-{
-public:
-  ViewListElem *m_rankNext;
-  ViewListElem *m_rankPrev;
-  ViewListElem();
-  ~ViewListElem();
-  std::string m_name;
-  std::string m_shortName;
-  class WainView *m_myView;
-  int m_nr;
-  int GetPosition() const { return m_position; }
-  void SetPosition(int _position) { m_position = _position; }
-  int m_position;
-  int m_iconIndex;
-  void SetName(const char* _fileName, bool _isFtpFile);
-  void UpdateStatus(void);
-  bool m_ftpFile;
-  bool m_ignore;
-  bool m_skip;
-  bool m_reload;
-  bool m_readOnly;
-  time_t m_modifiedTime;
-  long m_size;
-};
-
-typedef std::vector<const ViewListElem*> BrowseListType;
-
-class ViewList
-{
-public:
-  ViewList();
-  ~ViewList();
-  ViewListElem m_list;
-  ViewListElem *m_currentView;
-  ViewListElem *m_topView[2];
-  int AddView(WainView *view, const char *file_name, bool IsFtpFile);
-  BOOL RemoveView(int nr);
-  void SetViewName(int nr, const char *name, bool IsFtpFile);
-  ViewListElem *GetRankNext(ViewListElem *);
-  ViewListElem *GetRankPrev(ViewListElem *);
-  const ViewListElem *GetAbsNr(int nr);
-  ViewListElem *PutInRankTop(int nr);
-  int FindUniqueNr(void);
-  ViewListElem *GetViewNr(int nr);
-
-  // The List on the Browse bar, sorted by name.
-  BrowseListType m_browseList;
-};
-
-struct MacroEntryInfoType
-{
-   int m_code;
-   char *m_functionName;
-   int m_info;
-};
-
-class MacroListEntryClass
-{
-   friend class MacroListClass;
-   friend class MainFrame;
-   MacroEntryInfoType m_info;
-   MacroListEntryClass *m_prev;
-   MacroListEntryClass *m_next;
-   MacroListEntryClass();
-   ~MacroListEntryClass();
-};
-
-class MacroListClass
-{
-public:
-   MacroListEntryClass m_list;
-   MacroListEntryClass *m_current;
-   bool m_recording;
-   MacroListClass();
-   ~MacroListClass();
-   void CleanUp(void);
-};
+#include "..\src\Macro.h"
 
 struct BookmarkType
 {
   WainView *m_view;
-  int           m_lineNo;
-  int           m_column;
+  int       m_lineNo;
+  int       m_column;
 };
 
 #define NOF_BOOKMARKS 10
@@ -322,6 +247,9 @@ protected:
   void RepositionBars(UINT nIDFirst, UINT nIDLast, UINT nIDLeftOver, UINT nFlag = CWnd::reposDefault, LPRECT lpRectParam = NULL, LPCRECT lpRectClient = NULL, BOOL bStretch = TRUE);
   virtual void RecalcLayout(BOOL bNotify = TRUE);
 protected:
+   LPCONTEXTMENU2 m_contextMenu2 = 0;
+   LPCONTEXTMENU m_contextMenu = 0;
+
   afx_msg void OnActivateApp(BOOL active, DWORD task);
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void SelectFont(void);
@@ -415,28 +343,24 @@ protected:
 };
 
 // This enum must match indicators[] as defined in mainfrm.cpp
-enum StatusIndexType
+enum class StatusIndexType
 {
-   STATUS_DUMMY1,
-   STATUS_DUMMY2,
-   STATUS_CAPS,
-   STATUS_READONLY,
-   STATUS_SCROLLLOCK,
-   STATUS_REC,
-   STATUS_INS,
-   STATUS_MARK,
-   STATUS_SPECIAL_MODE,
-   STATUS_MODIFIED,
-   STATUS_CRLF,
-   STATUS_LINE
+   DUMMY1,
+   DUMMY2,
+   CAPS,
+   READONLY,
+   SCROLLLOCK,
+   REC,
+   INS,
+   MARK,
+   SPECIAL_MODE,
+   MODIFIED,
+   CRLF,
+   LINE
 };
 
-extern const char *MyStrIStr(const char *s1, const char *s2);
-extern const char *MyStrIStr2(const char *s1, const char *s2);
 extern void SetStatusText(const char *msg, ...);
 extern MainFrame *GetMf();
-extern bool IsFile(const char *filename);
-extern bool IsDir(const char *pathname);
 extern UINT CheckStatusMsgId;
 extern UINT FileCheckThreadFunc(LPVOID parm);
 
