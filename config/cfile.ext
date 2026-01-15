@@ -335,6 +335,7 @@ get
 getline
 good
 greater
+has_value
 hex
 ifstream
 ignore
@@ -367,6 +368,7 @@ numeric_limits
 ofstream
 open
 operator
+optional
 ostream
 ostringstream
 override
@@ -391,6 +393,7 @@ regex_replace
 reinterpret_cast
 remove
 remove_if
+reset
 resize
 reverse
 rfind
@@ -431,6 +434,8 @@ unordered_map
 upper_bound
 uppercase
 using
+value
+value_or
 vector
 virtual
 [Keyword 4]

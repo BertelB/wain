@@ -156,9 +156,9 @@ ProjectClass::~ProjectClass()
 RtvStatus ProjectClass::MakeProjectFileList(std::vector<std::string>& _fileList, const std::string& _types) const
 {
    if(m_projectName.empty())
-      return RtvStatus::rtv_no_project;
+      return RtvStatus::NoProject;
    if(m_projFileList.size() == 0)
-      return RtvStatus::rtv_no_project_files;
+      return RtvStatus::NoProjectFiles;
 
    std::vector<ProjFileInfo >::size_type i;
    if(_types.empty())
@@ -194,7 +194,7 @@ RtvStatus ProjectClass::MakeProjectFileList(std::vector<std::string>& _fileList,
          }
       }
    }
-   return _fileList.size() > 0 ? RtvStatus::rtv_no_error : RtvStatus::rtv_no_project_files;
+   return _fileList.size() > 0 ? RtvStatus::NoError : RtvStatus::NoProjectFiles;
 }
 
 RtvStatus ProjectClass::MakeProjectFileList(std::string &aFileName, const std::string &aTypes) const
@@ -202,9 +202,9 @@ RtvStatus ProjectClass::MakeProjectFileList(std::string &aFileName, const std::s
   static unsigned int FileCounter;
 
   if(m_projectName.empty())
-    return RtvStatus::rtv_no_project;
+    return RtvStatus::NoProject;
   if(m_projFileList.size() == 0)
-    return RtvStatus::rtv_no_project_files;
+    return RtvStatus::NoProjectFiles;
   std::stringstream ss;
   ss << "$T$$PFE$" << FileCounter << ".lst";
   ss >> aFileName;
@@ -213,13 +213,13 @@ RtvStatus ProjectClass::MakeProjectFileList(std::string &aFileName, const std::s
     FileCounter = 0;
 
   RtvStatus ret;
-  if((ret = wainApp.ReplaceTagValues(aFileName, std::string(""))) != RtvStatus::rtv_no_error)
+  if((ret = wainApp.ReplaceTagValues(aFileName, std::string(""))) != RtvStatus::NoError)
   { /* No need to display the warning, ReplaceTagValues, who called me will pass the warning on */
     return ret;
   }
   FILE *f = fopen(aFileName.c_str(), "wt");
   if(!f)
-    return RtvStatus::rtv_no_temp_path;  /* Probably not correct error, but this should never happen */
+    return RtvStatus::NoTempPath;  /* Probably not correct error, but this should never happen */
 
   char ext[256], get_ext[256];
   int nof_printed = 0;
@@ -242,7 +242,7 @@ RtvStatus ProjectClass::MakeProjectFileList(std::string &aFileName, const std::s
       if(!strlen(get_ext))
       {
         fclose(f);
-        return RtvStatus::rtv_ill_formed_tag;
+        return RtvStatus::MalformedTag;
       }
       for(i = 0; i < m_projFileList.size(); i++)
       {
@@ -257,7 +257,7 @@ RtvStatus ProjectClass::MakeProjectFileList(std::string &aFileName, const std::s
   }
   fclose(f);
 
-  return nof_printed ? RtvStatus::rtv_no_error : RtvStatus::rtv_no_project_files;
+  return nof_printed ? RtvStatus::NoError : RtvStatus::NoProjectFiles;
 }
 
 
@@ -689,7 +689,7 @@ void ProjectClass::DoMake(int _index)
    if(child_frame)
       s = child_frame->GetDocument()->GetPathName();
   RtvStatus error;
-  if((error = wainApp.ReplaceTagValues(command, std::string(s ? s : ""))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(command, std::string(s ? s : ""))) != RtvStatus::NoError)
   {
     DisplayRtvError(GetMf(), "Unable to build make command", error, true);
     return;
@@ -705,14 +705,14 @@ void ProjectClass::DoMake(int _index)
    if (dir == "")
    {
       dir = "$MP$";
-      if((error = wainApp.ReplaceTagValues(dir, std::string(""))) != RtvStatus::rtv_no_error)
+      if((error = wainApp.ReplaceTagValues(dir, std::string(""))) != RtvStatus::NoError)
       {
          DisplayRtvError(GetMf(), "Unable to get dir for make", error, true);
          return;
        }
    }
   m_makeErrorFile = "$T$$MF$.err";
-  if((error = wainApp.ReplaceTagValues(m_makeErrorFile, std::string(""))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(m_makeErrorFile, std::string(""))) != RtvStatus::NoError)
   {
     DisplayRtvError(GetMf(), "Unable to build err file name", error, true);
     return;
@@ -772,13 +772,13 @@ void ProjectClass::Execute(int _index)
   if(child_frame)
     s = child_frame->GetDocument()->GetPathName();
   RtvStatus error;
-  if((error = wainApp.ReplaceTagValues(command,  std::string(s ? s : ""))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(command,  std::string(s ? s : ""))) != RtvStatus::NoError)
   {
     DisplayRtvError(GetMf(), "Unable to build Project execute command", error, true);
     return;
   }
   m_makeExeLog = "$T$$PF$.log";
-  if((error = wainApp.ReplaceTagValues(m_makeExeLog, std::string(""))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(m_makeExeLog, std::string(""))) != RtvStatus::NoError)
   {
     DisplayRtvError(GetMf(), "Unable to build log file name", error, true);
     return;
@@ -1047,7 +1047,6 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
          fnIdx++;
       }
    }
-   auto t1 = GetUSec();
    // First remove all entries with this file in the list
    if (fnFound)
    {
@@ -1065,7 +1064,6 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
       fnIdx = wordParam->m_fileName.size();
       wordParam->m_fileName.push_back(_parm->m_fileName[0]);
    }
-   auto t2 = GetUSec();
    // Then insert them again
    for (auto& newWordParm : _parm->m_wordMap)
    {
@@ -1087,14 +1085,12 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
          wordParam->m_wordMap[newWordParm.first] = newWordParm.second;
       }
    }
-   auto t3 = GetUSec();
-   SetStatusText("Word parameters has been read %.3f %.3f = %.3f", (t2 - t1) / 1000.0, (t3 - t2) / 1000.0, (t3 - t1) / 1000.0);
    //ToDo If a word is not used anymore, remove it from the list
 }
 
 void ProjectClass::StartWordThread()
 {
-   for (int propIndex = 1; propIndex < wainApp.gs.m_docProp.size(); propIndex++) // index 0 is *.*, we don't want that
+   for (uint32_t propIndex = 1; propIndex < wainApp.gs.m_docProp.size(); propIndex++) // index 0 is *.*, we don't want that
    {
       std::vector<std::string> fileList;
       MakeProjectFileList(fileList, wainApp.gs.m_docProp[propIndex]->m_extensions);

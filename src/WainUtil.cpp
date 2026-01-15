@@ -1,5 +1,6 @@
 #include ".\..\src\stdafx.h"
 #include "../src/WainUtil.h"
+#include <chrono>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,4 +66,9 @@ std::string SubStr(int _start, int _len, const char* _in)
 {
    std::string out = _in;
    return out.substr(_start, _len);
+}
+
+uint64_t GetUSec()
+{
+   return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 }

@@ -394,6 +394,7 @@ int GlobalTagClass::SetTag(const char *name)
 
 void TagClass::HandleTagsRead(ReadTagClass *aReadTag)
 {
+   // auto tStart = GetUSec();
    if(m_tagList)
    {
       if(m_dlg->m_navBarState == m_state)
@@ -417,15 +418,13 @@ void TagClass::HandleTagsRead(ReadTagClass *aReadTag)
       }
       aReadTag->SetFileList(0);
       aReadTag->SetTagList(0);
-
       delete aReadTag;
  }
   else
   {
      SetStatusText("Failed to build tags");
   }
-
-  GetMf()->UpdateViews();
+   GetMf()->UpdateViews();
 }
 
 void TagClass::ReadTagFile(const char *aCommand, const char *aFileName, bool aRebuild, bool aAutoBuild)

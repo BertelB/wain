@@ -9,8 +9,6 @@ std::list<std::string> SplitStringList(const std::string& aString, char aSep);
 
 class LangSelectDialogClass : public DialogBaseClass
 {
-private:
-   int m_currentSel;
 public:
    LangSelectDialogClass(CWnd *aParent);
    ~LangSelectDialogClass();
@@ -25,6 +23,8 @@ protected:
    afx_msg void OnNew(void);
    afx_msg void Remove(void);
    DECLARE_MESSAGE_MAP();
+private:
+   uint32_t m_currentSel;
 };
 
 class LangSelectDialogNewTypeDialogClass : public DialogBaseClass

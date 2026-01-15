@@ -728,7 +728,7 @@ LRESULT MainFrame::SearchFunc(WPARAM wparm, LPARAM lparm)
 
 LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
 {
-   if(m_replaceIdx >= 0)
+   if (m_replaceIdx >= 0)
    {
       if(m_firstProjectReplace)
       {
@@ -848,7 +848,7 @@ LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
                if(!Found)
                {
                   m_replaceIdx++;
-                  if(m_replaceIdx >= m_globalSearchFiles.size())
+                  if (m_replaceIdx >= m_globalSearchFiles.size())
                   {
                      SetStatusText("Global search Done");
                      m_globalSearchFiles.clear();

@@ -11,6 +11,7 @@
 #include ".\..\src\childfrm.h"
 #include ".\..\src\wainview.h"
 #include ".\..\src\waindoc.h"
+#include <optional>
 #include "dialogbase.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -23,9 +24,9 @@ class TemplateProp : public CPropertyPage
    DECLARE_DYNAMIC(TemplateProp);
    DocPropClass *m_prop;
 public:
-   TemplateProp(DocPropClass *doc_prop);
+   TemplateProp(DocPropClass* _docProp);
    ~TemplateProp(void);
-   int m_sel;
+   uint32_t m_sel;
    enum {IDD = IDD_TEMPLATE_PROP};
 
 protected:
@@ -154,48 +155,50 @@ void TemplateProp::ChangedSelection(void)
 
 void TemplateProp::OnUpdate(void)
 {
-  if(m_prop->m_templateList.empty())
-    OnNew();
+   if(m_prop->m_templateList.empty())
+      OnNew();
 
-  CComboBox *cb = (CComboBox *)GetDlgItem(IDC_TEMP_LIST);
-  ASSERT(cb);
-  CEdit *e = (CEdit *)GetDlgItem(IDC_TEMP_EDIT);
-  ASSERT(e);
-  if(cb->GetCurSel() != LB_ERR)
-    m_sel = cb->GetCurSel();
-  if(m_sel != LB_ERR)
-  {
-    /* Check if the name exist */
-    int i, old_idx = -1;
-    std::string Temp;
-    GetWindowString(cb, Temp);
+   CComboBox *cb = (CComboBox *)GetDlgItem(IDC_TEMP_LIST);
+   ASSERT(cb);
+   CEdit *e = (CEdit *)GetDlgItem(IDC_TEMP_EDIT);
+   ASSERT(e);
+   if(cb->GetCurSel() != LB_ERR)
+      m_sel = cb->GetCurSel();
+   if(m_sel != LB_ERR)
+   {
+      /* Check if the name exist */
+      int oldIdx = -1;
+      std::string temp;
+      GetWindowString(cb, temp);
 
-    for(i = 0; i < m_prop->m_templateList.size() && old_idx == -1; i++)
-      if(m_sel != i && Temp == m_prop->m_templateList[i]->m_name)
-      { /* Ups; same name */
-        if(WainMessageBox(this, "The template name exist,\r\n would you like to owerwrite it?", IDC_MSG_YES | IDC_MSG_NO, IDI_QUESTION_ICO) == IDC_MSG_NO)
-        { /* No, bail out ot let the user type a new name */
-          return;
-        }
-        old_idx = i;
+      for(uint32_t i = 0; i < m_prop->m_templateList.size() && oldIdx == -1; i++)
+      {
+         if(m_sel != i && temp == m_prop->m_templateList[i]->m_name)
+         { /* Ups; same name */
+            if(WainMessageBox(this, "The template name exist,\r\n would you like to owerwrite it?", IDC_MSG_YES | IDC_MSG_NO, IDI_QUESTION_ICO) == IDC_MSG_NO)
+            { /* No, bail out ot let the user type a new name */
+               return;
+            }
+            oldIdx = i;
+         }
       }
-    if(old_idx != -1)
-    { /* Overwrite the existing template, so delete the current entry  */
-      delete m_prop->m_templateList[m_sel];
-      m_prop->m_templateList.erase(m_prop->m_templateList.begin() + m_sel);
-      m_sel = old_idx;
-    }
-    GetWindowString(e, Temp);
-    ASSERT(m_sel < m_prop->m_templateList.size());
-    EditStr2PropStr(m_prop->m_templateList[m_sel]->m_expansion, Temp);
-    GetWindowString(cb, Temp);
-    if(Temp != m_prop->m_templateList[m_sel]->m_name)
-    {
-       cb->DeleteString(m_sel);
-       cb->InsertString(m_sel, Temp.c_str());
-    }
-    m_prop->m_templateList[m_sel]->m_name = Temp;
-  }
+      if(oldIdx != -1)
+      { /* Overwrite the existing template, so delete the current entry  */
+         delete m_prop->m_templateList[m_sel];
+         m_prop->m_templateList.erase(m_prop->m_templateList.begin() + m_sel);
+         m_sel = oldIdx;
+      }
+      GetWindowString(e, temp);
+      ASSERT(m_sel < m_prop->m_templateList.size());
+      EditStr2PropStr(m_prop->m_templateList[m_sel]->m_expansion, temp);
+      GetWindowString(cb, temp);
+      if (temp != m_prop->m_templateList[m_sel]->m_name)
+      {
+         cb->DeleteString(m_sel);
+         cb->InsertString(m_sel, temp.c_str());
+      }
+      m_prop->m_templateList[m_sel]->m_name = temp;
+   }
 }
 
 void TemplateProp::OnDelete(void)
@@ -221,15 +224,14 @@ void TemplateProp::OnDelete(void)
     if(m_sel != LB_ERR)
     {
       cb->ResetContent();
-      int i;
-      for(i = 0; i < m_prop->m_templateList.size(); i++)
+      for(uint32_t i = 0; i < m_prop->m_templateList.size(); i++)
         cb->AddString(m_prop->m_templateList[i]->m_name.c_str());
       if(cb->GetCount())
         cb->SetCurSel(0);
 
-      std::string Temp;
-      PropStr2EditStr(Temp, m_prop->m_templateList[m_sel]->m_expansion);
-      e->SetWindowText(Temp.c_str());
+      std::string temp;
+      PropStr2EditStr(temp, m_prop->m_templateList[m_sel]->m_expansion);
+      e->SetWindowText(temp.c_str());
     }
     else
       e->SetWindowText("");
@@ -914,7 +916,7 @@ BOOL KeywordSetupDialog::OnInitDialog(void)
   lb = (CListBox *)GetDlgItem(IDC_KEYWORD_LIST);
   if(lb)
   {
-    for(int i = 0; i < m_prop->m_keyWordList[0].size(); i++)
+    for(uint32_t i = 0; i < m_prop->m_keyWordList[0].size(); i++)
       lb->AddString(m_prop->m_keyWordList[0][i].c_str());
   }
   UpdateData(FALSE);
@@ -935,7 +937,7 @@ void KeywordSetupDialog::ListChanged(void)
   {
     lb = (CListBox *)GetDlgItem(IDC_KEYWORD_LIST);
     lb->ResetContent();
-    for(int i = 0; i < m_prop->m_keyWordList[sel].size(); i++)
+    for(uint32_t i = 0; i < m_prop->m_keyWordList[sel].size(); i++)
        lb->AddString(m_prop->m_keyWordList[sel][i].c_str());
   }
 }
@@ -1010,7 +1012,7 @@ void KeywordSetupDialog::SaveKeywords(void)
     for(i = 0; i < 5; i++)
     {
       fprintf(f, "[Keyword %d]\n", i);
-      for(int j = 0; j < m_prop->m_keyWordList[i].size(); j++)
+      for(uint32_t j = 0; j < m_prop->m_keyWordList[i].size(); j++)
          fprintf(f, "%s\n", m_prop->m_keyWordList[i][j].c_str());
     }
     fclose(f);
@@ -1026,7 +1028,7 @@ void KeywordSetupDialog::DeleteKeyword(void)
     lb = (CListBox *)GetDlgItem(IDC_KEYWORD_LIST);
     if(lb)
     {
-      int sel = lb->GetCurSel();
+      uint32_t sel = lb->GetCurSel();
       if(sel != LB_ERR && sel < m_prop->m_keyWordList[group].size())
       {
         lb->DeleteString(sel);
@@ -1263,9 +1265,8 @@ BOOL LangSelectDialogClass::OnInitDialog(void)
 {
    CListBox *lb = (CListBox *)GetDlgItem(IDC_LS_TYPE_LIST);
    ASSERT(lb);
-   int i;
    CString text;
-   for(i = 0; i < wainApp.gs.m_docProp.size(); i++)
+   for(uint32_t i = 0; i < wainApp.gs.m_docProp.size(); i++)
      lb->AddString(wainApp.gs.m_docProp[i]->m_extensionType.c_str());
    m_currentSel = 0;
    ChildFrame *cf = (ChildFrame *)GetMf()->MDIGetActive();
@@ -1279,7 +1280,7 @@ BOOL LangSelectDialogClass::OnInitDialog(void)
    lb = (CListBox *)GetDlgItem(IDC_LS_EXT_LIST);
    ASSERT(lb);
    lb->AddString("*.*");
-   for(i = 1; i < wainApp.gs.m_docProp.size(); i++)
+   for(uint32_t i = 1; i < wainApp.gs.m_docProp.size(); i++)
      lb->AddString(wainApp.gs.m_docProp[i]->m_extensions.c_str());
 
    lb->SetCurSel(m_currentSel);
@@ -1600,11 +1601,10 @@ END_MESSAGE_MAP();
 
 void DocPropClass::Assign(const DocPropClass &rhs)
 {
-   int i, j;
-   for(i = 0; i < 5; i++)
+   for(uint32_t i = 0; i < 5; i++)
    {
       m_keyWordList[i].clear();
-      for(j = 0; j < rhs.m_keyWordList[i].size(); j++)
+      for(uint32_t j = 0; j < rhs.m_keyWordList[i].size(); j++)
          m_keyWordList[i].push_back(rhs.m_keyWordList[i][j]);
    }
    memcpy(m_color, rhs.m_color, sizeof(m_color));
@@ -1638,11 +1638,11 @@ void DocPropClass::Assign(const DocPropClass &rhs)
    m_unindent = rhs.m_unindent;
 
    m_tabPos.clear();
-   for(i = 0; i < rhs.m_tabPos.size(); i++)
+   for(uint32_t i = 0; i < rhs.m_tabPos.size(); i++)
       m_tabPos.push_back(rhs.m_tabPos[i]);
 
    m_preProcWord.clear();
-   for(i = 0; i < rhs.m_preProcWord.size(); i++)
+   for(uint32_t i = 0; i < rhs.m_preProcWord.size(); i++)
       m_preProcWord.push_back(rhs.m_preProcWord[i]);
 
    m_numberStr = rhs.m_numberStr;
@@ -1726,15 +1726,15 @@ void TabPosClass::FromString(const std::string &aStr)
 std::string TabPosClass::ToString()
 {
    size_type idx;
-   std::string Ret;
+   std::string ret;
    if(size())
    {
-      Ret = ::ToString(at(0));
+      ret = ::ToString(at(0));
       for(idx = 1; idx < size(); idx++)
       {
-         Ret += ", ";
-         Ret += ::ToString(at(idx));
+         ret += ", ";
+         ret += ::ToString(at(idx));
       }
    }
-   return Ret;
+   return ret;
 }

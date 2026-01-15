@@ -13,7 +13,7 @@
 #include ".\..\src\TagList.h"
 #include ".\..\src\WordListThread.h"
 #include <stdio.h>
-#include <chrono>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -21,11 +21,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 #pragma warning (disable : 4100) // unreferenced formal parameter
-
-uint64_t GetUSec()
-{
-   return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-}
 
 BEGIN_MESSAGE_MAP(WainApp, CWinApp)
   ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
@@ -380,74 +375,91 @@ void WainApp::OnAppAbout()
 RtvStatus WainApp::ReplaceTagValues(std::string &aStr, const std::string &aCurrentFile)
 {
    std::string::size_type pos;
-   std::string ResStr;
+   std::string resStr;
 
-   RtvStatus Status = RtvStatus::rtv_no_error;
+   RtvStatus status = RtvStatus::NoError;
 
-   while((pos = aStr.find(SEP)) != std::string::npos && Status == RtvStatus::rtv_no_error)
+   while((pos = aStr.find(SEP)) != std::string::npos && status == RtvStatus::NoError)
    {
-      ResStr += aStr.substr(0, pos);
+      resStr += aStr.substr(0, pos);
       aStr = aStr.substr(pos + 1);
       std::string::size_type pos2 = aStr.find(SEP);
 
       if(pos2 == std::string::npos)
       {
-         Status = RtvStatus::rtv_missing_sep;
+         status = RtvStatus::MissingSep;
       }
       else
       {
-         std::string TagStr = aStr.substr(0, pos2);
+         std::string tagStr = aStr.substr(0, pos2);
          aStr = aStr.substr(pos2 + 1);
-         if(TagStr.empty())
+         if(tagStr.empty())
          {
-            ResStr += "$";
+            resStr += "$";
          }
-         else switch(TagStr[0])
+         else switch(tagStr[0])
          {
            case 'w':
            case 'W':
-             if(TagStr.size() != 1)
+             if(tagStr.size() != 1)
              {
-                Status = RtvStatus::rtv_missing_sep;
+                status = RtvStatus::MissingSep;
              }
              else
              {
                 std::string Word;
                 GetMf()->GetCurrentWord(Word);
-                ResStr += Word;
+                resStr += Word;
+             }
+             break;
+           case 'l':
+           case 'L':
+             if(tagStr.size() != 1)
+             {
+                status = RtvStatus::MissingSep;
+             }
+             else
+             {
+                std::string line;
+                GetMf()->GetCurrentLine(line);
+                std::string::size_type last = line.find_first_not_of(" \t");
+                if (last != std::string::npos)
+                   resStr += line.substr(last);
+                else
+                   resStr += line;
              }
              break;
            case 't':
            case 'T':
-             if(TagStr.size() != 1)
+             if(tagStr.size() != 1)
              {
-                Status = RtvStatus::rtv_missing_sep;
+                status = RtvStatus::MissingSep;
              }
              else if(gs.m_tempPath.empty() || !IsDir(gs.m_tempPath.c_str()))
              {
-               Status = RtvStatus::rtv_no_temp_path;
+               status = RtvStatus::NoTempPath;
              }
              else
              {
-                ResStr += gs.m_tempPath;
+                resStr += gs.m_tempPath;
              }
              break;
            case 'F':
            case 'f':
              if(aCurrentFile.empty())
              {
-               Status = RtvStatus::rtv_no_curr_file;
+               status = RtvStatus::NoCurrentFile;
              }
-             else if(TagStr.size() == 1)
+             else if(tagStr.size() == 1)
              {
-                ResStr += aCurrentFile;
+                resStr += aCurrentFile;
              }
              else
              {
-                 TagStr = TagStr.substr(1);
-                 Status = ReplaceTagRest(TagStr, aCurrentFile);
-                 if(Status == RtvStatus::rtv_no_error)
-                    ResStr += TagStr;
+                 tagStr = tagStr.substr(1);
+                 status = ReplaceTagRest(tagStr, aCurrentFile);
+                 if(status == RtvStatus::NoError)
+                    resStr += tagStr;
              }
              break;
            case 'M':
@@ -456,65 +468,99 @@ RtvStatus WainApp::ReplaceTagValues(std::string &aStr, const std::string &aCurre
              const std::string &make_file = GetMf()->m_navigatorDialog.m_project->GetMakeFile();
              if(make_file.empty())
              {
-                Status = RtvStatus::rtv_no_make_file;
+                status = RtvStatus::NoMakeFile;
              }
-             else if(TagStr.size() == 1)
+             else if(tagStr.size() == 1)
              {
-                ResStr += make_file;
+                resStr += make_file;
              }
              else
              {
-                 TagStr = TagStr.substr(1);
-                 Status = ReplaceTagRest(TagStr, std::string(make_file));
-                 if(Status == RtvStatus::rtv_no_error)
-                    ResStr += TagStr;
+                 tagStr = tagStr.substr(1);
+                 status = ReplaceTagRest(tagStr, std::string(make_file));
+                 if(status == RtvStatus::NoError)
+                    resStr += tagStr;
              }
              break;
            }
            case 'P':
            case 'p':
-           {
-             const std::string &pn = GetMf()->m_navigatorDialog.m_project->GetProjectName();
-             if(pn.empty())
              {
-                Status = RtvStatus::rtv_no_project;
-             }
-             else if(TagStr.size() == 1)
-             {
-                ResStr += pn;
-             }
-             else
-             {
-                 TagStr = TagStr.substr(1);
-                 Status = ReplaceTagRest(TagStr, std::string(pn));
-                 if(Status == RtvStatus::rtv_no_error)
-                    ResStr += TagStr;
+               const std::string &pn = GetMf()->m_navigatorDialog.m_project->GetProjectName();
+               if(pn.empty())
+               {
+                  status = RtvStatus::NoProject;
+               }
+               else if(tagStr.size() == 1)
+               {
+                  resStr += pn;
+               }
+               else
+               {
+                   tagStr = tagStr.substr(1);
+                   status = ReplaceTagRest(tagStr, std::string(pn));
+                   if(status == RtvStatus::NoError)
+                      resStr += tagStr;
+               }
              }
              break;
-           }
+           case 'u':
+           case 'U':
+             {
+               const std::string &pn = GetMf()->m_navigatorDialog.m_project->GetProjectName();
+               if(pn.empty())
+               {
+                  status = RtvStatus::NoProject;
+               }
+               else if(tagStr.size() == 1)
+               {
+                  resStr += pn;
+               }
+               else
+               {
+                   tagStr = tagStr.substr(1);
+                   status = ReplaceTagRest(tagStr, std::string(pn));
+                   if(status == RtvStatus::NoError)
+                   {
+                      if (tagStr.size() > 2 && tagStr[1] == ':')
+                      {
+                         tagStr = tagStr.substr(2);
+                         for (uint32_t i = 0; i < tagStr.size(); i++)
+                         {
+                            if (tagStr[i] == '\\')
+                            {
+                              tagStr[i] = '/';
+                            }
+                         }
+                      }
+                      resStr += tagStr;
+                   }
+               }
+             }
+             break;
            case 'X':
            case 'x':
            {
              std::string ProjFile;
              const char *s;
-             s = &TagStr[1];
-             if((Status = GetMf()->m_navigatorDialog.MakeProjectFileList(ProjFile, s)) == RtvStatus::rtv_no_error)
+             s = &tagStr[1];
+             if((status = GetMf()->m_navigatorDialog.MakeProjectFileList(ProjFile, s)) == RtvStatus::NoError)
              {
-                ResStr += ProjFile;
+                resStr += ProjFile;
              }
              break;
            }
            case 'i':
            case 'I':
-             if(TagStr.size() != 1)
+             if(tagStr.size() != 1)
              {
-               Status = RtvStatus::rtv_missing_sep;
+               status = RtvStatus::MissingSep;
              }
              else
              {
-                ResStr += gs.m_incPath;
+                resStr += gs.m_incPath;
                 if(!gs.m_incPath.empty() && gs.m_incPath[gs.m_incPath.size() - 1] != '\\')
-                   ResStr  += "\\";
+                   resStr  += "\\";
              }
              break;
            case 'e':
@@ -523,30 +569,30 @@ RtvStatus WainApp::ReplaceTagValues(std::string &aStr, const std::string &aCurre
              const std::string &pi = GetMf()->m_navigatorDialog.m_project->GetIncPath();
              if(pi.empty())
              {
-               Status = RtvStatus::rtv_no_project_inc_path;
+               status = RtvStatus::NoProjectIncludePath;
              }
-             else if(TagStr.size() == 1)
+             else if(tagStr.size() == 1)
              {
-                Status = RtvStatus::rtv_missing_sep;
+                status = RtvStatus::MissingSep;
              }
              else
              {
-                ResStr += pi;
+                resStr += pi;
                 if(pi.substr(pi.size() -1) != "\\")
-                   ResStr += "\\";
+                   resStr += "\\";
              }
              break;
            }
            default:
-              Status = RtvStatus::rtv_unknown_tag;
+              status = RtvStatus::UnknownTag;
               break;
          }
     }
   }
 
-  ResStr += aStr;
-  aStr = ResStr;
-  return Status;
+  resStr += aStr;
+  aStr = resStr;
+  return status;
 }
 
 RtvStatus WainApp::ReplaceTagRest(std::string &aDest, const std::string &aFile)
@@ -563,14 +609,14 @@ RtvStatus WainApp::ReplaceTagRest(std::string &aDest, const std::string &aFile)
     else if(*t == 'e' || *t == 'E')
       flags |= SP_EXT;
     else /* Unexpected flag */
-      return RtvStatus::rtv_ill_formed_tag;
+      return RtvStatus::MalformedTag;
   }
   if(!flags)
-     return RtvStatus::rtv_ill_formed_tag;
+     return RtvStatus::MalformedTag;
 
   MySplitPath(aFile.c_str(), flags, aDest);
 
-  return RtvStatus::rtv_no_error;
+  return RtvStatus::NoError;
 }
 
 void CreateLongPathName(char *path)
@@ -733,13 +779,13 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
       {
         if(wParam == PM_REMOVE)
         {
-          auto tStart = GetUSec();
+          // auto tStart = GetUSec();
           if(wainApp.m_pMainWnd)
             mf->m_navigatorDialog.GlobalTagReadFunc((ReadTagClass *)msg->wParam);
           else if(msg->wParam)
             DeallocateTagsRead(msg->wParam);
-          auto diff = GetUSec() - tStart;
-          SetStatusText("Tags has been read %f", uint32_t(diff) / 1000.0);
+          // auto diff = GetUSec() - tStart;
+          // SetStatusText("Tags has been read %f", uint32_t(diff) / 1000.0);
           return 0;
         }
       }
@@ -747,13 +793,13 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
       {
         if(wParam == PM_REMOVE)
         {
-          auto tStart = GetUSec();
+          // auto tStart = GetUSec();
           if(wainApp.m_pMainWnd)
             mf->m_navigatorDialog.TagReadFunc((ReadTagClass *)msg->wParam);
           else if(msg->wParam)
             DeallocateTagsRead(msg->wParam);
-          auto diff = GetUSec() - tStart;
-          SetStatusText("Tags has been read %u", uint32_t(diff));
+          // auto diff = GetUSec() - tStart;
+          // SetStatusText("Tags has been read %u", uint32_t(diff));
           return 0;
         }
       }
@@ -1188,19 +1234,17 @@ const char *MySplitPath(const char *full_name, unsigned int what, std::string &d
   return dest.c_str();
 }
 
-
-MyFileDialogClass::MyFileDialogClass(unsigned int flags, unsigned int std_flags, const char *def_ext, const char *file_name, const char *filter, CWnd *parent) :
-                      CFileDialog(flags & FD_OPEN ? TRUE : FALSE, def_ext, file_name, std_flags, NULL, parent)
+MyFileDialogClass::MyFileDialogClass(uint32_t _flags, uint32_t _stdFlags, const char* _defExt, const char* _fileName, const char* _filter, CWnd* _parent) :
+   CFileDialog(_flags & FD_OPEN ? TRUE : FALSE, _defExt, _fileName, _stdFlags, NULL, _parent),
+   m_flags(_flags)
 {
-   ASSERT(flags & (FD_SAVE | FD_OPEN));
-   m_flags = flags;
-   if(flags & FD_DOC_FILTER)
+   if(_flags & FD_DOC_FILTER)
       m_ofn.lpstrFilter = wainApp.gs.FilterStrings();
    else
-      m_ofn.lpstrFilter = filter;
-   if(flags & FD_LAST_PATH)
+      m_ofn.lpstrFilter = _filter;
+   if(_flags & FD_LAST_PATH)
       m_ofn.lpstrInitialDir = wainApp.gs.m_lastUsedDir;
-   else if(flags & FD_CONFIG_PATH)
+   else if(_flags & FD_CONFIG_PATH)
       m_ofn.lpstrInitialDir = wainApp.gs.m_configPath;
 }
 
@@ -1293,15 +1337,13 @@ void DisplayRtvError(CWnd *aParent, const char *aMsg, RtvStatus aError, bool aFa
 
 void WainApp::SetTagPeek(GetTagElemClass *elem)
 {
-  if(m_tagPeekElem)
-    delete m_tagPeekElem;
-
-  m_tagPeekElem = elem;
+   if(m_tagPeekElem)
+      delete m_tagPeekElem;
+   m_tagPeekElem = elem;
 }
 
 bool PathExist(const char* path)
 {
    DWORD dwAttrib = GetFileAttributes(path);
-//#define INVALID_FILE_ATTRIBUTES (-1)
    return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }

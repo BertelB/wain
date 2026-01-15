@@ -1636,6 +1636,13 @@ void WainView::GetCurrentWord(std::string &aWord)
     aWord = "";
 }
 
+void WainView::GetCurrentLine(std::string& _line)
+{
+   WainDoc *doc = GetDocument();
+   if(!doc->GetCurrentLine(_line, m_currentTextLine))
+      _line = "";
+}
+
 void WainView::OnSaveDoc(void)
 //  Description:
 //    Called when the document is saved.

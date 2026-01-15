@@ -1,16 +1,16 @@
 #
 Append 0
 Arguments -w -v "$F$"
-AskForArguments 0
+AskForArguments 1
 CaptureStderr 1
 CaptureStdout 1
 DispModeHidden 0
 DispModeMax 1
 DispModeNorm 0
 DosProgram 1
-LastRunPath 
+LastRunPath       std::string::size_type pos2 = aStr.find(SEP);
 MenuText BorlandC
-Path $FP$
+Path $L$
 Program CMD /C BCC32
 Regexp 
 SaveDoc 1

@@ -791,17 +791,17 @@ void NavigatorDialog::DoBuildTags(const char *aFile, bool aForce, bool aAutoBuil
       path = path.substr(0, End);
   }
   RtvStatus error;
-  if((error = wainApp.ReplaceTagValues(tag_f, path)) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(tag_f, path)) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to generate tag file name", error);
     return;
   }
-  if((error = wainApp.ReplaceTagValues(options, path)) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(options, path)) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to solve options", error);
     return;
   }
-  if((error = wainApp.ReplaceTagValues(files, path)) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(files, path)) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to solve files options", error);
     return;
@@ -858,7 +858,7 @@ void NavigatorDialog::ReBuildTags(void)
   TagFile = child_frame->GetDocument()->m_prop->m_tagFile;
   std::string path = (const char *)child_frame->GetDocument()->GetPathName();
   RtvStatus error;
-  if((error = wainApp.ReplaceTagValues(TagFile, path)) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(TagFile, path)) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to build tag file name", error);
     return;
@@ -1040,7 +1040,7 @@ void NavigatorDialog::SetFileName(const char *file_name, int _propIndex)
       m_currentTags.Clear();
       strcpy(m_lastCurrentFile, file_name);
       std::string TagFile = wainApp.gs.m_docProp[_propIndex]->m_tagFile;
-      if((error = wainApp.ReplaceTagValues(TagFile, std::string(file_name))) == RtvStatus::rtv_no_error)
+      if((error = wainApp.ReplaceTagValues(TagFile, std::string(file_name))) == RtvStatus::NoError)
       {
         if(!access(TagFile.c_str(), 0))
         { /* The tag_file exist */
@@ -1243,7 +1243,7 @@ void NavigatorDialog::HandleAutoRebuildTimeout(void)
       if(!TagFile.empty())
       {
         RtvStatus error;
-        if((error = wainApp.ReplaceTagValues(TagFile, celem->m_name)) != RtvStatus::rtv_no_error)
+        if((error = wainApp.ReplaceTagValues(TagFile, celem->m_name)) != RtvStatus::NoError)
         {
           DisplayRtvError(this, "Unable to build tag file name", error);
           GotError = TRUE;
@@ -1281,7 +1281,7 @@ void NavigatorDialog::HandleAutoRebuildTimeout(void)
     { // Build tag files for open files which does not have a tag file
       TagFile = elem->m_myView->GetDocument()->m_prop->m_tagFile;
       RtvStatus error;
-      if((error = wainApp.ReplaceTagValues(TagFile, elem->m_name)) != RtvStatus::rtv_no_error)
+      if((error = wainApp.ReplaceTagValues(TagFile, elem->m_name)) != RtvStatus::NoError)
       {
         DisplayRtvError(this, "Unable to build tag file name", error);
         GotError = TRUE;

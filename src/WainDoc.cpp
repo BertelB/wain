@@ -110,16 +110,6 @@ TxtLine *WainDoc::FindString(TxtLine *l, const char *string, int *column, int *l
       s = NULL;
       while(co >= 0 && !s)
       {
-#if 0
-      std::regex e(m_projectOptions.m_newLineRegexp.c_str());
-      std::cmatch cm;
-      std::regex_match(_ss, cm, e);
-      if (cm.size() >= 3)
-      {
-         _fn = cm[1];
-         _lineNo = strtol(cm.str(2).c_str(), NULL, 0);
-#endif
-
          if(flags & SEARCH_USE_REGEX)
          {
             std::cmatch cm;
@@ -849,6 +839,12 @@ bool WainDoc::GetCurrentWord(std::string &aWord, int offset, const TxtLine *Curr
   for(n = 0; !strchr(SEPS(this), *s); n++, s++)
     aWord += *s;
 
+  return TRUE;
+}
+
+bool WainDoc::GetCurrentLine(std::string& _line, const TxtLine* _currentLine) const
+{
+  _line = _currentLine->m_text;
   return TRUE;
 }
 

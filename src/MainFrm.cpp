@@ -177,7 +177,6 @@ MainFrame::MainFrame()
    m_cleanupThread = NULL;
    m_fileCheckThread = NULL;
    m_isContextMenu = FALSE;
-   m_replaceIdx = -1;
    m_firstProjectReplace = false;
    m_firstGlobalReplace = false;
 }
@@ -1002,6 +1001,17 @@ void MainFrame::GetCurrentWord(std::string &aWord)
     return;
   }
   aWord = "";
+}
+
+void MainFrame::GetCurrentLine(std::string& _line)
+{
+   WainView *av = GetActiveView();
+   if(av)
+   {
+      av->GetCurrentLine(_line);
+      return;
+   }
+   _line = "";
 }
 
 void MainFrame::ProjectSetup(void)

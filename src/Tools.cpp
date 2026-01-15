@@ -245,20 +245,20 @@ void MainFrame::RunTool(UINT id)
   std::string tpath(tp->m_path);
   const char *p = active_child ? (const char *)active_child->GetDocument()->GetPathName() : "";
   RtvStatus error;
-  if((error = wainApp.ReplaceTagValues(tpath, std::string(p))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(tpath, std::string(p))) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to get path", error, true);
     return;
   }
 
   std::string targs(tp->m_arguments);
-  if((error = wainApp.ReplaceTagValues(targs, std::string(p))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(targs, std::string(p))) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to parse arguments", error, true);
     return;
   }
   std::string command(tp->m_program);
-  if((error = wainApp.ReplaceTagValues(command, std::string(p))) != RtvStatus::rtv_no_error)
+  if((error = wainApp.ReplaceTagValues(command, std::string(p))) != RtvStatus::NoError)
   {
     DisplayRtvError(this, "Unable to build command", error, true);
     return;
@@ -276,13 +276,13 @@ void MainFrame::RunTool(UINT id)
     {
       has_asked_to_append = TRUE;
       targs = ta.m_args;
-      if((error = wainApp.ReplaceTagValues(targs, std::string(p))) != RtvStatus::rtv_no_error)
+      if((error = wainApp.ReplaceTagValues(targs, std::string(p))) != RtvStatus::NoError)
       {
         DisplayRtvError(this, "Unable to parse arguments", error, true);
         return;
       }
       tpath = ta.m_path;
-      if((error = wainApp.ReplaceTagValues(tpath, std::string(p))) != RtvStatus::rtv_no_error)
+      if((error = wainApp.ReplaceTagValues(tpath, std::string(p))) != RtvStatus::NoError)
       {
         DisplayRtvError(this, "Unable to parse path", error, true);
         return;
@@ -304,7 +304,7 @@ void MainFrame::RunTool(UINT id)
     OutFile = "$T$";
     OutFile += tp->m_menuText;
     OutFile += ".tmp";
-    if((error = wainApp.ReplaceTagValues(OutFile, std::string(""))) != RtvStatus::rtv_no_error)
+    if((error = wainApp.ReplaceTagValues(OutFile, std::string(""))) != RtvStatus::NoError)
     {
       DisplayRtvError(this, "Unable to create outfile name", error, true);
       return;

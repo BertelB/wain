@@ -283,6 +283,7 @@ public:
   class TabViewClass *m_tabView;
   void UpdateTabViewPos();
   void GetCurrentWord(std::string &aStr);
+  void GetCurrentLine(std::string& _line);
   bool IsCurrentLine(const TxtLine* _line)
   {
       return _line == m_currentTextLine;

@@ -10,6 +10,7 @@
 #include ".\..\src\dockbar.h"
 #include ".\..\src\pagedlg.h"
 #include ".\..\src\ViewList.h"
+#include <optional>
 
 #define MAX_NOF_ACCELERATORS 1024
 
@@ -206,6 +207,7 @@ public:
 
   WainView *GetOtherView(WainView *my_view);
   void GetCurrentWord(std::string &aWord);
+  void GetCurrentLine(std::string& _line);
   int GetNewWinRect(RECT *rect);
   void RecalcChildPos(bool force = false);
   virtual ~MainFrame();

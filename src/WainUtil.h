@@ -28,29 +28,35 @@ extern bool PathExist(const char* path);
 
 class MyFileDialogClass : public CFileDialog
 {
-  unsigned int m_flags;
 public:
-  MyFileDialogClass(unsigned int flags, unsigned int std_flags, const char *def_ext = NULL, const char *file_name = NULL, const char *filter = NULL, CWnd *parent = NULL);
-  virtual int DoModal(void);
+   MyFileDialogClass(uint32_t _flags, uint32_t _stdFlags, const char* _defExt = nullptr, const char* _file_name = nullptr, const char* _filter = nullptr, CWnd* _parent = nullptr);
+   virtual int DoModal(void);
+private:
+   const unsigned int m_flags;
 };
 
-void AddSlash(std::string &aPath);
-void RemoveSlash(std::string &aPath);
-bool RemoveLastPath(std::string &aPath);
+// _path is supposed to be a path, the function will ensure that it ends with a \ or /
+void AddSlash(std::string& _path);
+
+// _path is supposed to be a path, if it ends with / or \ that will be removed
+void RemoveSlash(std::string& _path);
+
+// _path is supposed to be a path, if possible the function will remove the last folder of that path
+bool RemoveLastPath(std::string& _path);
 
 enum class RtvStatus
 {
-   rtv_no_error,
-   rtv_missing_sep,
-   rtv_no_temp_path,
-   rtv_no_curr_file,
-   rtv_ill_formed_tag,
-   rtv_no_make_file,
-   rtv_no_project,
-   rtv_no_project_files,
-   rtv_no_project_inc_path,
-   rtv_unknown_tag,
-   rtv_string_to_long
+   NoError,
+   MissingSep,
+   NoTempPath,
+   NoCurrentFile,
+   MalformedTag,
+   NoMakeFile,
+   NoProject,
+   NoProjectFiles,
+   NoProjectIncludePath,
+   UnknownTag,
+   StringTooLong
 };
 
 extern void DisplayRtvError(CWnd* _parent, const char* _msg, RtvStatus _error, bool _fatal = false);
@@ -149,12 +155,12 @@ public:
    std::string m_expansion;
 };
 
-class TabPosClass : public std::vector<int  >
+class TabPosClass : public std::vector<int>
 {
 public:
-   int GetNextTabPos(int aPos);
-   int GetPrevTabPos(int aPos);
-   void FromString(const std::string &aStr);
+   int GetNextTabPos(int _pos);
+   int GetPrevTabPos(int _pos);
+   void FromString(const std::string& _str);
    std::string ToString();
 };
 
@@ -181,7 +187,5 @@ extern const char *MyStrIStr(const char *s1, const char *s2);
 extern const char *MyStrIStr2(const char *s1, const char *s2);
 extern bool IsFile(const char *filename);
 extern bool IsDir(const char *pathname);
-
-
 
 #endif

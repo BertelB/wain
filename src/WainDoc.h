@@ -66,6 +66,7 @@ public:
    BOOL JoinLine(TxtLine *l);
    DeleteTypeType DeleteAt(TxtLine *c_line, int pos);
    bool GetCurrentWord(std::string &word, int offset, const TxtLine *CurrentLine) const;
+   bool GetCurrentLine(std::string& _line, const TxtLine *CurrentLine) const;
    int RemoveWordCurrent(int offset, TxtLine *CurrentLine);
    EndLineStatusType GetPrevEls(TxtLine *l) const;
    TxtLine *FindString(TxtLine *l, const char *string, int *column, int *line_offset, int flags, size_t *MatchLen = 0);

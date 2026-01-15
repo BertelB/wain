@@ -233,22 +233,21 @@ void AddClassElementInfoClass::SetSignature(const std::string &aStr)
 
 void NavigatorDialog::SetClassList(AddClassInfoListClass *aAddInfo, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView)
 {
-  // ASSERT(::IsWindow(view_->m_hWnd));
-  aView->SetFont(&m_listFont);
-  m_addClassView.SetList(aAddInfo, aFileList, aView);
-  CTreeCtrl *tt = m_classViewTree;
-  m_classViewTree = aView;
-  ASSERT(::IsWindow(m_classViewTree->m_hWnd));
+   aView->SetFont(&m_listFont);
+   m_addClassView.SetList(aAddInfo, aFileList, aView);
+   CTreeCtrl *tt = m_classViewTree;
+   m_classViewTree = aView;
+   ASSERT(::IsWindow(m_classViewTree->m_hWnd));
 
-  CRect tr = GetListTreeRect();
-  m_classViewTree->MoveWindow(tr, FALSE);
-  tt->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
-  if(m_navBarState == NavBarState::Class)
-  {
-    m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
-    InvalidateRect(NULL, TRUE);
-  }
-  delete tt;
+   CRect tr = GetListTreeRect();
+   m_classViewTree->MoveWindow(tr, FALSE);
+   tt->ModifyStyle(WS_VISIBLE, WS_DISABLED, SWP_NOACTIVATE | SWP_NOZORDER);
+   if(m_navBarState == NavBarState::Class)
+   {
+     m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
+     InvalidateRect(NULL, TRUE);
+   }
+   delete tt;
 }
 
 BEGIN_MESSAGE_MAP(AddClassInfoTreeCtrlClass, CTreeCtrl)
