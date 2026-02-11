@@ -18,21 +18,20 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-bool Split(std::string &aDest, std::string &aSrc, char aDelim)
+bool Split(std::string& _dest, std::string& _src, char _delim)
 {
-   if(aSrc.empty())
+   if(_src.empty())
       return false;
-   std::string::size_type pos = aSrc.find(aDelim);
-   aDest = aSrc.substr(0, pos);
+   std::string::size_type pos = _src.find(_delim);
+   _dest = _src.substr(0, pos);
    if(pos != std::string::npos)
-     aSrc = aSrc.substr(pos + 1);
+     _src = _src.substr(pos + 1);
    else
-     aSrc = "";
-
+     _src = "";
    return true;
 }
 
-bool Parse2(std::string& _str, ParseInfo& _parseInfo);
+bool ParseLine(std::string& _str, ParseInfo& _parseInfo);
 
 TagElemClass::TagElemClass(ParseInfo& _parseInfo, class ReadTagClass *_readTag)
 {
@@ -225,7 +224,7 @@ UINT ThreadReadTagFile(LPVOID rp)
             return 4;
          }
          ParseInfo parseInfo;
-         if (Parse2(line, parseInfo))
+         if (ParseLine(line, parseInfo))
          {
             TagElemClass *tag = new TagElemClass(parseInfo, ReadTag);
             if(ReadParm->m_viewNr)
@@ -392,9 +391,8 @@ int GlobalTagClass::SetTag(const char *name)
   return Tag.m_nr;
 }
 
-void TagClass::HandleTagsRead(ReadTagClass *aReadTag)
+void TagClass::HandleTagsRead(ReadTagClass* _readTag)
 {
-   // auto tStart = GetUSec();
    if(m_tagList)
    {
       if(m_dlg->m_navBarState == m_state)
@@ -402,32 +400,32 @@ void TagClass::HandleTagsRead(ReadTagClass *aReadTag)
       else
         Clear(false);
    }
-   if(aReadTag)
+   if(_readTag)
    {
-      m_tagList = aReadTag->GetTagList();
-      m_fileList = aReadTag->GetFileList();
-      aReadTag->SetFileList(0);
-      aReadTag->SetTagList(0);
+      m_tagList = _readTag->GetTagList();
+      m_fileList = _readTag->GetFileList();
+      _readTag->SetFileList(0);
+      _readTag->SetTagList(0);
       UpdateTagList();
-      if(aReadTag->GetTree())
+      if(_readTag->GetTree())
       {
-         ASSERT(::IsWindow(aReadTag->GetTree()->m_hWnd));
-         m_dlg->SetClassList(aReadTag->GetAddClassInfo(), aReadTag->GetFileList(), aReadTag->GetTree());
-         aReadTag->SetAddClassInfo(0);
-         aReadTag->SetTree(0);
+         ASSERT(::IsWindow(_readTag->GetTree()->m_hWnd));
+         m_dlg->SetClassList(_readTag->GetAddClassInfo(), _readTag->GetFileList(), _readTag->GetTree());
+         _readTag->SetAddClassInfo(0);
+         _readTag->SetTree(0);
       }
-      aReadTag->SetFileList(0);
-      aReadTag->SetTagList(0);
-      delete aReadTag;
- }
-  else
-  {
-     SetStatusText("Failed to build tags");
-  }
+      _readTag->SetFileList(0);
+      _readTag->SetTagList(0);
+      delete _readTag;
+   }
+   else
+   {
+      SetStatusText("Failed to build tags");
+   }
    GetMf()->UpdateViews();
 }
 
-void TagClass::ReadTagFile(const char *aCommand, const char *aFileName, bool aRebuild, bool aAutoBuild)
+void TagClass::ReadTagFile(const char *_command, const char* _fileName, bool _rebuild, bool _autoBuild)
 {
    DWORD ExitCode = ~STILL_ACTIVE;
    if(m_tagThread)
@@ -446,57 +444,58 @@ void TagClass::ReadTagFile(const char *aCommand, const char *aFileName, bool aRe
       delete m_tagThread;
       m_tagThread = 0;
    }
-   ReadTagParmClass *ReadParm = new ReadTagParmClass;
+   ReadTagParmClass* readParm = new ReadTagParmClass;
 
-   if(aAutoBuild)
-     ReadParm->m_priority = IDLE_PRIORITY_CLASS;
+   if(_autoBuild)
+     readParm->m_priority = IDLE_PRIORITY_CLASS;
    else
-     ReadParm->m_priority = NORMAL_PRIORITY_CLASS;
+     readParm->m_priority = NORMAL_PRIORITY_CLASS;
 
-   if(aRebuild)
-     ReadParm->m_command = aCommand;
+   if(_rebuild)
+     readParm->m_command = _command;
 
-   ReadParm->m_fileName = aFileName;
-   ReadParm->m_nr = m_readNr++;
-   ReadParm->m_viewNr = m_viewNr;
-   ReadParm->m_tree = 0;
+   readParm->m_fileName = _fileName;
+   readParm->m_nr = m_readNr++;
+   readParm->m_viewNr = m_viewNr;
+   readParm->m_tree = 0;
    if(m_viewNr != 0)
    {
       if(::IsWindow(m_dlg->m_hWnd))
       {
-         ReadParm->m_tree = new AddClassInfoTreeCtrlClass(m_dlg);
+         readParm->m_tree = new AddClassInfoTreeCtrlClass(m_dlg);
          RECT r = {5, 5, 10, 10};
-         ReadParm->m_tree->CreateEx(WS_EX_CLIENTEDGE,
+         readParm->m_tree->CreateEx(WS_EX_CLIENTEDGE,
                                   // WC_TREEVIEW,
                                   // 0,
                                   TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_DISABLEDRAGDROP | TVS_INFOTIP | WS_CHILD | WS_TABSTOP | TVS_SHOWSELALWAYS,
                                   r,
                                   m_dlg,
                                   m_viewNr);
+         readParm->m_tree->SetFont(&m_dlg->GetListFont());
          m_viewNr++;
          if(m_viewNr > IDB_LIST_TREE_7)
             m_viewNr = IDB_LIST_TREE_1;
       }
       else
       {
-         ReadParm->m_tree = 0;
+         readParm->m_tree = 0;
       }
    }
-   ReadParm->m_readTagsMsgId = m_readTagsMsgId;
-   m_tagThread = AfxBeginThread(ThreadReadTagFile, ReadParm, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
+   readParm->m_readTagsMsgId = m_readTagsMsgId;
+   m_tagThread = AfxBeginThread(ThreadReadTagFile, readParm, THREAD_PRIORITY_LOWEST, 0, CREATE_SUSPENDED);
    m_tagThread->m_bAutoDelete = FALSE;
    m_tagThread->ResumeThread();
 }
 
 void GlobalTagClass::UpdateTagList(void)
 {
-  if(m_dlg->m_navBarState == m_state)
-  {
-    if(m_tagList)
-      m_dlg->m_navigatorList->Setup(m_tagList->GetNofTags(), 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
-    else
-      m_dlg->m_navigatorList->Setup(0, 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
-  }
+   if(m_dlg->m_navBarState == m_state)
+   {
+      if(m_tagList)
+         m_dlg->m_navigatorList->Setup(m_tagList->GetNofTags(), 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
+      else
+         m_dlg->m_navigatorList->Setup(0, 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
+   }
 }
 
 void CurrentTagClass::UpdateTagList(void)
@@ -532,14 +531,14 @@ TagClass::~TagClass()
    Clear(false);
 }
 
-void TagClass::Clear(bool aSetup)
+void TagClass::Clear(bool _setup)
 {
-  delete m_tagList;
-  m_tagList = 0;
-  delete m_fileList;
-  m_fileList = 0;
-  if(aSetup)
-    m_dlg->m_navigatorList->Setup(0, 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
+   delete m_tagList;
+   m_tagList = 0;
+   delete m_fileList;
+   m_fileList = 0;
+   if(_setup)
+      m_dlg->m_navigatorList->Setup(0, 3, m_dlg->m_tagImageList.m_hImageList, wainApp.gs.m_widthRatio);
 }
 
 /* Implementation of TagSetupDialogClass */
@@ -798,54 +797,7 @@ bool TagListClass::IsTag(const char *aWord)
    }
    return false;
 }
-#if 0
-GetTagElemClass* TagListClass::GetClass(const char *aWord)
-{
-   TagElemFindClass TagCompare;
-   TagElemClass ToFind;
-   ToFind.m_tag = aWord;
-   for(char x = 0; x < 2; x++)
-   {
-      char idx = idxToCheck[x];
-      TagListClass::TagVectorIterator Start, End, it;
-      if(m_countOffset.m_offset[idx] >= m_tagVector.size())
-      {
-         Start = m_tagVector.end();
-      }
-      else
-      {
-         Start = m_tagVector.begin() + m_countOffset.m_offset[idx];
-      }
-      if(m_countOffset.m_offset[idx] + m_countOffset.m_count[idx] >= m_tagVector.size())
-      {
-          End = m_tagVector.end();
-      }
-      else
-      {
-         End = m_tagVector.begin() + m_countOffset.m_offset[idx] + m_countOffset.m_count[idx];
-      }
 
-      if((it = std::lower_bound(Start, End, ToFind, TagCompare)) != End)
-      {
-         End = std::upper_bound(Start, End, ToFind, TagCompare);
-         while(it != m_tagVector.end() && it != End)
-         {
-            if((*it)->m_tag == aWord)
-            {
-               return new GetTagElemClass(m_fileList->GetFullName((*it)->m_fileIdx),
-                                          m_fileList->GetShortName((*it)->m_fileIdx),
-                                          (*it)->m_lineNo,
-                                          (*it)->m_tag,
-                                          (*it)->m_indexType,
-                                          (*it)->m_signature);
-            }
-            ++it;
-         }
-      }
-   }
-   return 0;
-}
-#endif
 void ReadTagClass::HandleTyperef(const char* aNewName, const char* aOldName)
 {
    if(m_tagList)
@@ -885,12 +837,11 @@ void TagListClass::Remove(std::string& aName)
          return;
       }
    }
-
 }
 
 void ReadTagClass::PostProcessTyperef()
 {
-    return; //!!
+   return; //!!
    if(!m_addClassInfo)
    {
       return;
@@ -903,14 +854,7 @@ void ReadTagClass::PostProcessTyperef()
    }
 }
 
-void Trim(std::string& _str)
-{
-   size_t last = _str.find_last_not_of(' ');
-   if (last != std::string::npos && last + 1 != _str.size())
-      _str = _str.substr(0, last + 1);
-}
-
-bool Parse2(std::string& _str, ParseInfo& _parseInfo)
+bool ParseLine(std::string& _str, ParseInfo& _parseInfo)
 {
    std::string tmp;
    if (!Split(_parseInfo.m_name, _str, '\t'))

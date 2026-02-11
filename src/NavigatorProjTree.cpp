@@ -122,9 +122,11 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
    }
    const NavTreeInfo* itemInfo = GetItemInfo(item);
    int32_t index = itemInfo->m_index;
-   if (!_direction &&  MyStrIStr(m_fileList[index].m_shortName.c_str(), _text))
+   std::string xx = m_fileList[index].m_shortName;
+   if (MyStrIStr(itemInfo->m_shortName.c_str(), _text))
    {
       // The text still match, just stay where we are
+      SetStatusText("Still match at index %d, dir %d, %s", index, _direction, xx.c_str());
       return true;
    }
    if (!_direction)
@@ -138,7 +140,7 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
       {
          SelectItem(info.m_hTreeItem);
          EnsureVisible(info.m_hTreeItem);
-         SetStatusText("Found Forward: %d %d", startIndex, index);
+         SetStatusText("Found Forward: start %d, index %d, dir %d, %s %s", startIndex, index, _direction, xx.c_str(), info.m_shortName.c_str());
          return true;
       }
    }
@@ -154,7 +156,7 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
       {
          SelectItem(info.m_hTreeItem);
          EnsureVisible(info.m_hTreeItem);
-         SetStatusText("Found Back: %d %d", startIndex, index);
+         SetStatusText("Found Back: start %d, index %d, dir %d, %s %s", startIndex, index, _direction, xx.c_str(), info.m_shortName.c_str());
          return true;
       }
    }

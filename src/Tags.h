@@ -167,12 +167,12 @@ public:
 
    TagListClass()
    {
-     memset(&m_countOffset, 0, sizeof(m_countOffset));
+      memset(&m_countOffset, 0, sizeof(m_countOffset));
    };
    ~TagListClass()
    {
       for(TagVectorSizeType i = 0; i < m_tagVector.size(); i++)
-        delete m_tagVector[i];
+         delete m_tagVector[i];
    }
 
    const TagElemClass &Get(TagVectorSizeType aIdx) const
@@ -197,7 +197,7 @@ public:
    bool FindClass(TagElemClass &Tag, const char *word);
 
    bool IsTag(const char *word);
-   // GetTagElemClass* GetClass(const char *aWord);
+
    void Remove(std::string& aName);
 
 private:

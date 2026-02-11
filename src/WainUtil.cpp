@@ -72,3 +72,8 @@ uint64_t GetUSec()
 {
    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
+
+uint64_t GetMSec()
+{
+   return GetUSec() / 1000;
+}

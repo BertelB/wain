@@ -174,6 +174,7 @@ private:
    CFont m_listFont;
    RECT GetListTreeRect();
 public:
+   CFont& GetListFont() { return m_listFont; }
    void OpenDirForFile(const char* _filename);
    void OpenProjectForFile(const char* _filename);
    void SetClassList(AddClassInfoListClass *aAddInfo, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView);

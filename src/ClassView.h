@@ -87,8 +87,8 @@ class AddClassInfoListClass
 public:
    AddClassInfoListClass();
    ~AddClassInfoListClass();
-   AddClassElementInfoClass *Add(const std::string &aClassName, const std::string &aTagName, TagIndexType _indexType, int aFileNo, int aLineNo, bool aIsStruct);
-   void SetClassInfo(const std::string &aClassName, int aFileNo, int aLineNo, bool aIsStruct);
+   AddClassElementInfoClass *Add(const std::string& _className, const std::string& _tagName, TagIndexType _indexType, int _fileNo, int _lineNo, bool _isStruct);
+   void SetClassInfo(const std::string& _className, int _fileNo, int _lineNo, bool _isStruct);
    AddClassInfoClass* FindClass(const std::string& _className);
 
    void Sort(void);
@@ -105,7 +105,7 @@ class AddClassView
 public:
    AddClassView();
    ~AddClassView();
-   void SetList(AddClassInfoListClass *aAddInfo_, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView);
+   void SetList(AddClassInfoListClass* _addInfo, TagFileList* _fileList, AddClassInfoTreeCtrlClass* _view);
 
    void Clear();
    void ClearTree();

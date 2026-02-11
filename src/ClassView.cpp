@@ -233,7 +233,7 @@ void AddClassElementInfoClass::SetSignature(const std::string &aStr)
 
 void NavigatorDialog::SetClassList(AddClassInfoListClass *aAddInfo, TagFileList *aFileList, AddClassInfoTreeCtrlClass *aView)
 {
-   aView->SetFont(&m_listFont);
+   // aView->SetFont(&m_listFont);
    m_addClassView.SetList(aAddInfo, aFileList, aView);
    CTreeCtrl *tt = m_classViewTree;
    m_classViewTree = aView;
@@ -277,6 +277,7 @@ AddClassInfoTreeCtrlClass::AddClassInfoTreeCtrlClass(class NavigatorDialog *Pare
    m_addClassView = 0;
    m_accHandle = LoadAccelerators(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDB_LIST_TREE));
    m_dlg = Parent;
+   // SetFont(&m_dlg->GetListFont());
 }
 
 void AddClassInfoTreeCtrlClass::OnInfoTip(NMTVGETINFOTIP *InfoTip)

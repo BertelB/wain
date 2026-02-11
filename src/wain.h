@@ -77,4 +77,5 @@ public:
 
 extern WainApp wainApp;
 extern uint64_t GetUSec();
+extern uint64_t GetMSec();
 #endif
