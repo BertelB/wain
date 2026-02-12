@@ -121,12 +121,16 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
       return false;
    }
    const NavTreeInfo* itemInfo = GetItemInfo(item);
+   while (itemInfo->m_entryType == NavTreeInfo::EntryType::Folder)
+   {
+      item = GetChildItem(item);
+      itemInfo = GetItemInfo(item);
+   }
    int32_t index = itemInfo->m_index;
-   std::string xx = m_fileList[index].m_shortName;
-   if (MyStrIStr(itemInfo->m_shortName.c_str(), _text))
+   if (_direction == 0 && MyStrIStr(itemInfo->m_shortName.c_str(), _text))
    {
       // The text still match, just stay where we are
-      SetStatusText("Still match at index %d, dir %d, %s", index, _direction, xx.c_str());
+      SetStatusText("Still match at index %d, dir %d", index, _direction);
       return true;
    }
    if (!_direction)
@@ -140,7 +144,7 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
       {
          SelectItem(info.m_hTreeItem);
          EnsureVisible(info.m_hTreeItem);
-         SetStatusText("Found Forward: start %d, index %d, dir %d, %s %s", startIndex, index, _direction, xx.c_str(), info.m_shortName.c_str());
+         SetStatusText("Found Forward: start %d, index %d, dir %d", startIndex, index, _direction);
          return true;
       }
    }
@@ -156,7 +160,7 @@ int NavigatorProjectTree::DoSearch(int _direction, const char* _text, bool _rese
       {
          SelectItem(info.m_hTreeItem);
          EnsureVisible(info.m_hTreeItem);
-         SetStatusText("Found Back: start %d, index %d, dir %d, %s %s", startIndex, index, _direction, xx.c_str(), info.m_shortName.c_str());
+         SetStatusText("Found Back: start %d, index %d, dir %d", startIndex, index, _direction);
          return true;
       }
    }
@@ -307,6 +311,20 @@ void NavigatorProjectTree::EndUpdate()
    {
       return _a.m_shortName < _b.m_shortName;
    });
+   for (uint32_t i = 0; i < m_fileList.size(); i++)
+   {
+      TVITEM tvItem;
+      tvItem.hItem = m_fileList[i].m_hTreeItem;
+      tvItem.mask = TVIF_PARAM;
+      if(GetItem(&tvItem))
+      {
+         NavTreeInfo* e = (NavTreeInfo*)tvItem.lParam;
+         if (e->m_entryType == NavTreeInfo::EntryType::File)
+         {
+            e->m_index = i;
+         }
+      }
+   }
    ExpandTree(GetRootItem(), 0);
 }
 
@@ -323,19 +341,19 @@ void NavigatorProjectTree::Select(const char* _fileName)
    }
 }
 
-void NavigatorProjectTree::ExpandTree(HTREEITEM item, uint32_t _level)
+void NavigatorProjectTree::ExpandTree(HTREEITEM _item, uint32_t _level)
 {
-   while(item && _level < 3)
+   while(_item && _level < 3)
    {
       TVITEM tvItem;
-      tvItem.hItem = item;
+      tvItem.hItem = _item;
       tvItem.mask = TVIF_PARAM;
       if(GetItem(&tvItem))
       {
-         Expand(item, TVE_EXPAND);
-         ExpandTree(GetChildItem(item), _level + 1);
+         Expand(_item, TVE_EXPAND);
+         ExpandTree(GetChildItem(_item), _level + 1);
       }
-      item = GetNextSiblingItem(item);
+      _item = GetNextSiblingItem(_item);
    }
 }
 

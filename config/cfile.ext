@@ -43,7 +43,7 @@ StringsText: 0x909000
 StringsBackGround: 0xFFFFFF
 NumbersText: 0xFF00FF
 NumbersBackGround: 0xFFFFFF
-TagsText: 0x800000
+TagsText: 0xC80000
 TagsBackGround: 0xFFFFFF
 WordsText: 0x000000
 WordsBackGround: 0x40FFFF
