@@ -470,7 +470,10 @@ void WainView::PutText(CDC *dc, TxtLine *line, int y)
    #define SET_C(col) \
      dc->SetTextColor(col.m_textColor); \
      dc->SetBkColor(col.m_backColor)
-
+   if (m_skipDraw)
+   {
+      return;
+   }
    WainDoc *doc = GetDocument();
    const DocPropClass* Prop = doc->m_prop;
    BOOL rel = FALSE;
@@ -841,26 +844,29 @@ void WainView::PlaybackMacro(void)
 
 void WainView::HandleMacroRepeat(void)
 {
-  if(GetMf()->m_macroList.m_recording)
-  {
-    SetStatusText("Can't playback a macro while recording");
-    return;
-  }
-  SimpleDialog sd("Repeat Macro:", "", this);
-  if(sd.DoModal() == IDOK)
-  {
-    int count;
-    count = strtol(sd.m_msg, NULL, 0);
-    while(count-- > 0)
-    {
-      MacroPlayback();
-      if(GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+   if(GetMf()->m_macroList.m_recording)
+   {
+      SetStatusText("Can't playback a macro while recording");
+      return;
+   }
+   SimpleDialog sd("Repeat Macro:", "", this);
+   if(sd.DoModal() == IDOK)
+   {
+      int count = strtol(sd.m_msg, NULL, 0);
+      m_skipDraw = true;
+      while(count-- > 0)
       {
-        SetStatusText("User abort");
-        return;
+         MacroPlayback();
+         if(GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+         {
+            SetStatusText("User abort");
+            m_skipDraw = false;
+            return;
+         }
       }
-    }
-  }
+      m_skipDraw = false;
+      UpdateAll();
+   }
 }
 
 void WainView::MacroPlayback(void)

@@ -414,7 +414,7 @@ void WainDoc::Reset(void)
   m_lineCount = 0;
 }
 
-bool WainDoc::ReadFile(const char *file_name)
+bool WainDoc::ReadFile(const char* _fileName)
 {
    if (m_earlyExit)
       return false;
@@ -425,11 +425,11 @@ bool WainDoc::ReadFile(const char *file_name)
    if(!m_file)
    {
      if(m_isFtpFile)
-       m_file = new InetFileClass(file_name, GENERIC_READ);
+       m_file = new InetFileClass(_fileName, GENERIC_READ);
      else if(m_isDebugFile && !m_readAsStdioFile)
-       m_file = new DebugFileClass(file_name, GENERIC_READ);
+       m_file = new DebugFileClass(_fileName, GENERIC_READ);
      else
-       m_file = new StdioFileClass(file_name, GENERIC_READ);
+       m_file = new StdioFileClass(_fileName, GENERIC_READ);
 
      if(m_file->Error())
      {
@@ -509,12 +509,12 @@ bool WainDoc::ReadFile(const char *file_name)
    return true;
 }
 
-BOOL WainDoc::OnOpenDocument(LPCTSTR path_name)
+BOOL WainDoc::OnOpenDocument(LPCTSTR _pathName)
 {
   if (!CDocument::OnNewDocument())
     return FALSE;
-  TRACE("Opening: %s\n", path_name);
-  GetExtType(path_name, FALSE);
+  TRACE("Opening: %s\n", _pathName);
+  GetExtType(_pathName, FALSE);
   POSITION pos = GetFirstViewPosition();
   WainView *view = NULL;
   while(pos != NULL)
@@ -530,12 +530,12 @@ BOOL WainDoc::OnOpenDocument(LPCTSTR path_name)
   m_view = view;
   m_view->SetDocument(this);
 
-  if(!m_newFile && !ReadFile(path_name))
+  if(!m_newFile && !ReadFile(_pathName))
     return FALSE;
   if(m_newFile)
     *this += "";
 
-  SetReadOnly(IsFileReadOnly(path_name));
+  SetReadOnly(IsFileReadOnly(_pathName));
 
   if(m_newFile)
     SetReadOnly(false);

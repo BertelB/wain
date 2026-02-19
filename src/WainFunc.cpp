@@ -149,6 +149,7 @@ BOOL WainView::ReplaceFunc(const char *_string[], unsigned int flags)
       flags &= ~REPLACE_ALL;
       do
       {
+         m_skipDraw = true;
          if(m_markType != CUA_MARK && !SearchFunc(_string[0], flags))
          {
             UpdateAll();
@@ -173,6 +174,7 @@ BOOL WainView::ReplaceFunc(const char *_string[], unsigned int flags)
          flags &= ~SEARCH_FIRST;
       }
       while(SearchFunc(_string[0], flags) && (!(GetAsyncKeyState(VK_ESCAPE) & 0x8000)));
+      m_skipDraw = false;
       UpdateAll();
       return false;
   }

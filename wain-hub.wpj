@@ -61,16 +61,16 @@
 !TagOptions -u --c-kinds=+px-n --fields=+Si "-L$X$"
 !TagProgram c:\bkb\uctags\ctags.exe
 !ExeDefault 0
-!FirstFile 3
+!FirstFile 69
 !MakeDefault 1
 !TrackTags 0
 !Makeoptions Stdout Stderr Dos Save RunLow
 !Exeoptions Stdout Stderr Dos RunLow
-!FirstFile 3
+!FirstFile 69
 "C:\bkb\wain.hub\src\ChildFrm.cpp" -1
 "C:\bkb\wain.hub\src\ChildFrm.h" -1
 "C:\bkb\wain.hub\src\ClassList.cpp" -1
-"C:\bkb\wain.hub\src\ClassView.cpp" 428
+"C:\bkb\wain.hub\src\ClassView.cpp" 0
 "C:\bkb\wain.hub\src\ClassView.h" 12
 "C:\bkb\wain.hub\src\Config.h" -1
 "C:\bkb\wain.hub\src\DialogBase.h" 266
@@ -88,7 +88,7 @@
 "C:\bkb\wain.hub\src\Line.h" 34
 "C:\bkb\wain.hub\src\Macro.cpp" 0
 "C:\bkb\wain.hub\src\Macro.h" 0
-"C:\bkb\wain.hub\src\MainFrm.cpp" 1006
+"C:\bkb\wain.hub\src\MainFrm.cpp" 119
 "C:\bkb\wain.hub\src\MainFrm.h" 208
 "C:\bkb\wain.hub\src\NavigatorDlg.cpp" 1586
 "C:\bkb\wain.hub\src\NavigatorDlg.h" 175
@@ -111,11 +111,11 @@
 "C:\bkb\wain.hub\src\RegExp.cpp" -1
 "C:\bkb\wain.hub\src\RegExp.h" -1
 "C:\bkb\wain.hub\src\Resource.h" -1
-"C:\bkb\wain.hub\src\Search.cpp" 849
+"C:\bkb\wain.hub\src\Search.cpp" 877
 "C:\bkb\wain.hub\src\SimpleDialog.cpp" -1
 "C:\bkb\wain.hub\src\SimpleDialog.h" -1
 "C:\bkb\wain.hub\src\StdAfx.cpp" -1
-"C:\bkb\wain.hub\src\stdafx.h" 48
+"C:\bkb\wain.hub\src\stdafx.h" 19
 "C:\bkb\wain.hub\src\TabView.cpp" -1
 "C:\bkb\wain.hub\src\TabView.h" -1
 "C:\bkb\wain.hub\src\TagIndexType.h" 2
@@ -136,19 +136,19 @@
 "C:\bkb\wain.hub\src\wain.h" 77
 "C:\bkb\wain.hub\src\Wain.rc" -1
 "C:\bkb\wain.hub\src\WainCfg.h" -1
-"C:\bkb\wain.hub\src\WainDoc.cpp" 846
-"C:\bkb\wain.hub\src\WainDoc.h" 66
+"C:\bkb\wain.hub\src\WainDoc.cpp" 1467
+"C:\bkb\wain.hub\src\WainDoc.h" 27
 "C:\bkb\wain.hub\src\WainDocUtil.h" -1
 "C:\bkb\wain.hub\src\WainEdit.cpp" -1
 "C:\bkb\wain.hub\src\WainFile.h" -1
 "C:\bkb\wain.hub\src\WainFTP.cpp" 147
-"C:\bkb\wain.hub\src\WainFunc.cpp" 1735
+"C:\bkb\wain.hub\src\WainFunc.cpp" 1771
 "C:\bkb\wain.hub\src\WainMark.cpp" -1
-"C:\bkb\wain.hub\src\WainSearch.h" 50
+"C:\bkb\wain.hub\src\WainSearch.h" 65
 "C:\bkb\wain.hub\src\WainUtil.cpp" 77
 "C:\bkb\wain.hub\src\WainUtil.h" 39
-"C:\bkb\wain.hub\src\WainView.cpp" 1641
-"C:\bkb\wain.hub\src\WainView.h" 548
+"C:\bkb\wain.hub\src\WainView.cpp" 870
+"C:\bkb\wain.hub\src\WainView.h" 341
 "C:\bkb\wain.hub\src\WordListDialog.cpp" 320
 "C:\bkb\wain.hub\src\WordListDialog.h" -1
 "C:\bkb\wain.hub\src\WordListThread.cpp" 141
