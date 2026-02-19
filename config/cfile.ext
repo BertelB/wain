@@ -323,6 +323,7 @@ false
 find
 find_first_not_of
 find_first_of
+find_if
 find_last_of
 first
 fixed

@@ -61,7 +61,7 @@
 !TagOptions -u --c-kinds=+px-n --fields=+Si "-L$X$"
 !TagProgram c:\bkb\uctags\ctags.exe
 !ExeDefault 0
-!FirstFile 54
+!FirstFile 3
 !MakeDefault 1
 !TrackTags 0
 !Makeoptions Stdout Stderr Dos Save RunLow
@@ -70,9 +70,9 @@
 "C:\bkb\wain.hub\src\ChildFrm.cpp" -1
 "C:\bkb\wain.hub\src\ChildFrm.h" -1
 "C:\bkb\wain.hub\src\ClassList.cpp" -1
-"C:\bkb\wain.hub\src\ClassView.cpp" 33
-"C:\bkb\wain.hub\src\ClassView.h" 106
-"C:\bkb\wain.hub\src\Config.h" 117
+"C:\bkb\wain.hub\src\ClassView.cpp" 428
+"C:\bkb\wain.hub\src\ClassView.h" 12
+"C:\bkb\wain.hub\src\Config.h" -1
 "C:\bkb\wain.hub\src\DialogBase.h" 266
 "C:\bkb\wain.hub\src\DockBar.cpp" -1
 "C:\bkb\wain.hub\src\DockBar.h" -1
@@ -90,14 +90,14 @@
 "C:\bkb\wain.hub\src\Macro.h" 0
 "C:\bkb\wain.hub\src\MainFrm.cpp" 1006
 "C:\bkb\wain.hub\src\MainFrm.h" 208
-"C:\bkb\wain.hub\src\NavigatorDlg.cpp" 329
+"C:\bkb\wain.hub\src\NavigatorDlg.cpp" 1586
 "C:\bkb\wain.hub\src\NavigatorDlg.h" 175
 "C:\bkb\wain.hub\src\NavigatorDlgType.h" 10
 "C:\bkb\wain.hub\src\NavigatorFile.cpp" 24
 "C:\bkb\wain.hub\src\NavigatorList.cpp" 204
 "C:\bkb\wain.hub\src\NavigatorList.h" -1
-"C:\bkb\wain.hub\src\NavigatorProjTree.cpp" 94
-"C:\bkb\wain.hub\src\NavigatorProjTree.h" -1
+"C:\bkb\wain.hub\src\NavigatorProjTree.cpp" 308
+"C:\bkb\wain.hub\src\NavigatorProjTree.h" 28
 "C:\bkb\wain.hub\src\PageDlg.cpp" 546
 "C:\bkb\wain.hub\src\PageDlg.h" -1
 "C:\bkb\wain.hub\src\Print.cpp" -1
@@ -148,7 +148,7 @@
 "C:\bkb\wain.hub\src\WainUtil.cpp" 77
 "C:\bkb\wain.hub\src\WainUtil.h" 39
 "C:\bkb\wain.hub\src\WainView.cpp" 1641
-"C:\bkb\wain.hub\src\WainView.h" 543
+"C:\bkb\wain.hub\src\WainView.h" 548
 "C:\bkb\wain.hub\src\WordListDialog.cpp" 320
 "C:\bkb\wain.hub\src\WordListDialog.h" -1
 "C:\bkb\wain.hub\src\WordListThread.cpp" 141
