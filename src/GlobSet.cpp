@@ -521,7 +521,7 @@ bool GlobalSettingsClass::ReadProfile()
 
   sprintf(file_name, "%s*.ext", m_configPath);
   struct _finddata_t find_data;
-  long handle = _findfirst(file_name, &find_data);
+  intptr_t handle = _findfirst(file_name, &find_data);
   char path_name[_MAX_PATH];
   if(handle != -1)
   {
@@ -722,7 +722,18 @@ bool GlobalSettingsClass::ReadProfile()
   m_tvcColor[TVC_CHANGED_SAVED].m_backColor = wainApp.GetProfileInt("TabView", "SavedBack", RGB(240, 255, 240));
   m_tvcColor[TVC_BOOKMARK].m_textColor = wainApp.GetProfileInt("TabView", "BookmarkText", RGB(80, 80, 0));
   m_tvcColor[TVC_BOOKMARK].m_backColor = wainApp.GetProfileInt("TabView", "BookmarkBack", RGB(255, 160, 255));
-
+#if 1
+  std::ifstream dictionaryFile(std::string(m_configPath) + "\\words_alpha.txt");
+  if (dictionaryFile)
+  {
+     m_dictionary.resize(500000);
+     uint32_t x;
+     for (x = 0; x < 500000 && getline(dictionaryFile, m_dictionary[x]); x++)
+     {
+     }
+     m_dictionary.resize(x);
+  }
+#endif
   return first_time;
 }
 
@@ -1145,7 +1156,7 @@ void GlobalSettingsClass::WriteExtFile(const char *aFileName, DocPropClass *aDoc
 
   for(i = 0; i < 5; i++)
   {
-    fprintf(f, "[Keyword %d]\n", i);
+    fprintf(f, "[Keyword %lld]\n", i);
     for(size_t j = 0; j < aDocProp->m_keyWordList[i].size(); j++)
       fprintf(f, "%s\n", aDocProp->m_keyWordList[i][j].c_str());
   }
@@ -1418,7 +1429,7 @@ int GlobalSettingsClass::GetPropIndex(const char* _file, const char* _ext)
    if(*_ext == '.')
       _ext++;
 
-   for(size_t i = 1; i < m_docProp.size(); i++)
+   for(int i = 1; i < m_docProp.size(); i++)
    {
       StrSplitterClass Splitter(m_docProp[i]->m_extensions);
       std::string Part;

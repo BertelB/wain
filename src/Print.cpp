@@ -284,7 +284,7 @@ void WainView::PrintHeader(CDC *dc, int CharWidthidth, int LineHeighteight, int 
               underline = !underline;
               break;
             default:
-              j = strlen(p_buf);
+              j = Strlen32(p_buf);
               p_buf[j++] = f_buf[i];
               p_buf[j] = 0;
               break;
@@ -292,7 +292,7 @@ void WainView::PrintHeader(CDC *dc, int CharWidthidth, int LineHeighteight, int 
         }
         else
         {
-          j = strlen(p_buf);
+          j = Strlen32(p_buf);
           p_buf[j++] = f_buf[i];
           p_buf[j] = 0;
         }
@@ -304,18 +304,18 @@ void WainView::PrintHeader(CDC *dc, int CharWidthidth, int LineHeighteight, int 
       dc->SetTextColor(RGB(0, 0, 0));
       if(state == 0)
       { /* Left */
-        dc->TextOut(left_margin, y_pos, p_buf, strlen(p_buf));
+        dc->TextOut(left_margin, y_pos, p_buf, Strlen32(p_buf));
       }
       else if(state == 1)
       { /* Mid */
-        int p_pos = nof_chars/2 - strlen(p_buf)/2;
+        int p_pos = nof_chars/2 - Strlen32(p_buf)/2;
         p_pos += left_margin/(2*CharWidthidth);
-        dc->TextOut(CharWidthidth*p_pos, y_pos, p_buf, strlen(p_buf));
+        dc->TextOut(CharWidthidth*p_pos, y_pos, p_buf, Strlen32(p_buf));
       }
       else
       { /* Right */
-        int p_pos = nof_chars - strlen(p_buf);
-        dc->TextOut(p_pos*CharWidthidth, y_pos, p_buf, strlen(p_buf));
+        int p_pos = nof_chars - Strlen32(p_buf);
+        dc->TextOut(p_pos*CharWidthidth, y_pos, p_buf, Strlen32(p_buf));
       }
     }
     state++;
@@ -382,7 +382,7 @@ int WainView::PrintText(CDC *dc, TxtLine *line, int y, int CharWidthidth, int Li
     char LineNo_str[32];
     sprintf(LineNo_str, "%*d: ", max_line, cl);
     dc->SetTextColor(RGB(0, 0, 0));
-    ::TextOut(dc->m_hDC, text_pos, Y_OFFSET, LineNo_str, strlen(LineNo_str));
+    ::TextOut(dc->m_hDC, text_pos, Y_OFFSET, LineNo_str, Strlen32(LineNo_str));
     text_pos += CharWidthidth*(max_line + 2);
   }
 

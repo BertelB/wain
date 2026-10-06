@@ -109,7 +109,7 @@ public:
   std::string m_timeSep;
   std::string m_userId;
   ColorType m_printingColor[NOF_KEY_INDEX];
-
+  std::vector<std::string> m_dictionary;
   std::string m_projectExtension;
 
   enum TVCColorIndexType

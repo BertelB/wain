@@ -85,7 +85,7 @@ void TabViewClass::OnPaint(void)
     R.bottom = R.top + m_wainView->m_lineHeight;
     R.right = cr.right;
     dc.FillSolidRect(&R, wainApp.gs.m_tvcColor[ColorIdx].m_backColor);
-    TextOut(dc.m_hDC, 5, i*m_wainView->m_lineHeight - y_off, temp, strlen(temp));
+    TextOut(dc.m_hDC, 5, i*m_wainView->m_lineHeight - y_off, temp, Strlen32(temp));
     if(l)
       l = doc->GetNext(l);
   }

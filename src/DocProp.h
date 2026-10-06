@@ -49,9 +49,9 @@ extern int KeywordICaseSortFunc(const void *p1, const void *p2);
 class ColorEditBaseClass : public CEdit
 {
 public:
-   class ColorDialogBaseClass *m_dlg;
-   CFont *m_font;
-   bool m_init;
+   class ColorDialogBaseClass *m_dlg = 0;
+   CFont *m_font = 0;
+   bool m_init = false;
    ColorEditBaseClass() : m_init(false) {}
 };
 

@@ -466,7 +466,8 @@
 #define IDV_MARK_ALL_WORDS_OFF          (IDM_FIRST_VIEW_ID + 122)
 #define IDV_OPEN_PROJECT_FOR_FILE       (IDM_FIRST_VIEW_ID + 123)
 #define IDV_SWITCH_CPP_H                (IDM_FIRST_VIEW_ID + 124)
-#define LAST_DISP_VAL                   (IDM_FIRST_VIEW_ID + 125)
+#define IDV_SPELL_CHECK_WORD            (IDM_FIRST_VIEW_ID + 125)
+#define LAST_DISP_VAL                   (IDM_FIRST_VIEW_ID + 126)
 
 #define ID_PUT_CHAR                     (IDM_FIRST_VIEW_ID + 128)
 #define ID_TAG_LIST                     (IDM_FIRST_VIEW_ID + 129)

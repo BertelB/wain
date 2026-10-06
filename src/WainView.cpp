@@ -265,6 +265,7 @@ WainView::WainView() :
     DISPATCHER_ENTRY(IDV_OPEN_DIR_FOR_FILE,  OpenDirForFile);
     DISPATCHER_ENTRY(IDV_OPEN_PROJECT_FOR_FILE,  OpenProjectForFile);
     DISPATCHER_ENTRY(IDV_SWITCH_CPP_H,       SwitchCppH);
+    DISPATCHER_ENTRY(IDV_SPELL_CHECK_WORD,   SpellCheckWord);
     DISPATCHER_ENTRY(IDV_MARK_ALL_WORDS,     MarkSimilarWords);
     DISPATCHER_ENTRY(IDV_MARK_ALL_WORDS_TOGGLE,  MarkSimilarWordsToggle);
     DISPATCHER_ENTRY(IDV_MARK_ALL_WORDS_OFF,     MarkSimilarWordsOff);
@@ -1764,7 +1765,7 @@ BOOL WainView::OnSetCursor(CWnd *wnd, UINT hit_test, UINT message)
 void WainView::ViewPopupMenu(void)
 {
   POINT p;
-  GetPopupPos(&p, wainApp.gs.m_popupMenu.size());
+  GetPopupPos(&p, int(wainApp.gs.m_popupMenu.size()));
   DoViewPopupMenu(&p);
 }
 

@@ -57,7 +57,7 @@ class ToolClass
 public:
   void ReadToolFile(void);
   void WriteToolFile(void);
-  unsigned int m_timerId;
+  UINT_PTR m_timerId;
   void Activate(void);
   void DeActivate(void);
   ToolClass(CWnd *aParrent);

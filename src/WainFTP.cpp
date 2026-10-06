@@ -60,7 +60,7 @@ public:
 protected:
   virtual BOOL OnInitDialog(void);
   afx_msg void OnCancel(void);
-  afx_msg void OnTimer(UINT timer_id);
+  afx_msg void OnTimer(UINT_PTR timer_id);
   DECLARE_MESSAGE_MAP();
 };
 
@@ -163,7 +163,7 @@ void FtpWaitDialogClass::OnCancel(void)
   EndDialog(IDCANCEL);
 }
 
-void FtpWaitDialogClass::OnTimer(UINT id)
+void FtpWaitDialogClass::OnTimer(UINT_PTR id)
 {
   ASSERT(id == IDC_FTP_WAIT_TIMER);
   if(m_count++ == 4)
@@ -472,7 +472,7 @@ bool InetFileClass::Write(const char *s)
   }
   try
   {
-    m_inetFile->Write(s, len);
+    m_inetFile->Write(s, static_cast<int>(len));
   }
   catch (CInternetException *ex)
   {

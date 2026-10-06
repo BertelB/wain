@@ -27,8 +27,8 @@ public:
    DECLARE_MESSAGE_MAP();
 private:
    void DoPopUp(HTREEITEM item, POINT p);
-   unsigned int m_memberIndex;
-   unsigned int m_classIndex;
+   uint64_t m_memberIndex;
+   uint64_t m_classIndex;
    class NavigatorDialog *m_dlg;
    bool UpdateIndex();
 };
@@ -49,7 +49,7 @@ public:
    int  m_lineNo;
    std::string m_tag;
    std::string m_signature;
-   char m_type;
+   char m_type = ' ';
    TagIndexType m_indexType;
 };
 
@@ -79,7 +79,7 @@ public:
   int  m_fileIdx;
   int  m_lineNo;
   bool m_isStruct;
-  HTREEITEM m_treeItem;
+  HTREEITEM m_treeItem = 0;
 };
 
 class AddClassInfoListClass

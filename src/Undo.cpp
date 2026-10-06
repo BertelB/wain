@@ -276,7 +276,7 @@ void WainView::Undo(void)
           TxtLine *l;
           l = m_doc->GetLineNo(tp->m_y);
           ASSERT(l);
-          l->InsertAt(tp->m_x, tp->m_text, strlen(tp->m_text));
+          l->InsertAt(tp->m_x, tp->m_text, static_cast<int32_t>(strlen(tp->m_text)));
           redraw_all = TRUE;
           break;
         case UNDO_INSERT_LINE_ENTRY:

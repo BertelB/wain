@@ -1169,7 +1169,7 @@ void NavigatorDialog::HandleListCtrlPageUp(void)
   }
 }
 
-void NavigatorDialog::OnTimer(UINT _timerId)
+void NavigatorDialog::OnTimer(UINT_PTR _timerId)
 //  Description:
 //    Timer message handler
 //  Parameters:
@@ -1365,7 +1365,7 @@ void NavigatorDialog::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT draw_item_struct)
    dr = draw_item_struct->rcItem;
    dr.left += 4;
    dr.top += 3;
-   ::DrawText(draw_item_struct->hDC, item.pszText, strlen(item.pszText), dr, 0);
+   ::DrawText(draw_item_struct->hDC, item.pszText, Strlen32(item.pszText), dr, 0);
 }
 
 void NavigatorDialog::DoSearch(int _from, int _direction, bool _force, bool _reset, int _offset)

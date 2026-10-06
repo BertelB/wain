@@ -5,8 +5,8 @@
 #ifndef KEYSETUP_H_INC
 #define KEYSETUP_H_INC
 
-extern BOOL ReadKeySetupFile(const char *file_name, ACCEL *ac, size_t *nof_entrys);
-extern BOOL WriteKeySetupFile(const char *file_name, ACCEL *ac, size_t nof_entrys);
+extern BOOL ReadKeySetupFile(const char *file_name, ACCEL *ac, uint32_t *nof_entrys);
+extern BOOL WriteKeySetupFile(const char *file_name, ACCEL *ac, uint32_t nof_entrys);
 extern const char *MsgId2FuncName(WORD id);
 extern WORD FuncName2MsgId(const char *name);
 extern void KeyState2MenuString(char *text, WORD key, BYTE flags);
@@ -20,8 +20,8 @@ class KeySetupDialogClass : public CDialog
 public:
   ACCEL *m_orgAccel;
   ACCEL m_accel[MAX_NOF_ACCELERATORS];
-  size_t m_nofAccel;
-  int m_orgNofAccel;
+  uint32_t m_nofAccel;
+  uint32_t m_orgNofAccel;
   KeySetupDialogClass(CWnd *parent = NULL);
   enum {IDD = IDD_KEY_SETUP};
   CString m_currKeyFile;

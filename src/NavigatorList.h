@@ -19,7 +19,7 @@ public:
   int m_columnWidthRatio;
   NavigatorList(void *dialog);
   ~NavigatorList();
-  void Setup(int NofItems, int nof_columns, HIMAGELIST image_list, int width_ratio = 50);
+  void Setup(uint32_t _nofItems, int nof_columns, HIMAGELIST image_list, int width_ratio = 50);
   void UpdateIcons(HIMAGELIST image_list);
   void SetNewFont(void);
   HIMAGELIST m_iconList;

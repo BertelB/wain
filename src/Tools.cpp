@@ -224,7 +224,7 @@ void MainFrame::ToolSetup(void)
 
 void MainFrame::RunTool(UINT id)
 {
-   size_t index = size_t(id - IDM_RUN_TOOL_0);
+   uint32_t index = id - IDM_RUN_TOOL_0;
    std::string OutFile("");
 
    if(index >= wainApp.gs.m_toolParm.Size())
@@ -414,7 +414,7 @@ bool ProcessClass::Run(void)
     {
       t = "Wain Tool output file - Command:\n";
       WriteFile(m_stdoutHandle, t, t.GetLength(), &wc, NULL);
-      WriteFile(m_stdoutHandle, m_command.c_str(), m_command.size(), &wc, NULL);
+      WriteFile(m_stdoutHandle, m_command.c_str(), uint32_t(m_command.size()), &wc, NULL);
       t = "\n-----------------------------------------------------------------------------------------------------------------------\n";
       WriteFile(m_stdoutHandle, t, t.GetLength(), &wc, NULL);
     }
@@ -582,6 +582,6 @@ void MainFrame::SendToolCmd()
       std::string Msg = Dialog.m_msg;
       Msg += "\r\n";
       DWORD Dummy;
-      WriteFile(Process->m_stdinHandle, Msg.c_str(), Msg.size(), &Dummy, 0);
+      WriteFile(Process->m_stdinHandle, Msg.c_str(), static_cast<uint32_t>(Msg.size()), &Dummy, 0);
    }
 }

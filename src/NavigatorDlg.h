@@ -200,8 +200,8 @@ public:
 
    HIMAGELIST m_sysImageList;
    CImageList m_tagImageList;
-   UINT m_tagRebuildTimerId;
-   UINT m_autoTagFileTimer;
+   UINT_PTR m_tagRebuildTimerId;
+   UINT_PTR m_autoTagFileTimer;
    int  m_autoTagFileCount;
 
    HdDirClass m_hdDir;
@@ -261,7 +261,7 @@ protected:
    afx_msg void TagSetup(void);
    afx_msg void HandleFtpConnectionection(void);
    afx_msg void ChangeDisk(void);
-   afx_msg void OnTimer(UINT timer_id);
+   afx_msg void OnTimer(UINT_PTR timer_id);
    afx_msg void OnWindowPosChanged(WINDOWPOS *window_pos);
    virtual BOOL OnInitDialog();
    virtual void OnOK();

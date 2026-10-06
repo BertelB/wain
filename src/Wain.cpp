@@ -904,7 +904,7 @@ BOOL WainMessageBoxClass::OnInitDialog(void)
 
   while(s)
   {
-    p = dc->GetOutputTextExtent(s, strlen(s));
+    p = dc->GetOutputTextExtent(s, Strlen32(s));
     if(p.cx > len)
       len = p.cx;
     y += p.cy;
@@ -1248,9 +1248,9 @@ MyFileDialogClass::MyFileDialogClass(uint32_t _flags, uint32_t _stdFlags, const 
       m_ofn.lpstrInitialDir = wainApp.gs.m_configPath;
 }
 
-int MyFileDialogClass::DoModal(void)
+INT_PTR MyFileDialogClass::DoModal(void)
 {
-  int res = CFileDialog::DoModal();
+  INT_PTR res = CFileDialog::DoModal();
   if(res == IDCANCEL)
   {
     if(CommDlgExtendedError() == CDERR_STRUCTSIZE)

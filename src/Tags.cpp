@@ -665,7 +665,7 @@ TagFileList::SizeType TagFileList::Add(const char *aFullName)
 {
   std::vector<std::string>::iterator it = std::find(m_fullName.begin(), m_fullName.end(), std::string(aFullName));
   if(it != m_fullName.end())
-     return it - m_fullName.begin();
+     return static_cast<TagFileList::SizeType>(it - m_fullName.begin());
 
   m_fullName.push_back(aFullName);
 
@@ -673,7 +673,7 @@ TagFileList::SizeType TagFileList::Add(const char *aFullName)
   MySplitPath(aFullName, SP_FILE | SP_EXT, sn);
   m_shortName.push_back(sn);
 
-  return m_fullName.size() - 1;
+  return static_cast<TagFileList::SizeType>(m_fullName.size() - 1);
 }
 
 void TagListClass::PostProcess(void)
@@ -860,7 +860,7 @@ bool ParseLine(std::string& _str, ParseInfo& _parseInfo)
    if (!Split(_parseInfo.m_name, _str, '\t'))
       return false;
    // Trim(_parseInfo.name);
-   uint32_t pos;
+   std::string::size_type pos;
    if (!Split(_parseInfo.m_fn, _str, '\t'))
       return false;
    while((pos = _parseInfo.m_fn.find('/')) != std::string::npos)

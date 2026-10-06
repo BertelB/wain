@@ -20,6 +20,61 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+int32_t GetLevenshteinDistance(const std::string& s1, const std::string& s2)
+{
+   size_t m = s1.length();
+   size_t n = s2.length();
+   if (m >= 128 || n >= 128)
+      return 0x7fffffff;
+   // Create a 2D matrix for dynamic programming
+   // std::vector<std::vector<int>> dp(m + 1, std::vector<int>(n + 1));
+   int dp[128][128];
+   for (int i = 0; i <= m; i++)
+      dp[i][0] = i;
+   for (int j = 0; j <= n; j++)
+      dp[0][j] = j;
+
+   for (int i = 1; i <= m; i++)
+   {
+      for (int j = 1; j <= n; j++)
+      {
+         if (s1[i - 1] == s2[j - 1])
+         {
+            dp[i][j] = dp[i - 1][j - 1]; // Characters match, no cost
+         }
+         else
+         {
+            dp[i][j] = 1 + min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]);
+         }
+      }
+    }
+    return dp[m][n];
+}
+
+void InsertSorted(int32_t _vector[][2], int32_t _value, uint32_t _fileNameIdx)
+{
+   if (_value > _vector[19][0])
+      return;
+   uint32_t insertIdx = 1000;
+   for (uint32_t i = 0; i < 19 && insertIdx == 1000; i++)
+   {
+      if (_value < _vector[i][0])
+      {
+         insertIdx = i;
+      }
+   }
+   for (int32_t i = 18; i > insertIdx; i--)
+   {
+      _vector[i + 1][0] = _vector[i][0];
+      _vector[i + 1][1] = _vector[i][1];
+   }
+   if (insertIdx < 20)
+   {
+      _vector[insertIdx][0] = _value;
+      _vector[insertIdx][1] = _fileNameIdx;
+   }
+}
+
 BOOL WainView::SearchFunc(const char* _string, unsigned int _flags)
 //  Description:
 //    Message handler, called from main_frame_class::SearchFunc()
@@ -35,7 +90,7 @@ BOOL WainView::SearchFunc(const char* _string, unsigned int _flags)
    WainDoc *doc = GetDocument();
    int i = m_lineNo;
    int old_column = m_columnNo;
-   size_t TextLen = 0;
+   uint32_t TextLen = 0;
    if(!m_currentTextLine)
       m_currentTextLine = doc->GetLineNo(m_lineNo);
    l = doc->FindString(m_currentTextLine, m_searchString, &m_columnNo, &i, _flags, &TextLen);
@@ -83,7 +138,7 @@ void WainView::SearchNext(void)
       RemoveMark();
       m_markType = COLUMN_MARK;
       m_markStartX = m_columnNo;
-      m_markEndX = m_columnNo + strlen(m_searchString);
+      m_markEndX = m_columnNo + Strlen32(m_searchString);
       m_markStartY = m_markEndY = m_lineNo;
       DrawMarkLines(m_markStartY, m_markEndY);
       HandlePostActions(PA_SET_CURSOR | PA_UPDATE_CURSOR_POS | PA_SCROLL_TO_VISIBLE);
@@ -116,7 +171,7 @@ void WainView::SearchPrev(void)
     RemoveMark();
     m_markType = COLUMN_MARK;
     m_markStartX = m_columnNo;
-    m_markEndX = m_columnNo + strlen(m_searchString);
+    m_markEndX = m_columnNo + Strlen32(m_searchString);
     m_markStartY = m_markEndY = m_lineNo;
     DrawMarkLines(m_markStartY, m_markEndY);
     HandlePostActions(PA_SET_CURSOR | PA_UPDATE_CURSOR_POS | PA_SCROLL_TO_VISIBLE);
@@ -168,7 +223,7 @@ BOOL WainView::ReplaceFunc(const char *_string[], unsigned int flags)
          m_currentTextLine->DeleteAt(m_markStartX, m_markEndX);
          m_currentTextLine->InsertAt(m_markStartX, _string[1]);
          m_undoList.AddInsertEntry(0, 0, m_columnNo, m_lineNo, _string[1]);
-         uint32_t toMove = max(min(strlen(_string[0]), strlen(_string[1])), 1);
+         uint32_t toMove = max(min(Strlen32(_string[0]), Strlen32(_string[1])), 1);
          m_columnNo += toMove;
          m_undoList.AddEntry(UNDO_MOVE_ENTRY, toMove, 0);
          flags &= ~SEARCH_FIRST;
@@ -200,8 +255,8 @@ BOOL WainView::ReplaceFunc(const char *_string[], unsigned int flags)
 
       m_undoList.AddInsertEntry(0, 0, m_columnNo, m_lineNo, _string[1]);
 
-      m_columnNo += max(min(strlen(_string[0]), strlen(_string[1])), 1);
-      m_undoList.AddEntry(UNDO_MOVE_ENTRY, strlen(_string[1]), 0);
+      m_columnNo += max(min(Strlen32(_string[0]), Strlen32(_string[1])), 1);
+      m_undoList.AddEntry(UNDO_MOVE_ENTRY, Strlen32(_string[1]), 0);
       UpdateAll();
       return SearchFunc(_string[0], flags);
    }
@@ -329,8 +384,8 @@ BOOL WainView::DoOpenFileInLine(void)
 {
   CString temp, temp2, file_name = "", my_file_name; // Fixme, to string
   int my_tool_no = -1;
-  unsigned long LineNo = 0;
-  size_t i, j;
+  uint32_t LineNo = 0;
+  uint32_t i, j;
   char *end;
   const char * const delims[] = {":", "()", "\"", "<>", " :", ""};
   const char *mfile;
@@ -520,7 +575,7 @@ void WainView::CopyToClip(UndoEntryTypeType Undo_type)
     char *s = (char *)::GlobalLock(data);
     if(s)
     {
-      size = strlen(s) + 1;
+      size = Strlen32(s) + 1;
       UndoCopyClipOldDataEntryType *old_entry = new UndoCopyClipOldDataEntryType;
       if(old_entry)
       {
@@ -768,7 +823,7 @@ void WainView::PasteClip(void)
   {
     x_o = l->GetTabLen();
     l->InsertAt(l->GetTabLen(), rest_text);
-    m_undoList.AddInsertEntry(0, 0, l->GetTabLen() - strlen(rest_text), m_lineNo + y_o, rest_text);
+    m_undoList.AddInsertEntry(0, 0, l->GetTabLen() - Strlen32(rest_text), m_lineNo + y_o, rest_text);
   }
   SaveMarkToUndo();
   HandlePostActions(PA_REMOVE_MARK);
@@ -1422,9 +1477,9 @@ void WainView::InsertUserId(void)
    std::string ui = wainApp.gs.CreateUserId();
    m_currentTextLine->InsertAt(m_columnNo, ui.c_str());
 
-   m_undoList.AddInsertEntry(ui.size(), 0, m_columnNo, m_lineNo, ui.c_str());
+   m_undoList.AddInsertEntry(int(ui.size()), 0, m_columnNo, m_lineNo, ui.c_str());
 
-   m_columnNo += ui.size();
+   m_columnNo += int(ui.size());
    PutText(NULL, m_currentTextLine, m_lineNo);
 
    HandlePostActions(PA_SET_CURSOR | PA_SCROLL_TO_VISIBLE | PA_SET_TAG);
@@ -1450,9 +1505,9 @@ void WainView::InsertFormatedTime(const char *format)
   strftime(time_str, sizeof(time_str), format, newtime);
   m_currentTextLine->InsertAt(m_columnNo, time_str);
 
-  m_undoList.AddInsertEntry(strlen(time_str), 0, m_columnNo, m_lineNo, time_str);
+  m_undoList.AddInsertEntry(Strlen32(time_str), 0, m_columnNo, m_lineNo, time_str);
 
-  m_columnNo += strlen(time_str);
+  m_columnNo += Strlen32(time_str);
   PutText(NULL, m_currentTextLine, m_lineNo);
 
   HandlePostActions(PA_SET_CURSOR | PA_SCROLL_TO_VISIBLE | PA_SET_TAG);
@@ -1470,7 +1525,7 @@ void WainView::NextMatchWord(void)
         SetStatusText("Did not find: %s", (const char *)m_searchString);
         HandlePreActions(PA_REMOVE_CURSOR);
         m_markStartX = m_columnNo;
-        m_markEndX = m_columnNo + strlen(m_searchString);
+        m_markEndX = m_columnNo + Strlen32(m_searchString);
         m_markStartY = m_markEndY = m_lineNo;
         m_markType = COLUMN_MARK;
         DrawMarkLines(m_markStartY, m_markEndY);
@@ -1491,7 +1546,7 @@ void WainView::PrevMatchWord(void)
         SetStatusText("Did not find: %s", (const char *)m_searchString);
         HandlePreActions(PA_REMOVE_CURSOR);
         m_markStartX = m_columnNo;
-        m_markEndX = m_columnNo + strlen(m_searchString);
+        m_markEndX = m_columnNo + Strlen32(m_searchString);
         m_markStartY = m_markEndY = m_lineNo;
         m_markType = COLUMN_MARK;
         DrawMarkLines(m_markStartY, m_markEndY);
@@ -1579,7 +1634,7 @@ void WainView::CopyFileName(void)
    // Find the size of the data to be copied to the clipboard
    WainDoc *doc = GetDocument();
    const char* fn = doc->GetPathName();
-   int size = strlen(fn) + 1;
+   int size = Strlen32(fn) + 1;
 
    HGLOBAL hData = ::GlobalAlloc(GMEM_DDESHARE, size);
    if (hData == NULL)
@@ -1612,6 +1667,68 @@ void WainView::OpenDirForFile()
 void WainView::OpenProjectForFile()
 {
    GetMf()->OpenProjectForFile(GetDocument()->GetPathName());
+}
+
+void WainView::SpellCheckWord(void)
+{
+   std::string word;
+   GetCurrentWord(word);
+   if (!word.empty())
+   {
+      const bool wasUpper = std::isupper(word[0]);
+      std::transform(word.begin(), word.end(), word.begin(),
+          [](unsigned char c){ return static_cast<unsigned char>(std::tolower(c)); });
+      if (std::find(wainApp.gs.m_dictionary.begin(), wainApp.gs.m_dictionary.end(), word) != wainApp.gs.m_dictionary.end())
+      {
+         SetStatusText("Word is in list");
+      }
+      else
+      {
+         // SetStatusText("Word is NOT in list");
+         CMenu bar;
+         if(bar.LoadMenu(IDR_COMP_POPUP_MENU))
+         {
+            CMenu &popup = *bar.GetSubMenu(0);
+            // First, delete all items
+            for(int pos = popup.GetMenuItemCount() - 1; pos >= 0; pos--)
+            {
+               popup.DeleteMenu(pos, MF_BYPOSITION);
+            }
+            int32_t candidates[20][2];
+            for (uint32_t n = 0; n < 20; n++)
+            {
+               candidates[n][0] = 0x7FFFFFFF;
+               candidates[n][1] = 0;
+            }
+            const int32_t wordLen = static_cast<int32_t>(word.size());
+            for (uint32_t fn = 0; fn < wainApp.gs.m_dictionary.size(); fn++)
+            {
+               const int32_t dSize = static_cast<int32_t>(wainApp.gs.m_dictionary[fn].size());
+               if (abs(wordLen - dSize) <= 2)
+               {
+                  InsertSorted(candidates, GetLevenshteinDistance(word, wainApp.gs.m_dictionary[fn]), fn);
+               }
+            }
+            for (uint32_t n = 0; n < 20; n++)
+            {
+               std::string x = wainApp.gs.m_dictionary[candidates[n][1]];
+               if (wasUpper)
+               {
+                  x[0] = static_cast<unsigned char>(std::toupper(x[0]));
+               }
+               m_completionString[n] = x;
+               popup.AppendMenu(MF_STRING, IDM_COMP_ITEM0 + n, x.c_str());
+            }
+            POINT p;
+            GetPopupPos(&p, 20);
+            popup.TrackPopupMenu(TPM_LEFTALIGN, p.x, p.y, this);
+         }
+      }
+   }
+   else
+   {
+      SetStatusText("No Word");
+   }
 }
 
 void WainView::SwitchCppH(void)

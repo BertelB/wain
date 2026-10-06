@@ -79,7 +79,7 @@ EndLineStatusType WainDoc::GetPrevEls(TxtLine *l) const
   return p->m_endLineStatus;
 }
 
-TxtLine *WainDoc::FindString(TxtLine *l, const char *string, int *column, int *line_offset, int flags, size_t *MatchLen)
+TxtLine *WainDoc::FindString(TxtLine *l, const char *string, int *column, int *line_offset, int flags, uint32_t* MatchLen)
 {
    int co = l->ScreenPosToTextPos(*column);
    // Please notice the "nice" typecast in the line below
@@ -220,7 +220,7 @@ TxtLine *WainDoc::FindString(TxtLine *l, const char *string, int *column, int *l
       {
          s = s_strstr(&l->m_text[co], sstring);
          if(s && MatchLen)
-            *MatchLen = strlen(sstring);
+            *MatchLen = Strlen32(sstring);
       }
       while(l && !s)
       {
@@ -243,14 +243,14 @@ TxtLine *WainDoc::FindString(TxtLine *l, const char *string, int *column, int *l
             {
                s = s_strstr(&l->m_text[co], sstring);
                if(s && MatchLen)
-                  *MatchLen = strlen(sstring);
+                  *MatchLen = Strlen32(sstring);
             }
          }
       }
    }
    if(l && s)
    {
-      *column = s - l->m_text;
+      *column = int(s - l->m_text);
       *column = l->TextPosToScreenPos(*column);
    }
    return l;
@@ -388,10 +388,10 @@ DeleteTypeType WainDoc::DeleteAt(TxtLine *c_line, int pos)
       c_line->m_next->m_prev = c_line;
       delete n_line;
       m_lineCount--;
-      ret_parm = line_delete;
+      ret_parm = DeleteTypeType::LineDelete;
     }
     else
-      ret_parm = nOnDelete;
+      ret_parm = DeleteTypeType::NoOnDelete;
   }
   else
     ret_parm = c_line->DeleteAt(org_pos);
@@ -440,8 +440,8 @@ bool WainDoc::ReadFile(const char* _fileName)
    }
 
    GetStrLineEndType status;
-   int unix_lines = 0;
-   int dos_lines = 0;
+   int unixLines = 0;
+   int dosLines = 0;
 
    do
    {
@@ -450,7 +450,7 @@ bool WainDoc::ReadFile(const char* _fileName)
       switch(status)
       {
       case CR_LF_LINE_END:
-         dos_lines++;
+         dosLines++;
          if(!l)
            l = InsertLine(0, "");
          l->CalcTabLen();
@@ -458,7 +458,7 @@ bool WainDoc::ReadFile(const char* _fileName)
          l = InsertLine(l, "");
          break;
       case CR_LINE_END:
-         unix_lines++;
+         unixLines++;
          if(!l)
            l = InsertLine(0, "");
          l->CalcTabLen();
@@ -474,7 +474,7 @@ bool WainDoc::ReadFile(const char* _fileName)
          l->Append(ch);
          break;
       }
-      if(dos_lines + unix_lines == 100000)
+      if(dosLines + unixLines == 100000)
       {
          if(WainMessageBox(GetMf(), "The file seem to be very huge,\r\ncontinue reading?", IDC_MSG_YES | IDC_MSG_NO, IDI_WARNING_ICO) == IDC_MSG_NO)
          {
@@ -492,7 +492,7 @@ bool WainDoc::ReadFile(const char* _fileName)
    l->CalcTabLen();
    l->m_endLineStatus = GetEndLineStatus(l);
 
-   if(unix_lines > dos_lines)
+   if(unixLines > dosLines)
       m_unixStyle = true;
    else
       m_unixStyle = false;
@@ -866,10 +866,10 @@ int WainDoc::RemoveWordCurrent(int offset, TxtLine *CurrentLine)
     s--;
   if(strchr(SEPS(this), *s))
     s++;
-  int st = s - CurrentLine->m_text;
+  int st = int(s - CurrentLine->m_text);
   int n;
   for(n = 0; !strchr(SEPS(this), *s); n++, s++);
-  int end = s - CurrentLine->m_text;
+  int end = int(s - CurrentLine->m_text);
   CurrentLine->DeleteAt(CurrentLine->TextPosToScreenPos(st), CurrentLine->TextPosToScreenPos(end));
 
   return st - off;
@@ -1183,11 +1183,11 @@ TxtLine *WainDoc::FindMatchBrace(TxtLine *l, int *x, int *y, bool allowAfter, in
           *y = new_y;
           if (startLen)
           {
-            *startLen = strlen(match_str);
+            *startLen = Strlen32(match_str);
           }
           if (endLen)
           {
-            *endLen = strlen(end_match_str);
+            *endLen = Strlen32(end_match_str);
           }
           return l;
         }
@@ -1216,10 +1216,10 @@ TxtLine *WainDoc::FindMatchBrace(TxtLine *l, int *x, int *y, bool allowAfter, in
       if (!IsSeqIc(s, end_match_str, m_prop->m_ignoreCase))
       {
          s -= strlen(end_match_str);
-         new_x -= strlen(end_match_str);
+         new_x -= Strlen32(end_match_str);
          if (findOff)
          {
-            *findOff = strlen(end_match_str);
+            *findOff = Strlen32(end_match_str);
          }
       }
       do
@@ -1248,11 +1248,11 @@ TxtLine *WainDoc::FindMatchBrace(TxtLine *l, int *x, int *y, bool allowAfter, in
           *y = new_y;
           if (startLen)
           {
-            *startLen = strlen(match_str);
+            *startLen = Strlen32(match_str);
           }
           if (endLen)
           {
-            *endLen = strlen(end_match_str);
+            *endLen = Strlen32(end_match_str);
           }
           return l;
         }

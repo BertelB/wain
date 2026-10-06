@@ -43,18 +43,20 @@ public:
   WainView *GetView(int view);
   bool NextView(void);
   bool PrevView(void);
-  WainView *OpenDocument(const char *file_name, enum DebugFileType FileType, const std::string& _debugFilePath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName);
+  WainView* OpenDocument(const char* _fileName, enum DebugFileType _fileType, const std::string& _debugPath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName);
   bool CloseDocument(const char *file_name);
   TabCtrlClass m_tabCtrl;
+  std::map<int64_t, ViewListItem*> m_viewListMap;
+  int32_t m_viewListMapIdx = 0;
   void LeftButtonuttonDown(CPoint point);
   void LeftButtonuttonUp(CPoint point);
   void MouseMove(CPoint point);
   void UpdateViews(BOOL hard = FALSE);
-  WainDoc *FindDocument(const char *file_name);
+  class WainDoc *FindDocument(const char *file_name);
 
 protected:
   int m_activeTab;
-  UINT m_buttonTimer;
+  UINT_PTR m_buttonTimer;
 
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void OnSize(UINT nType, int cx, int cy);
@@ -62,7 +64,7 @@ protected:
   afx_msg HBRUSH OnCtlColor(CDC *dc, CWnd *wnd, UINT ctl_color);
   afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
   afx_msg void OnMouseMove(UINT flags, CPoint point);
-  afx_msg void OnTimer(UINT timer_id);
+  afx_msg void OnTimer(UINT_PTR timer_id);
   DECLARE_MESSAGE_MAP();
 };
 

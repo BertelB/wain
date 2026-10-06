@@ -150,7 +150,7 @@ void NavigatorList::OnInitialUpdate(void)
 {
 }
 
-void NavigatorList::Setup(int _nofItems, int _nofColumns, HIMAGELIST _imageList, int _widthRatio)
+void NavigatorList::Setup(uint32_t _nofItems, int _nofColumns, HIMAGELIST _imageList, int _widthRatio)
 {
    m_itemCount = _nofItems;
    m_iconList = _imageList;
@@ -306,7 +306,7 @@ void NavigatorList::DoUpdate(CDC *dc, int old_pos)
       if(s)
       {
         s = LimitText(s,  j == 1 ? m_columnWidth2 : m_columnWidth3, dc);
-        dc->TextOut((j == 1 ? cp2 : cp3) - sp.x, i*m_lineHeight - sp.y, s, strlen(s));
+        dc->TextOut((j == 1 ? cp2 : cp3) - sp.x, i*m_lineHeight - sp.y, s, Strlen32(s));
       }
     }
   }
@@ -563,7 +563,7 @@ BOOL NavigatorList::PreTranslateMessage(MSG *msg)
   {
     if(msg->wParam >= 32 && msg->wParam <= 127)
     {
-      OnChar(msg->wParam, LOWORD(msg->lParam), HIWORD(msg->lParam));
+      OnChar(UINT(msg->wParam), LOWORD(msg->lParam), HIWORD(msg->lParam));
       return TRUE;
     }
   }
@@ -706,7 +706,7 @@ char *NavigatorList::LimitText(const char *str, int len, CDC *dc)
 {
   static char temp[MAX_PATH];
   static char *tree_dots = "...";
-  int slen = strlen(str);
+  int slen = Strlen32(str);
 
   len -= dc->GetTextExtent("W", 1).cx;
   if(!slen || dc->GetTextExtent(str, slen).cx < len)
@@ -1025,15 +1025,15 @@ void NavigatorListColorEditClass::OnPaint(void)
   ASSERT(m_dlg);
   dc.SetBkColor(m_dlg->m_listColorBack);
   dc.SetTextColor(m_dlg->m_listColorText);
-  dc.TextOut(5, 0, "Normal Text", strlen("Normal Text"));
+  dc.TextOut(5, 0, "Normal Text", Strlen32("Normal Text"));
 
   dc.SetBkColor(m_dlg->m_listColorSel);
   dc.SetTextColor(m_dlg->m_listColorTextSel);
-  dc.TextOut(5, LineHeight, "Selected Text", strlen("Selected Text"));
+  dc.TextOut(5, LineHeight, "Selected Text", Strlen32("Selected Text"));
 
   dc.SetBkColor(m_dlg->m_listColorSelFocus);
   dc.SetTextColor(m_dlg->m_listColorTextSel);
-  dc.TextOut(5, 2*LineHeight, "Selected Text Focus", strlen("Selected Text Focus"));
+  dc.TextOut(5, 2*LineHeight, "Selected Text Focus", Strlen32("Selected Text Focus"));
 
   dc.SelectObject(old_font);
 }

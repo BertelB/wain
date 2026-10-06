@@ -1061,7 +1061,7 @@ void ProjectClass::ReplaceWordParm(class WordThreadParam* _parm)
    }
    else
    {
-      fnIdx = wordParam->m_fileName.size();
+      fnIdx = static_cast<uint32_t>(wordParam->m_fileName.size());
       wordParam->m_fileName.push_back(_parm->m_fileName[0]);
    }
    // Then insert them again

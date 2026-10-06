@@ -51,7 +51,7 @@ TxtLine::~TxtLine()
 void TxtLine::operator = (const char *new_text)
 {
   ASSERT(m_doc);
-  m_len = strlen(new_text);
+  m_len = static_cast<int32_t>(strlen(new_text));
   MakeSpace(m_len);
   strcpy(m_text, new_text);
   CalcTabLen();
@@ -177,10 +177,10 @@ bool TxtLine::InsertAt(int pos, char ch)
   return ret;
 }
 
-bool TxtLine::InsertAt(int pos, const char *str, int length)
+bool TxtLine::InsertAt(int pos, const char *str, int32_t length)
 {
   if(length == -1) // length == -1 by default, so str must be '\0' terminated, so calculate length
-    length = strlen(str);
+    length = Strlen32(str);
   bool ret = false;
   int org_pos = pos;
   pos = ScreenPosToTextPos(pos);
@@ -264,7 +264,7 @@ bool TxtLine::SplitLineAt(int pos)
 
 DeleteTypeType TxtLine::DeleteAt(int pos)
 {
-  DeleteTypeType ret = normal_delete;
+  DeleteTypeType ret = DeleteTypeType::NormalDelete;
   int org_pos = pos;
   pos = ScreenPosToTextPos(pos);
   if(pos < m_len)
@@ -286,13 +286,13 @@ DeleteTypeType TxtLine::DeleteAt(int pos)
           m_text[pos + i] = ' ';
       }
       m_len += a + b - 2;
-      ret = tab_delete;
+      ret = DeleteTypeType::TabDelete;
     }
     else
     {
       memmove(&m_text[pos], &m_text[pos + 1], m_len - pos);
       m_len--;
-      ret = normal_delete;
+      ret = DeleteTypeType::NormalDelete;
     }
   }
   m_doc->SetModified(TRUE);
@@ -303,7 +303,7 @@ DeleteTypeType TxtLine::DeleteAt(int pos)
 
 DeleteTypeType TxtLine::DeleteAt(int start, int end)
 {
-  DeleteTypeType ret = normal_delete;
+  DeleteTypeType ret = DeleteTypeType::NormalDelete;
   int org_start = start;
   int org_end = end;
   start = ScreenPosToTextPos(start);
@@ -312,7 +312,7 @@ DeleteTypeType TxtLine::DeleteAt(int start, int end)
     int i, a, b;
     for(i = start; m_text[i] && i <= end; i++)
       if(m_text[i] == '\t')
-        ret = tab_delete;
+        ret = DeleteTypeType::TabDelete;
 
     /* If the character at start is a TAB, break it into the corresponding number of spaces */
     if(m_text[start] == '\t')
@@ -376,7 +376,7 @@ void TxtLine::RemoveFrom(int column, char *rest)
   else
     *rest = 0;
 
-  m_len = strlen(m_text);
+  m_len = Strlen32(m_text);
   CalcTabLen();
   SetModified(IS_MODIFIED);
 }
@@ -532,10 +532,10 @@ int TxtLine::GoWordRight(int pos) const
   return s + r;
 }
 
-int TxtLine::GoWordLeft(int pos) const
+int32_t TxtLine::GoWordLeft(int32_t pos) const
 {
-  int r, s;
-  int org_pos = pos;
+  int32_t r, s;
+  int32_t org_pos = pos;
   pos = ScreenPosToTextPos(pos);
   if(!pos)
   { /* At the beginning of the line or within the first tab stop */
@@ -618,7 +618,7 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
      }
    }
    const char *numPtr = NULL;
-   size_t numLen = 0;
+   uint32_t numLen = 0;
 
    auto wordsBegin = std::cregex_iterator(m_text, m_text + strlen(m_text), PROP->m_numberRegEx);
    auto wordsEnd = std::cregex_iterator();
@@ -627,10 +627,10 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
    if(!aJustStatus && nrIterator != wordsEnd)
    {
       numPtr = m_text + (*nrIterator).position();
-      numLen = (*nrIterator).length();
+      numLen = static_cast<uint32_t>((*nrIterator).length());
       nrIterator++;
    }
-   size_t Len;
+   uint32_t Len;
    for(i = 0; m_text[i] != '\0'; i++)
    {
       if(m_text[i] == '\t')
@@ -676,15 +676,15 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
          if(IsSeqEnd(&m_text[i + k], PROP->m_commentEnd.c_str(), PROP->m_ignoreCase, PROP->m_commentWholeWord, SEPS(m_doc)))
          {
             inComment = false;
-            k += PROP->m_commentEnd.size();
-            cc += PROP->m_commentEnd.size();
+            k += static_cast<uint32_t>(PROP->m_commentEnd.size());
+            cc += static_cast<uint32_t>(PROP->m_commentEnd.size());
             if(aPrevEls == COMMENT_IN_PREPROC_ELS || comInPreproc)
             {
                inPreproc = true;
             }
             comInPreproc = false;
          }
-         int sizeCom = PROP->m_commentEnd.size();
+         int sizeCom = static_cast<uint32_t>(PROP->m_commentEnd.size());
          if (m_doc->m_view->IsMatchPos(this, i + k - 1))
          {
             cc -= sizeCom;
@@ -700,21 +700,21 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
       else if(IsSeqEnd(&m_text[i], PROP->m_lineComment.c_str(), PROP->m_ignoreCase, PROP->m_commentWholeWord, SEPS(m_doc)) &&
               (!comment_s || comment_s == &m_text[i]))
       {
-         aLineColor.AddEntry(PROP->m_lineComment.size(), COM_IDX);
-         i += PROP->m_lineComment.size() - 1;
+         aLineColor.AddEntry(static_cast<uint32_t>(PROP->m_lineComment.size()), COM_IDX);
+         i += static_cast<uint32_t>(PROP->m_lineComment.size()) - 1;
          inLineComment = TRUE;
       }
       else if(IsSeqEnd(&m_text[i], PROP->m_commentBegin.c_str(), PROP->m_ignoreCase, PROP->m_commentWholeWord, SEPS(m_doc)))
       {
          if (m_doc->m_view->IsMatchPos(this, i))
          {
-            aLineColor.AddEntry(PROP->m_commentBegin.size(), MATCH_IDX);
+            aLineColor.AddEntry(static_cast<uint32_t>(PROP->m_commentBegin.size()), MATCH_IDX);
          }
          else
          {
-            aLineColor.AddEntry(PROP->m_commentBegin.size(), COM_IDX);
+            aLineColor.AddEntry(static_cast<uint32_t>(PROP->m_commentBegin.size()), COM_IDX);
          }
-         i += PROP->m_commentBegin.size() - 1;
+         i += static_cast<uint32_t>(PROP->m_commentBegin.size() - 1);
          inComment = TRUE;
       }
       else if(inPreproc)
@@ -755,13 +755,15 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
       { /* It's a number */
          n = numLen;
          if((unsigned int)n > strlen(&m_text[i])) /* Just to be sure */
-           n = strlen(&m_text[i]);
+         {
+           n = static_cast<uint32_t>(strlen(&m_text[i]));
+         }
          aLineColor.AddEntry(n, NUM_IDX);
          i += n - 1;
          if (nrIterator != wordsEnd)
          {
             numPtr = m_text + (*nrIterator).position();
-            numLen = (*nrIterator).length();
+            numLen = static_cast<uint32_t>((*nrIterator).length());
             nrIterator++;
          }
          else
@@ -845,7 +847,7 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
          if (nrIterator != wordsEnd)
          {
             numPtr = m_text + (*nrIterator).position();
-            numLen = (*nrIterator).length();
+            numLen = static_cast<uint32_t>((*nrIterator).length());
             nrIterator++;
          }
          else
@@ -878,22 +880,22 @@ EndLineStatusType TxtLine::GetTextColor(TxtLineColor &aLineColor, EndLineStatusT
    return retVal;
 }
 
-bool TxtLine::CheckStr(const char *aStr, const std::string &aMatch, ColorIndexType aIndexType, size_t &aSize, TxtLineColor &aLineColor) const
+bool TxtLine::CheckStr(const char *aStr, const std::string &aMatch, ColorIndexType aIndexType, uint32_t& _size, TxtLineColor &aLineColor) const
 {
    const DocPropClass* PROP = m_doc->m_prop;
    aLineColor.StoreBookMark();
    if(IsSeq(aStr, aMatch.c_str()))
    {
-      size_t k = aMatch.size();
-      size_t sc = aMatch.size();
+      uint32_t k = static_cast<uint32_t>(aMatch.size());
+      uint32_t sc = static_cast<uint32_t>(aMatch.size());
       do
       {
          if(IsSeq(&aStr[k], PROP->m_literal.c_str()) &&
             aStr[k + PROP->m_literal.size()] != '\0' &&
             aStr[k + PROP->m_literal.size()] != '\t')
          {
-            k += PROP->m_literal.size() + 1;
-            sc += PROP->m_literal.size() + 1;
+            k += static_cast<uint32_t>(PROP->m_literal.size() + 1);
+            sc += static_cast<uint32_t>(PROP->m_literal.size() + 1);
          }
          else if(aStr[k] == '\t')
          { /* A tab in a string, create a entry, and a tab entry */
@@ -913,10 +915,10 @@ bool TxtLine::CheckStr(const char *aStr, const std::string &aMatch, ColorIndexTy
 
       if(aStr[k])
       {
-         k += aMatch.size();
-         sc += aMatch.size();
+         k += static_cast<uint32_t>(aMatch.size());
+         sc += static_cast<uint32_t>(aMatch.size());
          aLineColor.AddEntry(sc, aIndexType);
-         aSize = k;
+         _size = k;
          return true;
       }
       aLineColor.ResetToBookMark();
@@ -933,7 +935,7 @@ char TxtLine::GetTextAt(int pos) const
   return m_text[pos];
 }
 
-int TxtLine::ScreenPosToTextPos(int pos) const
+int32_t TxtLine::ScreenPosToTextPos(int32_t pos) const
 {
   if(strchr(m_text, '\t'))
   {
@@ -964,9 +966,9 @@ int TxtLine::ScreenPosToTextPos(int pos) const
   return pos;
 }
 
-int TxtLine::TextPosToScreenPos(int pos) const
+int32_t TxtLine::TextPosToScreenPos(int32_t pos) const
 {
-  int i, n;
+  int32_t i, n;
   for(i = 0, n = 0; i < pos; i++)
   {
     if(m_text[i] == '\t')
@@ -1074,16 +1076,16 @@ void TxtLine::ToLower(int from, int to)
   m_doc->SetModified(TRUE);
 }
 
-bool TxtLine::CheckSpace(int aFrom, int aTo) const
+bool TxtLine::CheckSpace(int _from, int _to) const
 {
-   int nof = aTo - aFrom;
+   int nof = _to - _from;
    ASSERT(nof >= 0);
-   int org_pos = aFrom;
-   aFrom = ScreenPosToTextPos(aFrom);
-   if(aFrom >= m_len)
+   int org_pos = _from;
+   _from = ScreenPosToTextPos(_from);
+   if(_from >= m_len)
      return true;
    int i, n = org_pos;
-   for(i = aFrom; nof && m_text[i] != 0; i++)
+   for(i = _from; nof && m_text[i] != 0; i++)
    {
       if(m_text[i] == ' ')
       {
@@ -1113,7 +1115,7 @@ void TxtLine::SetModified(ModifyStatusType new_status)
   }
 }
 
-void TxtLine::MakeSpace(int new_len)
+void TxtLine::MakeSpace(size_t new_len)
 {
 #define GET_LEN(l) (((((l) + 1) & ~0x0F) + 0x10))
 

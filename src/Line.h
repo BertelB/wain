@@ -10,13 +10,13 @@ enum EndLineStatusType
   COMMENT_IN_PREPROC_ELS
 };
 
-enum DeleteTypeType
+enum class DeleteTypeType
 {
-  normal_delete,
-  tab_delete,
-  line_delete,
-  special_tab_delete,
-  nOnDelete
+  NormalDelete,
+  TabDelete,
+  LineDelete,
+  SpecialTabDelete,
+  NoOnDelete
 };
 
 enum ModifyStatusType
@@ -38,64 +38,64 @@ class TxtLine
 {
    friend class WainDoc;
 private:
-   TxtLine *m_next;
-   TxtLine *m_prev;
-   WainDoc *m_doc;
-   char *m_text;
-   int m_len;
-   int m_tabLen;
+   TxtLine* m_next;
+   TxtLine* m_prev;
+   WainDoc* m_doc;
+   char* m_text;
+   int32_t m_len;
+   int32_t m_tabLen;
    int m_allocLen;
    void CalcTabLen(void);
-   int TextPosToScreenPos(int pos) const;
-   int ScreenPosToTextPos(int pos) const;
-   int SpaceBefore(int pos) const ;
-   int SpaceAfter(int pos) const;
+   int32_t TextPosToScreenPos(int32_t _pos) const;
+   int32_t ScreenPosToTextPos(int32_t _pos) const;
+   int32_t SpaceBefore(int32_t _pos) const;
+   int32_t SpaceAfter(int32_t _pos) const;
 
-   void MakeSpace(int new_len);
+   void MakeSpace(size_t _newLen);
 public:
    int GetRawLen(int _from, int _to, BOOL _fixed) const;
    int CopyRaw(char* _dest, int _from, int _to, BOOL _fixed) const;
-   void ToUpper(int from = 0, int to = -1);
-   void ToLower(int from = 0, int to = -1);
+   void ToUpper(int _from = 0, int _to = -1);
+   void ToLower(int _from = 0, int _to = -1);
    int GetTabLen(void) const;
    int GetTextLen(void) const;
    EndLineStatusType m_endLineStatus;
-   TxtLine(WainDoc *doc);
+   TxtLine(WainDoc* _doc);
    TxtLine(void);
    ~TxtLine();
-   void operator = (const char *new_text);
-   void RemoveFrom(int column, char *rest);
-   bool InsertAt(int pos, const char *str, int length = -1);
-   bool Append(char ch);
-   bool InsertAt(int pos, char ch);
-   char ReplaceAt(int pos, char ch);
-   bool SplitLineAt(int pos);
-   DeleteTypeType DeleteAt(int pos);
-   DeleteTypeType DeleteAt(int start, int end);
-   const char *GetText(void) const { return m_text; }
-   bool CopyTextAt(char *buf, int pos, int len) const;
-   char GetTextAt(int pos) const;
-   int GetWordLenRight(int pos) const;
-   int GetWordLenLeft(int pos) const;
-   int GetSpaceLenRight(int pos) const;
-   int GetSpaceLenLeft(int pos) const;
-   int GetSepLenRight(int pos) const;
-   int GetSepLenLeft(int pos) const;
-   int GoWordRight(int pos) const;
-   int GoWordLeft(int pos) const;
-   EndLineStatusType GetTextColor(class TxtLineColor &line_color, EndLineStatusType prev_els, bool just_status = FALSE) const;
-   bool CheckStr(const char *aStr, const std::string &aMatch, ColorIndexType aIndexType, size_t &Size, TxtLineColor &aTxtLine) const;
+   void operator = (const char* _newText);
+   void RemoveFrom(int column, char* _rest);
+   bool InsertAt(int _pos, const char *_str, int32_t _length = -1);
+   bool Append(char _ch);
+   bool InsertAt(int _pos, char _ch);
+   char ReplaceAt(int _pos, char _ch);
+   bool SplitLineAt(int _pos);
+   DeleteTypeType DeleteAt(int _pos);
+   DeleteTypeType DeleteAt(int _start, int _end);
+   const char* GetText(void) const { return m_text; }
+   bool CopyTextAt(char* _buf, int _pos, int _len) const;
+   char GetTextAt(int _pos) const;
+   int GetWordLenRight(int _pos) const;
+   int GetWordLenLeft(int _pos) const;
+   int GetSpaceLenRight(int _pos) const;
+   int GetSpaceLenLeft(int _pos) const;
+   int GetSepLenRight(int _pos) const;
+   int GetSepLenLeft(int _pos) const;
+   int GoWordRight(int _pos) const;
+   int32_t GoWordLeft(int32_t _pos) const;
+   EndLineStatusType GetTextColor(class TxtLineColor& _lineColor, EndLineStatusType _prevEls, bool _justStatus = false) const;
+   bool CheckStr(const char* _str, const std::string& _match, ColorIndexType _indexType, uint32_t& _size, TxtLineColor& _txtLine) const;
 
    void StripWhitespace(void);
-   int GetEmptyCharBefore(int pos) const;
-   bool CheckSpace(int aFrom, int aTo) const;
-   void SetModified(ModifyStatusType new_status);
+   int GetEmptyCharBefore(int _pos) const;
+   bool CheckSpace(int _from, int _to) const;
+   void SetModified(ModifyStatusType _newStatus);
    ModifyStatusType m_modifyStatus;
    void RemoveTabs(void);
    int GetSpaceInFront() const;
-   void HelloWorld(char* /*  _x */);
-   const char *FindFirstNotOf(int aFirstPos, const char *aChars) const;
-   int FindChar(int aFirstPos, char aChar, int aDir);
+
+   const char *FindFirstNotOf(int _firstPos, const char *chars) const;
+   int FindChar(int _firstPos, char _char, int dir);
 };
 
 #endif

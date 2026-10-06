@@ -254,7 +254,7 @@ BOOL TagListDialogClass::OnInitDialog(void)
 
 BOOL TagListDialogClass::DoInitDialog()
 {
-  size_t i;
+  uint32_t i;
   if(!GetMf()->m_navigatorDialog.GetTagList(m_tagList))
   {
     SetStatusText("No tags, use the navigator-dialog->tags to setup tags");
@@ -455,7 +455,7 @@ void WainView::TagListXxx(unsigned int flags)
    }
    GetMf()->m_lastTag = temp;
    TagListDialogClass tl(this, temp, flags);
-   int res = tl.DoModal();
+   INT_PTR res = tl.DoModal();
    if(res == IDOK || res == ID_JUST_ONE)
    {
       if(doc->GetPathName().IsEmpty())
@@ -497,7 +497,7 @@ void MainFrame::RedoTag()
    if(m_lastTag.empty())
       return;
    TagListDialogClass tl(this, m_lastTag, TL_ANY);
-   int res = tl.DoModal();
+   INT_PTR res = tl.DoModal();
 
    if(res == IDOK || res == ID_JUST_ONE)
    {
@@ -657,10 +657,10 @@ void WainView::CompletionFunc(UINT id)
     c->m_x = m_columnNo;
     c->m_y = m_lineNo;
     m_undoList.AddEntry(UNDO_CUT_TEXT_ENTRY, off, 0, 0, c);
-    m_undoList.AddInsertEntry(m_completionString[id - IDM_COMP_ITEM0].size(), 0, m_columnNo, m_lineNo, m_completionString[id - IDM_COMP_ITEM0].c_str());
+    m_undoList.AddInsertEntry(static_cast<uint32_t>(m_completionString[id - IDM_COMP_ITEM0].size()), 0, m_columnNo, m_lineNo, m_completionString[id - IDM_COMP_ITEM0].c_str());
 
-    m_currentTextLine->InsertAt(m_columnNo, m_completionString[id - IDM_COMP_ITEM0].c_str(), m_completionString[id - IDM_COMP_ITEM0].size());
-    m_columnNo += m_completionString[id - IDM_COMP_ITEM0].size();
+    m_currentTextLine->InsertAt(m_columnNo, m_completionString[id - IDM_COMP_ITEM0].c_str(), static_cast<uint32_t>(m_completionString[id - IDM_COMP_ITEM0].size()));
+    m_columnNo += static_cast<uint32_t>(m_completionString[id - IDM_COMP_ITEM0].size());
     RemoveCursor();
     PutText(NULL, m_currentTextLine, m_lineNo);
     SetCursor();

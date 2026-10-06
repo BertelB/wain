@@ -353,7 +353,7 @@ void MacroSetupDialogClass::ListChanged(void)
 {
   CListBox *eb = (CListBox *)GetDlgItem(IDC_MACRO_MENUTEXT);
   ASSERT(eb);
-  size_t sel = eb->GetCurSel();
+  int sel = eb->GetCurSel();
   if(sel != LB_ERR && sel < m_macroParmList.size())
   {
     m_current = sel;
@@ -381,7 +381,7 @@ void MacroSetupDialogClass::NewMacro(void)
       e->SetWindowText("");
       MacroParmType T;
       m_macroParmList.push_back(T);
-      m_current = m_macroParmList.size() - 1;
+      m_current = static_cast<int>(m_macroParmList.size() - 1);
       m_currFileName = "";
    }
 }
@@ -420,8 +420,7 @@ void MainFrame::MacroSetup(void)
       DestroyAcceleratorTable(m_accHandle);
       m_nofAccEntrys = 0;
       ReadKeySetupFile(m_keyboardSetupFile, (ACCEL *)&m_accEntry, &m_nofAccEntrys);
-      m_accHandle = CreateAcceleratorTable((ACCEL *)&m_accEntry, m_nofAccEntrys);
-
+      m_accHandle = CreateAcceleratorTable((ACCEL *)&m_accEntry, static_cast<uint32_t>(m_nofAccEntrys));
       SetupMenu(TRUE);
    }
 }

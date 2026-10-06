@@ -718,7 +718,7 @@ void DockBar::OnNcLButtonDblClk(UINT nHitTest, CPoint point)
   }
 }
 
-void DockBar::OnTimer(UINT id)
+void DockBar::OnTimer(UINT_PTR id)
 {
   if(id == m_buttonTimer)
   {

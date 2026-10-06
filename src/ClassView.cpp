@@ -227,10 +227,17 @@ void AddClassElementInfoClass::SetSignature(const std::string& _str)
    m_signature = _str;
 }
 
+UINT DeleteThread(LPVOID _obj)
+{
+   AddClassInfoTreeCtrlClass* tt = static_cast<AddClassInfoTreeCtrlClass*>(_obj);
+   delete tt;
+   return 0;
+}
+
 void NavigatorDialog::SetClassList(AddClassInfoListClass* _addInfo, TagFileList* _fileList, AddClassInfoTreeCtrlClass* _view)
 {
    m_addClassView.SetList(_addInfo, _fileList, _view);
-   CTreeCtrl *tt = m_classViewTree;
+   AddClassInfoTreeCtrlClass *tt = m_classViewTree;
    m_classViewTree = _view;
    ASSERT(::IsWindow(m_classViewTree->m_hWnd));
 
@@ -242,7 +249,11 @@ void NavigatorDialog::SetClassList(AddClassInfoListClass* _addInfo, TagFileList*
      m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
      InvalidateRect(NULL, TRUE);
    }
+   // auto t1 = GetUSec();
    delete tt;
+   // auto t2 = GetUSec();
+   // SetStatusText("SetClassList delete %u", uint32_t((t2 - t1) / 1000));
+   // AfxBeginThread(DeleteThread, tt, THREAD_PRIORITY_LOWEST, 0, 0);
 }
 
 BEGIN_MESSAGE_MAP(AddClassInfoTreeCtrlClass, CTreeCtrl)
@@ -276,7 +287,7 @@ AddClassInfoTreeCtrlClass::AddClassInfoTreeCtrlClass(class NavigatorDialog* _par
 
 void AddClassInfoTreeCtrlClass::OnInfoTip(NMTVGETINFOTIP* _infoTip)
 {
-   DWORD data = _infoTip->lParam;
+   LPARAM data = _infoTip->lParam;
    if(data & 0x80000000U)
    { // This is a class name
       m_classIndex = data & ~0x80000000U;
@@ -284,8 +295,8 @@ void AddClassInfoTreeCtrlClass::OnInfoTip(NMTVGETINFOTIP* _infoTip)
    }
    else
    { // a memeber
-      unsigned int ci = data >> 16;
-      unsigned int mi = data & 0xFFFFU;
+      uint64_t ci = data >> 16;
+      uint64_t mi = data & 0xFFFFU;
       if(!m_addClassView->m_addInfo->m_list[ci]->m_list[mi]->m_signature.empty())
       {
          strcpy(_infoTip->pszText, m_addClassView->m_addInfo->m_list[ci]->m_list[mi]->m_tag.c_str());
@@ -317,7 +328,7 @@ BOOL AddClassInfoTreeCtrlClass::PreTranslateMessage(MSG* _msg)
    {
       if(_msg->wParam >= 32 && _msg->wParam <= 127)
       {
-         OnChar(_msg->wParam, LOWORD(_msg->lParam), HIWORD(_msg->lParam));
+         OnChar(static_cast<UINT>(_msg->wParam), LOWORD(_msg->lParam), HIWORD(_msg->lParam));
          return TRUE;
      }
    }
@@ -351,7 +362,7 @@ void AddClassInfoTreeCtrlClass::DoPopUp(HTREEITEM _item, POINT _p)
       for (pos = popup.GetMenuItemCount() - 1; pos >= 0; pos--)
          popup.DeleteMenu(pos, MF_BYPOSITION);
 
-      DWORD data = GetItemData(_item);
+      DWORD_PTR data = GetItemData(_item);
       if(data & 0x80000000U)
       { // This is a class name
          m_classIndex = data & ~0x80000000U;
@@ -361,7 +372,7 @@ void AddClassInfoTreeCtrlClass::DoPopUp(HTREEITEM _item, POINT _p)
       }
       else
       { // a memeber
-         m_classIndex = data >> 16;
+         m_classIndex = static_cast<uint32_t>(data >> 16);
          m_memberIndex = data & 0xFFFFU;
          popup.AppendMenu(MF_STRING, IDC_CT_TAG_PEEK,   "Peek");
          popup.AppendMenu(MF_STRING, IDC_CT_TAG_SELECT, "Select");
@@ -438,7 +449,7 @@ void AddClassInfoTreeCtrlClass::DoSelect(void)
    HTREEITEM item = GetSelectedItem();
    if(item)
    {
-      DWORD data = GetItemData(item);
+      DWORD_PTR data = GetItemData(item);
       if(data & 0x80000000U)
       { // This is a class name
          m_classIndex = data & ~0x80000000U;
@@ -447,7 +458,7 @@ void AddClassInfoTreeCtrlClass::DoSelect(void)
       }
       else
       { // a memeber
-         m_classIndex = data >> 16;
+         m_classIndex = static_cast<uint32_t>(data >> 16);
          m_memberIndex = data & 0xFFFFU;
          if(m_addClassView->m_addInfo->m_list[m_classIndex]->m_list[m_memberIndex]->m_indexType == TagIndexType::INHERITANCE_IDX)
             TagExpand();
@@ -484,7 +495,7 @@ int AddClassInfoTreeCtrlClass::DoSearch(int _direction, const char* _text, bool 
     return true;
   if(item && !_reset)
   {
-    DWORD data = GetItemData(item);
+    DWORD_PTR data = GetItemData(item);
     if(data & 0x80000000U)
     { // This is a class name
       m_classIndex = data & ~0x80000000U;
@@ -592,7 +603,7 @@ bool AddClassInfoTreeCtrlClass::UpdateIndex()
    HTREEITEM item = GetSelectedItem();
    if(!item)
       return false;
-   DWORD data = GetItemData(item);
+   DWORD_PTR data = GetItemData(item);
    if(data & 0x80000000U)
    { // This is a class name
       m_classIndex = data & ~0x80000000U;
@@ -600,7 +611,7 @@ bool AddClassInfoTreeCtrlClass::UpdateIndex()
    }
    else
    { // a memeber
-      m_classIndex = data >> 16;
+      m_classIndex = static_cast<uint32_t>( data >> 16);
       m_memberIndex = data & 0xFFFFU;
    }
    return true;

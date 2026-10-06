@@ -69,7 +69,7 @@ public:
    bool GetCurrentLine(std::string& _line, const TxtLine *CurrentLine) const;
    int RemoveWordCurrent(int offset, TxtLine *CurrentLine);
    EndLineStatusType GetPrevEls(TxtLine *l) const;
-   TxtLine *FindString(TxtLine *l, const char *string, int *column, int *line_offset, int flags, size_t *MatchLen = 0);
+   TxtLine *FindString(TxtLine *l, const char *string, int *column, int *line_offset, int flags, uint32_t *MatchLen = 0);
    TxtLine *FindMatchBrace(TxtLine *l, int *x, int *y, bool allowAfter = false, int* findOff = 0, int* startLen = 0, int* endLen = 0);
    TxtLine *FindMatchBlock(TxtLine *l, int *x, int *y);
    TxtLine *GotoBlockStart(TxtLine *l, int *x, int *y);

@@ -104,7 +104,7 @@ void FileSelectDialogClass::AddSub(HTREEITEM aPrevItem, int aFirst, int aLast, i
 
       Insert.item.pszText = strdup(temp.c_str());
       prev = m_tree.InsertItem(&Insert);
-      m_tree.SetItemData(aPrevItem, (DWORD )Insert.item.pszText);
+      m_tree.SetItemData(aPrevItem, DWORD_PTR(Insert.item.pszText)); // TODO
       Insert.hInsertAfter = aPrevItem;
 
       for(j = i; i < aLast && temp != m_fileList[i].substr(aOffset); i++)
@@ -112,7 +112,7 @@ void FileSelectDialogClass::AddSub(HTREEITEM aPrevItem, int aFirst, int aLast, i
       }
       if(rec)
       {
-         AddSub(prev, j, i, n + 1);
+         AddSub(prev, j, i, static_cast<uint32_t>(n + 1));
       }
    }
 }
@@ -159,8 +159,8 @@ void FileSelectDialogClass::ViewDir(void)
 
    m_dirList.clear();
    // First do dirs
-   long handle = _findfirst((char *)(m_dirPath + "*.*").c_str(), &data);
-   int Done = handle;
+   intptr_t handle = _findfirst((char *)(m_dirPath + "*.*").c_str(), &data);
+   intptr_t Done = handle;
    while(Done != -1)
    {
       if(data.attrib & _A_SUBDIR && strcmp(data.name, "."))
@@ -177,7 +177,6 @@ void FileSelectDialogClass::ViewDir(void)
    {
       temp = m_dirPath;
       temp += temp2;
-
       handle = _findfirst((char *)temp.c_str(), &data);
       Done = handle;
 
@@ -329,11 +328,8 @@ void FileSelectDialogClass::AddPath(const std::string &aPath)
    temp = aPath;
    temp += "\\";
    const std::string FullPath = temp;
-   // bool got_all = false;
-
-   // bool HaveAll = false;
-   long handle;
-   int Done;
+   intptr_t handle;
+   intptr_t Done;
 
    StrSplitterClass FilterSplitter(m_filter);
 
@@ -386,7 +382,7 @@ void FileSelectDialogClass::RemoveSub(HTREEITEM aItem)
       RemoveSub(child);
       child = next;
    }
-   DWORD d = m_tree.GetItemData(aItem);
+   DWORD_PTR d = m_tree.GetItemData(aItem);
    free((void *)d);
    m_tree.DeleteItem(aItem);
 }

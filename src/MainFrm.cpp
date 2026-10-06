@@ -917,7 +917,7 @@ void MainFrame::ViewClass(void)
   m_navigatorDialog.ViewClass(Word);
 }
 
-void MainFrame::OnTimer(UINT aTimerId)
+void MainFrame::OnTimer(UINT_PTR aTimerId)
 {
   if(aTimerId == m_tools->m_timerId)
   {
@@ -936,7 +936,7 @@ void MainFrame::OnTimer(UINT aTimerId)
   else
   {
     char msg[256];
-    sprintf(msg, "Wrong timer: %d", aTimerId);
+    sprintf(msg, "Wrong timer: %lld", aTimerId);
     WainMessageBox(this, msg, IDC_MSG_OK, IDI_ERROR_ICO);
   }
 }
@@ -1429,7 +1429,7 @@ void MainFrame::SetupMenu(BOOL force)
   {
     CMenu *ins_menu = new CMenu();
     ins_menu->CreatePopupMenu();
-    top_menu->InsertMenu(is_view_menu ? user_menu_view : user_menu_main, MF_POPUP | MF_BYPOSITION | MF_STRING, (unsigned int)ins_menu->m_hMenu, "User");
+    top_menu->InsertMenu(is_view_menu ? user_menu_view : user_menu_main, MF_POPUP | MF_BYPOSITION | MF_STRING, UINT_PTR(ins_menu->m_hMenu), "User");
     CMenu *sub_menu = top_menu->GetSubMenu(is_view_menu ? user_menu_view : user_menu_main);
     if(sub_menu)
       sub_menu->AppendMenu(MF_STRING, IDM_USER_MENU_SETUP, "Setup");
@@ -1593,7 +1593,7 @@ void MainFrame::Help(void)
 
   temp2[0] = 0;
   command[0] = 0;
-  if((int )FindExecutable(temp1, temp2, command) > 32)
+  if(FindExecutable(temp1, temp2, command) > HINSTANCE(32))
   {
     ::ShellExecute(m_hWnd, "Open", temp1, command, NULL, SW_SHOWNORMAL);
   }
@@ -1767,7 +1767,7 @@ void MainFrame::AssocList(void)
     MySplitPath(cf->GetDocument()->GetPathName(), SP_DRIVE | SP_DIR, m_assocPath);
     strcat(file, ".*");
     struct _finddata_t fileinfo;
-    long handle = _findfirst(file, &fileinfo);
+    intptr_t handle = _findfirst(file, &fileinfo);
     if(handle == -1)
     {
       SetStatusText("No associated files found");
@@ -1789,7 +1789,7 @@ void MainFrame::AssocList(void)
       return;
     }
     POINT p;
-    cf->GetView()->GetPopupPos(&p, m_assocFileList.size());
+    cf->GetView()->GetPopupPos(&p, int(m_assocFileList.size()));
     popup.TrackPopupMenu(TPM_LEFTALIGN, p.x, p.y, this);
   }
 }

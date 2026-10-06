@@ -54,7 +54,7 @@ public:
    std::string m_signature;
    TagIndexType m_indexType;
    unsigned int m_nr;
-   int m_fileIdx;
+   uint32_t m_fileIdx;
    int m_lineNo;
 private:
 
@@ -94,8 +94,8 @@ public:
 
 struct CountOffsetType
 {
-   unsigned int m_count[TagIndexType::NOF_INDEXES];
-   unsigned int m_offset[TagIndexType::NOF_INDEXES];
+   unsigned int m_count[size_t(TagIndexType::NOF_INDEXES)];
+   unsigned int m_offset[size_t(TagIndexType::NOF_INDEXES)];
 };
 
 class ReadTagParmClass
@@ -137,7 +137,7 @@ typedef std::vector<AutoRebuildTagClass *>AutoRebuildTagVector;
 class TagFileList
 {
 public:
-  typedef std::vector<std::string>::size_type SizeType;
+  typedef uint32_t SizeType;
 
   SizeType Add(const char *aFullName);
 
@@ -161,9 +161,9 @@ public:
    typedef std::vector<TagElemClass *> TagVectorClass;
    TagVectorClass m_tagVector;
    typedef TagVectorClass::iterator  TagVectorIterator;
-   typedef TagVectorClass::size_type  TagVectorSizeType;
+   typedef uint32_t TagVectorSizeType;
 
-   TagVectorSizeType GetNofTags() const {return m_tagVector.size();}
+   TagVectorSizeType GetNofTags() const {return static_cast<TagVectorSizeType>(m_tagVector.size());}
 
    TagListClass()
    {

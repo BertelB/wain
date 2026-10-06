@@ -157,6 +157,7 @@ KeyTextMapType KeyTextMap[] =
   {IDV_COLUMN_MARK,                 "ColumnMarkToggle"},
   {IDV_MOVE_DOC_START,              "MoveDocumentStart"},
   {IDV_SWITCH_CPP_H,                "SwitchCppVsH"},
+  {IDV_SPELL_CHECK_WORD,            "SpellCheckWord"},
   {IDV_MOVE_DOC_END,                "MoveDocumentEnd"},
   {IDV_GOTO_LINE_NO,                "GotoLineNo"},
   {IDV_INC_SEARCH,                  "IncrementalSearch"},
@@ -349,7 +350,7 @@ KeyMapType KeyMap[] =
   {0xBE, "PERIOD"}
 };
 
-BOOL ReadKeySetupFile(const char *file_name, ACCEL *ac, size_t *nof_entrys)
+BOOL ReadKeySetupFile(const char *file_name, ACCEL *ac, uint32_t *nof_entrys)
 {
   FILE *f = fopen(file_name, "rt");
   if(f)
@@ -413,7 +414,7 @@ BOOL ReadKeySetupFile(const char *file_name, ACCEL *ac, size_t *nof_entrys)
   return FALSE;
 }
 
-BOOL WriteKeySetupFile(const char *file_name, ACCEL *ac, size_t nof_entrys)
+BOOL WriteKeySetupFile(const char *file_name, ACCEL *ac, uint32_t nof_entrys)
 {
   FILE *f = fopen(file_name, "wt");
   if(f)
@@ -1078,7 +1079,7 @@ void MenuSetupDialogClass::Add(void)
       lb = (CListBox *)GetDlgItem(IDC_PMS_MENU_LIST);
       ASSERT(lb);
       lb->AddString(text);
-      lb->SetCurSel(m_popupMenu.size() - 1);
+      lb->SetCurSel(static_cast<int>(m_popupMenu.size() - 1));
     }
     else
       SetStatusText("You must first select an item in the function list");
@@ -1111,7 +1112,7 @@ void MenuSetupDialogClass::Seperator(void)
     CListBox *lb = (CListBox *)GetDlgItem(IDC_PMS_MENU_LIST);
     ASSERT(lb);
     lb->AddString("------");
-    lb->SetCurSel(m_popupMenu.size() - 1);
+    lb->SetCurSel(static_cast<int>(m_popupMenu.size() - 1));
   }
   else
     SetStatusText("You have hit the limit on numbers of items in the popupmenu: %d", MAX_NOF_POPUP_MENU_ITEMS);
@@ -1138,8 +1139,8 @@ void MenuSetupDialogClass::Up(void)
 void MenuSetupDialogClass::Down(void)
 {
   CListBox *lb = (CListBox *)GetDlgItem(IDC_PMS_MENU_LIST);
-  ASSERT(lb);
-  size_t sel = lb->GetCurSel();
+  if (!lb) return;
+  int32_t sel = lb->GetCurSel();
   if(sel != LB_ERR && sel < m_popupMenu.size() - 1)
   {
     char text[128];
@@ -1184,7 +1185,7 @@ void MainFrame::KeyboardSetup(void)
       wainApp.WriteProfileString("Settings", "KeyFile", m_keyboardSetupFile);
     }
     WriteKeySetupFile(m_keyboardSetupFile, (ACCEL *)&m_accEntry, m_nofAccEntrys);
-    m_accHandle = CreateAcceleratorTable((ACCEL *)&m_accEntry, m_nofAccEntrys);
+    m_accHandle = CreateAcceleratorTable((ACCEL *)&m_accEntry, static_cast<int>(m_nofAccEntrys));
 
     // Modify the menu
     SetupMenu(TRUE);

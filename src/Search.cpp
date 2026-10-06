@@ -733,7 +733,7 @@ LRESULT MainFrame::GlobalReplaceFunc(WPARAM wparm, LPARAM lparm)
       if(m_firstProjectReplace)
       {
          CWaitCursor WaitCursor;
-         size_t Idx;
+         uint32_t Idx;
          const char **Str = (const char **)wparm;
          for(Idx = 0; Idx < m_navigatorDialog.m_project->GetNumFiles(); Idx++)
          {

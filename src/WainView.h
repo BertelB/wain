@@ -319,7 +319,7 @@ private:
   BOOL m_marking;
   BOOL m_cuaMouseMarkMode;
   CPoint m_mousePoint;
-  UINT m_mouseMarkingTimer;
+  UINT_PTR m_mouseMarkingTimer;
   unsigned int m_nofMouseMarkTimeout;
   int m_markOrgX;
   int m_markOrgY;
@@ -485,6 +485,7 @@ public:
   void OpenDirForFile(void);
   void OpenProjectForFile(void);
   void SwitchCppH(void);
+  void SpellCheckWord(void);
   void MarkSimilarWords();
   void MarkSimilarWordsToggle();
   void MarkSimilarWordsOff();
@@ -530,7 +531,7 @@ protected:
   afx_msg void HandleEsc(void);
   afx_msg void PrintFile(void);
   afx_msg BOOL OnEraseBkgnd(CDC *dc);
-  afx_msg void OnTimer(UINT timer_id);
+  afx_msg void OnTimer(UINT_PTR timer_id);
   afx_msg BOOL OnSetCursor(CWnd *wnd, UINT hit_test, UINT message);
   afx_msg void ViewPopupMenu(void);
   DECLARE_MESSAGE_MAP();

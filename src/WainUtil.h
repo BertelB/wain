@@ -30,7 +30,7 @@ class MyFileDialogClass : public CFileDialog
 {
 public:
    MyFileDialogClass(uint32_t _flags, uint32_t _stdFlags, const char* _defExt = nullptr, const char* _file_name = nullptr, const char* _filter = nullptr, CWnd* _parent = nullptr);
-   virtual int DoModal(void);
+   virtual INT_PTR DoModal(void);
 private:
    const unsigned int m_flags;
 };

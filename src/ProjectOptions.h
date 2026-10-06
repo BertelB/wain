@@ -105,7 +105,7 @@ public:
    std::string m_tagFiles;
    std::string m_tagFile;
 
-   size_t m_firstFile;
+   uint32_t m_firstFile;
 
    void Write(std::ofstream &aFile);
    void Read(std::ifstream &aFile);

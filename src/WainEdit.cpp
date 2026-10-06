@@ -408,20 +408,20 @@ void WainView::HandleBackspace(void)
       char ch = m_currentTextLine->GetTextAt(m_columnNo);
       switch(doc->DeleteAt(m_currentTextLine, m_columnNo))
       {
-        case normal_delete:
+        case DeleteTypeType::NormalDelete:
           m_undoList.AddEntry(UNDO_DELETE_ENTRY, -1, 0, ch);
           PutText(NULL, m_currentTextLine, m_lineNo);
           CheckRedraw();
           break;
-        case special_tab_delete:
-        case tab_delete:
+        case DeleteTypeType::SpecialTabDelete:
+        case DeleteTypeType::TabDelete:
           m_undoList.AddEntry(UNDO_DELETE_ENTRY, -1, 0, ' ');
           PutText(NULL, m_currentTextLine, m_lineNo);
           CheckRedraw();
           break;
-        case line_delete:
+        case DeleteTypeType::LineDelete:
           break;
-        case nOnDelete:
+        case DeleteTypeType::NoOnDelete:
           break;
       }
     }
@@ -448,18 +448,18 @@ void WainView::HandleBackspaceEx(void)
     char ch = m_currentTextLine->GetTextAt(m_columnNo);
     switch(doc->DeleteAt(m_currentTextLine, m_columnNo))
     {
-      case normal_delete:
+      case DeleteTypeType::NormalDelete:
         m_undoList.AddEntry(UNDO_DELETE_ENTRY, -1, 0, ch);
         PutText(NULL, m_currentTextLine, m_lineNo);
         CheckRedraw();
         break;
-      case special_tab_delete:
-      case tab_delete:
+      case DeleteTypeType::SpecialTabDelete:
+      case DeleteTypeType::TabDelete:
         m_undoList.AddEntry(UNDO_DELETE_ENTRY, -1, 0, ' ');
         PutText(NULL, m_currentTextLine, m_lineNo);
         CheckRedraw();
         break;
-      case line_delete:
+      case DeleteTypeType::LineDelete:
         n = m_columnNo - i + 1;
         if(n)
         {
@@ -473,7 +473,7 @@ void WainView::HandleBackspaceEx(void)
         m_undoList.AddEntry(UNDO_DELETE_ENTRY, 0, 0, '\n');
         UpdateAll();
         break;
-      case nOnDelete:
+      case DeleteTypeType::NoOnDelete:
         break;
     }
   }
@@ -485,18 +485,18 @@ void WainView::HandleBackspaceEx(void)
     m_undoList.AddEntry(UNDO_DELETE_ENTRY, m_columnNo, -1, '\n');
     switch(doc->DeleteAt(m_currentTextLine, m_columnNo))
     {
-      case normal_delete:
+      case DeleteTypeType::NormalDelete:
         PutText(NULL, m_currentTextLine, m_lineNo);
         CheckRedraw();
         break;
-      case tab_delete:
+      case DeleteTypeType::TabDelete:
         PutText(NULL, m_currentTextLine, m_lineNo);
         CheckRedraw();
         break;
-      case line_delete:
+      case DeleteTypeType::LineDelete:
         UpdateAll();
         break;
-      case nOnDelete:
+      case DeleteTypeType::NoOnDelete:
         break;
     }
     SetScrollInfo();
@@ -519,18 +519,18 @@ void WainView::HandleDelete(void)
   int i = m_currentTextLine->GetTabLen(), n;
   switch(doc->DeleteAt(m_currentTextLine, m_columnNo))
   {
-    case normal_delete:
+    case DeleteTypeType::NormalDelete:
       m_undoList.AddEntry(UNDO_DELETE_ENTRY, 0, 0, ch);
       PutText(NULL, m_currentTextLine, m_lineNo);
       CheckRedraw();
       break;
-    case tab_delete:
-    case special_tab_delete:
+    case DeleteTypeType::TabDelete:
+    case DeleteTypeType::SpecialTabDelete:
       m_undoList.AddEntry(UNDO_DELETE_ENTRY, 0, 0, ' ');
       PutText(NULL, m_currentTextLine, m_lineNo);
       CheckRedraw();
       break;
-    case line_delete:
+    case DeleteTypeType::LineDelete:
       n = m_columnNo - i + 1;
       if(n)
       {
@@ -544,7 +544,7 @@ void WainView::HandleDelete(void)
       UpdateAll();
       SetScrollInfo();
       break;
-    case nOnDelete:
+    case DeleteTypeType::NoOnDelete:
       break;
   }
   HandlePreActions(PA_SCROLL_TO_VISIBLE | PA_SET_CURSOR);
@@ -763,7 +763,7 @@ BOOL WainView::OnMouseWheel(UINT flags, short delta, CPoint pt)
   return TRUE;
 }
 
-void WainView::OnTimer(UINT timer_id)
+void WainView::OnTimer(UINT_PTR timer_id)
 {
   if(timer_id == m_mouseMarkingTimer)
   {
@@ -1284,7 +1284,7 @@ WainView::SpecialModeStatus WainView::HandleIncSearch(UINT id, int ch)
         SetStatusText("Did not find: %s", (const char *)m_searchString);
         HandlePreActions(PA_REMOVE_CURSOR);
         m_markStartX = m_columnNo;
-        m_markEndX = m_columnNo + strlen(m_searchString);
+        m_markEndX = m_columnNo + static_cast<int>(strlen(m_searchString));
         m_markStartY = m_markEndY = m_lineNo;
         m_markType = COLUMN_MARK;
         DrawMarkLines(m_markStartY, m_markEndY);
@@ -1298,7 +1298,7 @@ WainView::SpecialModeStatus WainView::HandleIncSearch(UINT id, int ch)
         SetStatusText("Did not find: %s", (const char *)m_searchString);
         HandlePreActions(PA_REMOVE_CURSOR);
         m_markStartX = m_columnNo;
-        m_markEndX = m_columnNo + strlen(m_searchString);
+        m_markEndX = m_columnNo + Strlen32(m_searchString);
         m_markStartY = m_markEndY = m_lineNo;
         m_markType = COLUMN_MARK;
         DrawMarkLines(m_markStartY, m_markEndY);
@@ -1355,7 +1355,7 @@ WainView::SpecialModeStatus WainView::HandleIncSearch(UINT id, int ch)
             HandlePreActions(PA_REMOVE_CURSOR);
             m_searchString.Delete(m_searchString.GetLength() - 1);
             m_markStartX = m_columnNo;
-            m_markEndX = m_columnNo + strlen(m_searchString);
+            m_markEndX = m_columnNo + Strlen32(m_searchString);
             m_markStartY = m_markEndY = m_lineNo;
             m_markType = COLUMN_MARK;
             DrawMarkLines(m_markStartY, m_markEndY);
@@ -1417,7 +1417,7 @@ int WainView::ExpandSpecial(std::string &aStr)
      Temp += time_str;
      Temp += T;
      if(ret > (int )n)
-        ret += strlen(time_str) - 2;
+        ret += Strlen32(time_str) - 2;
   }
 
   while((n = FindStrX(Temp, 'U')) != std::string::npos)
@@ -1428,7 +1428,7 @@ int WainView::ExpandSpecial(std::string &aStr)
     Temp += ui;
     Temp += T;
     if(ret > (int )n)
-      ret += ui.size() - 2;
+      ret += uint32_t(ui.size() - 2);
   }
 
   while((n = FindStrX(Temp, 'D')) != std::string::npos)
@@ -1446,7 +1446,7 @@ int WainView::ExpandSpecial(std::string &aStr)
     Temp += time_str;
     Temp += T;
     if(ret > (int )n)
-      ret += strlen(time_str) - 2;
+      ret += Strlen32(time_str) - 2;
   }
 
   while((n = FindStrX(Temp, 'S')) != std::string::npos)
@@ -1463,7 +1463,7 @@ int WainView::ExpandSpecial(std::string &aStr)
     Temp += time_str;
     Temp += T;
     if(ret > (int )n)
-      ret += strlen(time_str) - 2;
+      ret += Strlen32(time_str) - 2;
   }
 
   /* Remove any \\ */
@@ -1505,7 +1505,7 @@ void WainView::ExpandTemplate(void)
      delete [] temp;
    }
    int i;
-   int Size = Prop->m_templateList.size();
+   int Size = int(Prop->m_templateList.size());
    std::string TS;
    for(i = 0; i < Size; i++)
    {
@@ -1522,12 +1522,12 @@ void WainView::ExpandTemplate(void)
          cp = new UndoCutTextEntryType;
          cp->m_text = new char [word.size() + 1];
          strcpy(cp->m_text, word.c_str());
-         cp->m_x = m_columnNo - word.size();
+         cp->m_x = m_columnNo - int(word.size());
          cp->m_y = m_lineNo;
          m_undoList.AddEntry(UNDO_CUT_TEXT_ENTRY, 0, 0, 0, cp);
 
-         m_currentTextLine->DeleteAt(m_columnNo - word.size(), m_columnNo);
-         int c = word.size();
+         m_currentTextLine->DeleteAt(m_columnNo - int(word.size()), m_columnNo);
+         int c = int(word.size());
          c = -c;
 
          /* int c = doc->RemoveWordCurrent(m_columnNo, m_currentTextLine); */
@@ -1564,7 +1564,7 @@ void WainView::ExpandTemplate(void)
              expansion = "";
 
            int co = ExpandSpecial(temp);
-           s_len = temp.size();
+           s_len = int(temp.size());
            if(co >= 0)
            { /* We got a \c in this line */
              line_offset = ll;
@@ -1929,7 +1929,7 @@ void WainView::RemoveTabs(void)
 void WainView::ViewShellContextMenu()
 {
   POINT p;
-  GetPopupPos(&p, wainApp.gs.m_popupMenu.size());
+  GetPopupPos(&p, static_cast<int>(wainApp.gs.m_popupMenu.size()));
   GetMf()->DoContextMenu(p, GetDocument()->GetPathName());
 }
 

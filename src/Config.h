@@ -160,7 +160,7 @@ public:
          delete m_array[i];
       }
    }
-   T& operator [] (uint32_t _idx)
+   T& operator [] (size_t _idx)
    {
       return *m_array[_idx];
    }
@@ -194,7 +194,7 @@ public:
 
    uint32_t Size()
    {
-       return m_array.size();
+       return uint32_t(m_array.size());
    }
 
    void Remove(uint32_t _idx)
@@ -208,7 +208,7 @@ public:
       m_array.push_back(new T(_item));
    }
 
-   void Update(uint32_t _itemNo, T& _item)
+   void Update(size_t _itemNo, T& _item)
    {
       if (_itemNo < m_array.size())
       {

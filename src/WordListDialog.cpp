@@ -339,7 +339,7 @@ void WainView::DoWordList(std::string& _word, uint32_t _lastSelectedWord, int _p
    if (GetMf()->m_navigatorDialog.m_project->GetWordInfo(wordInfo, _word, _propIndex))
    {
       WordListDialog wl(this, _word, wordInfo, _lastSelectedWord);
-      int result = wl.DoModal();
+      INT_PTR result = wl.DoModal();
       if(result == IDOK && wl.m_ok)
       {
          GetMf()->m_lastSelectedWord = wl.m_selectedIndex;

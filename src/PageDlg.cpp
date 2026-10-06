@@ -80,8 +80,7 @@ void PageBarDialogClass::OnSize(UINT nType, int cx, int cy)
     }
   }
 }
-
-WainView *PageBarDialogClass::OpenDocument(const char* _fileName, DebugFileType _fileType, const std::string& _debugPath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName)
+WainView *PageBarDialogClass::OpenDocument(const char* _fileName, enum DebugFileType _fileType, const std::string& _debugPath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName)
 {
   WainView *view;
   view = (WainView *)WainView::CreateObject();
@@ -119,7 +118,7 @@ WainView *PageBarDialogClass::OpenDocument(const char* _fileName, DebugFileType 
      MySplitPath(_fileName, SP_FILE, fn);
   }
 
-  ViewListItem *view_item = new ViewListItem;
+  ViewListItem* view_item = new ViewListItem;
   view_item->m_view = view;
   view_item->m_label = _viewName && strlen(_viewName) ? _viewName : fn;
   view_item->m_fileName = _fileName;
@@ -127,7 +126,8 @@ WainView *PageBarDialogClass::OpenDocument(const char* _fileName, DebugFileType 
   TC_ITEM tci;
   tci.mask = TCIF_TEXT | TCIF_PARAM;
   tci.pszText = (char *)(_viewName && strlen(_viewName) ? _viewName : fn);
-  tci.lParam = (long )view_item;
+  tci.lParam = m_viewListMapIdx;
+  m_viewListMap[m_viewListMapIdx++] = view_item;
   int pos = m_tabCtrl.GetItemCount();
   m_tabCtrl.InsertItem(pos, &tci);
   SetActiveView(pos);
@@ -175,7 +175,7 @@ bool PageBarDialogClass::CloseDocument(const char *file_name)
 
     if(m_tabCtrl.GetItem(i, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       if(view_item->m_fileName == file_name)
       {
         if(view_item->m_view == wainApp.m_lastAutoTagView)
@@ -207,7 +207,8 @@ bool PageBarDialogClass::DoCloseDoc(int nr)
 
   if(m_tabCtrl.GetItem(nr, &item))
   {
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
+    m_viewListMap.erase(item.lParam);
 
     delete view_item->m_view;
     m_tabCtrl.DeleteItem(nr);
@@ -241,7 +242,7 @@ void PageBarDialogClass::SetActiveView(int new_tab)
   {
     if(m_tabCtrl.GetItem(m_activeTab, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       view_item->m_view->EnableWindow(FALSE);
       view_item->m_view->ShowWindow(SW_HIDE);
     }
@@ -250,7 +251,7 @@ void PageBarDialogClass::SetActiveView(int new_tab)
   {
     m_activeTab = new_tab;
     m_tabCtrl.SetCurSel(m_activeTab);
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
     view_item->m_view->EnableWindow(TRUE);
     view_item->m_view->ShowWindow(SW_SHOW);
     view_item->m_view->SetFocus();
@@ -270,7 +271,8 @@ void PageBarDialogClass::SetActiveView(WainView *new_view)
     item.mask = TCIF_PARAM;
     if(m_tabCtrl.GetItem(i, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
+
       if(view_item->m_view == new_view)
       {
         if(m_activeTab != i)
@@ -288,7 +290,7 @@ WainView *PageBarDialogClass::GetActiveView()
 
   if(m_tabCtrl.GetItemCount() && m_tabCtrl.GetItem(m_activeTab, &item))
   {
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
     return view_item->m_view;
   }
   return NULL;
@@ -301,7 +303,7 @@ WainView *PageBarDialogClass::GetView(int nr)
   item.mask = TCIF_PARAM;
   if(m_tabCtrl.GetItemCount() > nr && m_tabCtrl.GetItem(nr, &item))
   {
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
     return view_item->m_view;
   }
   return NULL;
@@ -369,8 +371,8 @@ void PageBarDialogClass::OnDrawItem(int id_ctrl, LPDRAWITEMSTRUCT draw_item_stru
   if(draw_item_struct->itemState & ODS_SELECTED)
     dr.top += 4;
 
-  ::DrawText(draw_item_struct->hDC, item.pszText, strlen(item.pszText), dr, 0);
-  ViewListItem *view_item = (ViewListItem *)item.lParam;
+  ::DrawText(draw_item_struct->hDC, item.pszText, static_cast<uint32_t>(strlen(item.pszText)), dr, 0);
+  ViewListItem* view_item = m_viewListMap[item.lParam];
 
   view_item->m_rectClose = draw_item_struct->rcItem;
   view_item->m_rectClose.left = view_item->m_rectClose.right - 12;
@@ -437,7 +439,7 @@ void PageBarDialogClass::LeftButtonuttonDown(CPoint point)
     item.mask = TCIF_PARAM;
     if(m_tabCtrl.GetItem(i, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       if(view_item->m_rectClose.PtInRect(point))
       {
         m_closeButton = i;
@@ -466,7 +468,7 @@ void PageBarDialogClass::LeftButtonuttonUp(CPoint point)
     item.mask = TCIF_PARAM;
     if(m_tabCtrl.GetItem(i, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       if(i == m_closeButton && view_item->m_rectClose.PtInRect(point))
       {
         GetMf()->CloseDebugFile(view_item->m_fileName.c_str(), true, true);
@@ -485,7 +487,7 @@ void PageBarDialogClass::LeftButtonuttonUp(CPoint point)
   item.mask = TCIF_PARAM;
   if(m_closeButton != -1 && m_tabCtrl.GetItem(m_closeButton, &item))
   {
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
     m_closeButton = -1;
     m_tabCtrl.InvalidateRect(view_item->m_rectClose, TRUE);
     if(m_buttonTimer)
@@ -511,7 +513,7 @@ void PageBarDialogClass::MouseMove(CPoint point)
   item.mask = TCIF_PARAM;
   if(m_tabCtrl.GetItem(m_closeButton, &item))
   {
-    ViewListItem *view_item = (ViewListItem *)item.lParam;
+    ViewListItem* view_item = m_viewListMap[item.lParam];
     if(!view_item->m_rectClose.PtInRect(point))
     {
       m_closeButton = -1;
@@ -534,7 +536,7 @@ void PageBarDialogClass::OnClose(void)
       item.mask = TCIF_PARAM;
       if(m_tabCtrl.GetItem(0, &item))
       {
-         ViewListItem *view_item = (ViewListItem *)item.lParam;
+         ViewListItem* view_item = m_viewListMap[item.lParam];
          delete view_item->m_view;
          delete view_item;
          m_tabCtrl.DeleteItem(0);
@@ -555,7 +557,7 @@ void PageBarDialogClass::OnClose(void)
    m_closeButton = -1;
 }
 
-void PageBarDialogClass::OnTimer(UINT timer_id)
+void PageBarDialogClass::OnTimer(UINT_PTR timer_id)
 {
   if(timer_id == m_buttonTimer && m_closeButton != -1)
   {
@@ -571,7 +573,7 @@ void PageBarDialogClass::OnTimer(UINT timer_id)
     item.mask = TCIF_PARAM;
     if(m_tabCtrl.GetItem(m_closeButton, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       if(!view_item->m_rectClose.PtInRect(point))
       {
         m_closeButton = -1;
@@ -595,7 +597,7 @@ void PageBarDialogClass::UpdateViews(BOOL _hard)
       item.mask = TCIF_PARAM;
       if(m_tabCtrl.GetItem(0, &item))
       {
-         ViewListItem *viewItem = (ViewListItem *)item.lParam;
+         ViewListItem* viewItem = m_viewListMap[item.lParam];
          if(_hard)
          {
             viewItem->m_view->GetDocument()->GetExtType(NULL, TRUE);
@@ -619,8 +621,7 @@ WainDoc *PageBarDialogClass::FindDocument(const char *file_name)
 
     if(m_tabCtrl.GetItem(i, &item))
     {
-      ViewListItem *view_item = (ViewListItem *)item.lParam;
-
+      ViewListItem* view_item = m_viewListMap[item.lParam];
       if(view_item->m_fileName == file_name)
       {
         return view_item->m_view->GetDocument();

@@ -44,7 +44,7 @@
 #include <sys\stat.h>
 #include <cderr.h>
 #include <ctype.h>
-
+inline uint32_t Strlen32(const char* _str) { return static_cast<uint32_t>(strlen(_str)); }
 #define UNUSED_VAR(var_) (void(var_))
 
 #pragma warning( disable : 4018 ) // Signed / unsigned mismatch

@@ -245,7 +245,7 @@ void NavigatorProjectTree::AddItem(const std::string& _fullName, const std::stri
       insStruct.hParent = m_lastItem;
       insStruct.item.mask = TVIF_TEXT | TVIF_PARAM;
       insStruct.hInsertAfter = 0;
-      auto treeInfo = new NavTreeInfo(_fullName, fnExt, NavTreeInfo::EntryType::File, m_fileList.size() - 1);
+      auto treeInfo = new NavTreeInfo(_fullName, fnExt, NavTreeInfo::EntryType::File, int32_t(m_fileList.size() - 1));
       insStruct.item.lParam = (LPARAM)treeInfo;
       insStruct.item.pszText = (LPSTR)treeInfo->m_shortName.c_str();
       HTREEITEM newItem = InsertItem(&insStruct);
@@ -292,7 +292,7 @@ void NavigatorProjectTree::AddItem(const std::string& _fullName, const std::stri
    for (j = candidateIdx + 1; j < pathPart.size(); j++)
    {
       NavTreeInfo::EntryType entryType = j < pathPart.size() - 1 ? NavTreeInfo::EntryType::Folder : NavTreeInfo::EntryType::File;
-      auto treeInfo = new NavTreeInfo(_fullName, pathPart[j].c_str(), entryType, m_fileList.size() - 1);
+      auto treeInfo = new NavTreeInfo(_fullName, pathPart[j].c_str(), entryType, int32_t(m_fileList.size() - 1));
       insStr.item.lParam = (LPARAM)treeInfo;
       insStr.item.pszText = (LPSTR)treeInfo->m_shortName.c_str();
       m_lastItem = candidate;

@@ -149,7 +149,7 @@ void HdDirClass::UpdateDir(void)
   std::sort(m_dirInfoList.begin(), m_dirInfoList.end());
 
   strcpy(wainApp.gs.m_lastUsedDir, m_dirPath.c_str());
-  m_dlg->m_navigatorList->Setup(m_dirInfoList.size(), 2, m_dlg->m_sysImageList);
+  m_dlg->m_navigatorList->Setup(uint32_t(m_dirInfoList.size()), 2, m_dlg->m_sysImageList);
 
   /* It's time to get the icons */
   AfxBeginThread(ThreadGetIcon, req, THREAD_PRIORITY_LOWEST);
@@ -204,7 +204,7 @@ void FtpDirClass::UpdateDir(void)
   finder.Close();
   // DirInfoCompareClass Compare;
   std::sort(m_dirInfoList.begin(), m_dirInfoList.end());
-  m_dlg->m_navigatorList->Setup(m_dirInfoList.size(), 2, m_dlg->m_sysImageList);
+  m_dlg->m_navigatorList->Setup(uint32_t(m_dirInfoList.size()), 2, m_dlg->m_sysImageList);
 }
 
 bool HdDirClass::GetFullPath(int aSel, std::string &aName)
@@ -588,7 +588,7 @@ void HdDirClass::SelNet(int aLevel, int aSel)
       }
    }
    m_netLevel = ++aLevel;
-   m_dlg->m_navigatorList->Setup(m_dirInfoList.size(), 2, m_dlg->m_sysImageList);
+   m_dlg->m_navigatorList->Setup(uint32_t(m_dirInfoList.size()), 2, m_dlg->m_sysImageList);
 }
 
 bool HdDirClass::CheckNet(int sel)

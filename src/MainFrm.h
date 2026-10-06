@@ -147,7 +147,7 @@ public:
   void RemoveFile(const char *name, BOOL do_close = FALSE);
   MainFrame();
   ViewList m_viewList;
-  WainDoc *ActiveFile(const char *s);
+  class WainDoc *ActiveFile(const char *s);
   void HandleRecentProjects(const char *new_proj);
   WainDoc *OpenDebugFile(const char *_fileName, DebugFileType _fileType, bool _setFocus, const std::string& _toolPath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName);
   void FileHasBeenSaved();
@@ -179,7 +179,7 @@ private:
 
   CString m_keyboardSetupFile;
 
-  UINT m_statusBarTimer;
+  UINT_PTR m_statusBarTimer;
   void CalcWinRect(RECT *rect, int part);
   // void OnUpdateFrameTitle(BOOL aAddToTitle);
 
@@ -193,7 +193,7 @@ public:
   void ProjectChanged(const char *file_name);
   void CheckFileStatus(void);
   BOOL m_doCheckFileStatus;
-  UINT m_fileCheckTimer;
+  UINT_PTR m_fileCheckTimer;
   void SetStatusText(const char *text);
   void OnFileCheckStatus(FileCheckListType *fc);
 
@@ -239,7 +239,7 @@ public:
   PageBarDialogClass   m_pageBarDialog;
   NavigatorDialog m_navigatorDialog;
   PageBarClass         m_pageBar;
-  size_t m_nofAccEntrys;
+  uint32_t m_nofAccEntrys;
   ACCEL m_accEntry[MAX_NOF_ACCELERATORS];
   void OnToolTimer(class ProcessClass *aProcess, bool aDone);
   std::string m_lastTag;
@@ -272,7 +272,7 @@ protected:
   afx_msg void ViewProject(void);
   afx_msg void ViewCurrentTags(void);
   afx_msg void ViewClass(void);
-  afx_msg void OnTimer(UINT timer_id);
+  afx_msg void OnTimer(UINT_PTR timer_id);
   afx_msg void OnActivate(UINT state, CWnd *wnd_other, BOOL minimized);
 
   afx_msg void RedoTag(void);

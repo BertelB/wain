@@ -19,7 +19,7 @@ public:
   bool m_init;
   bool m_drawGrip;
 public:
-  virtual void OnUpdateCmdUI(CFrameWnd *target, BOOL disable_if_no_hndler);
+  void OnUpdateCmdUI(CFrameWnd* target, BOOL disable_if_no_hndler);
   virtual UINT GetDockBarId() = 0;
 public:
   virtual BOOL Create(CWnd *parent, CDialog *dialog, CString &title, UINT id, DWORD style = WS_CHILD | WS_VISIBLE | CBRS_LEFT);
@@ -36,8 +36,8 @@ public:
   void OnInvertTracker(const CRect &rect);
   CPoint &ClientToWnd(CPoint &point);
   CDialog *m_myDialog;
-  UINT    m_dockBarID;
-  UINT    m_buttonTimer;
+  UINT     m_dockBarID;
+  UINT_PTR m_buttonTimer;
 protected:
   void      DrawGripper(CDC &dc);
   CSize     m_sizeMin;
@@ -86,7 +86,7 @@ protected:
   afx_msg void OnPaint(void);
   afx_msg void OnSize(UINT type, int cx, int cy);
   afx_msg BOOL OnEraseBkgnd(CDC *dc);
-  afx_msg void OnTimer(UINT timer_id);
+  afx_msg void OnTimer(UINT_PTR timer_id);
   DECLARE_MESSAGE_MAP();
 };
 

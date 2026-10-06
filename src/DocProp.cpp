@@ -245,7 +245,7 @@ void TemplateProp::OnNew(void)
   CEdit *e = (CEdit *)GetDlgItem(IDC_TEMP_EDIT);
   ASSERT(e);
   m_prop->m_templateList.push_back(new TemplateListClass);
-  m_sel = m_prop->m_templateList.size() - 1;
+  m_sel = static_cast<uint32_t>(m_prop->m_templateList.size() - 1);
   cb->AddString("");
   cb->SetCurSel(m_sel);
   e->SetWindowText("");
@@ -1466,7 +1466,7 @@ void LangSelectDialogClass::Clone(void)
       dp->m_modified = TRUE;
 
       wainApp.gs.m_docProp.push_back(dp);
-      m_currentSel = wainApp.gs.m_docProp.size() -1;
+      m_currentSel = static_cast<uint32_t>(wainApp.gs.m_docProp.size() -1);
       CListBox *lb = (CListBox *)GetDlgItem(IDC_LS_TYPE_LIST);
       ASSERT(lb);
       lb->AddString(lsnt.m_type.c_str());
@@ -1499,7 +1499,7 @@ void LangSelectDialogClass::OnNew(void)
       dp->m_fileName = Temp;
       dp->m_modified = TRUE;
       wainApp.gs.m_docProp.push_back(dp);
-      m_currentSel = wainApp.gs.m_docProp.size() - 1;
+      m_currentSel = static_cast<uint32_t>(wainApp.gs.m_docProp.size() - 1);
       CListBox *lb = (CListBox *)GetDlgItem(IDC_LS_TYPE_LIST);
       ASSERT(lb);
       lb->AddString(lsnt.m_type.c_str());

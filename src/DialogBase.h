@@ -186,9 +186,9 @@ protected:
 inline bool GetWindowString(CWnd *aWnd, std::string &aStr)
 {
    ASSERT(aWnd);
-   size_t Size = aWnd->GetWindowTextLength();
-   aStr.resize(Size);
-   aWnd->GetWindowText((char *)aStr.c_str(), Size + 1);
+   int size = aWnd->GetWindowTextLength();
+   aStr.resize(size);
+   aWnd->GetWindowText((char *)aStr.c_str(), size + 1);
    return true;
 }
 
