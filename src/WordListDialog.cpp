@@ -321,22 +321,26 @@ void WainView::WordList(void)
       }
    }
    GetMf()->m_lastWord = word;
-   DoWordList(word, 0, GetDocument()->GetPropIndex());
+   DoWordList(word, 0);
 }
 
 void WainView::WordListRedo()
 {
    if (!GetMf()->m_lastWord.empty())
-      DoWordList(GetMf()->m_lastWord, GetMf()->m_lastSelectedWord, GetDocument()->GetPropIndex());
+      DoWordList(GetMf()->m_lastWord, GetMf()->m_lastSelectedWord);
    else
       SetStatusText("No word to redo");
 }
 
-void WainView::DoWordList(std::string& _word, uint32_t _lastSelectedWord, int _propIndex)
+void WainView::DoWordList(std::string& _word, uint32_t _lastSelectedWord)
 {
    std::vector<WordInfo> wordInfo;
    WainDoc *doc = GetDocument();
-   if (GetMf()->m_navigatorDialog.m_project->GetWordInfo(wordInfo, _word, _propIndex))
+   for (int propIndex = 0; propIndex < wainApp.gs.m_docProp.size(); propIndex++)
+   {
+      GetMf()->m_navigatorDialog.m_project->GetWordInfo(wordInfo, _word, propIndex);
+   }
+   if (!wordInfo.empty())
    {
       WordListDialog wl(this, _word, wordInfo, _lastSelectedWord);
       INT_PTR result = wl.DoModal();
@@ -371,5 +375,9 @@ void WainView::DoWordList(std::string& _word, uint32_t _lastSelectedWord, int _p
             }
          }
       }
+   }
+   else
+   {
+      SetStatusText("No matching word");
    }
 }

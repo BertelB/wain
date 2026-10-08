@@ -7,6 +7,8 @@ class TagFileList;
 class AddClassInfoTreeCtrlClass : public CTreeCtrl
 {
 public:
+   AddClassInfoTreeCtrlClass(class NavigatorDialog *Parent);
+
    bool FindClassName(std::string &aName);
    void OnInfoTip(NMTVGETINFOTIP *InfoTiP);
    void DoSelect(void);
@@ -14,7 +16,6 @@ public:
    void GetPeekParm(const char **fn, int *LineNo);
    class AddClassView *m_addClassView;
    virtual BOOL PreTranslateMessage(MSG *msg);
-   AddClassInfoTreeCtrlClass(class NavigatorDialog *Parent);
    HACCEL m_accHandle;
    afx_msg void OnRButtonDown(UINT flags, CPoint point);
    afx_msg void OnLButtonDblClk(UINT flags, CPoint point);

@@ -1010,13 +1010,11 @@ bool ProjectClass::GetWordInfo(std::vector<WordInfo>& _wordInfo, const std::stri
 {
    if (!m_wordParam[_propIndex])
    {
-      SetStatusText("No Word Parameters");
       return false;
    }
    auto it = m_wordParam[_propIndex]->m_wordMap.find(_word);
    if (it == m_wordParam[_propIndex]->m_wordMap.end())
    {
-      SetStatusText("Word Not found");
       return false;
    }
    for (auto j : it->second)

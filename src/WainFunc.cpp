@@ -1680,7 +1680,7 @@ void WainView::SpellCheckWord(void)
           [](unsigned char c){ return static_cast<unsigned char>(std::tolower(c)); });
       if (std::find(wainApp.gs.m_dictionary.begin(), wainApp.gs.m_dictionary.end(), word) != wainApp.gs.m_dictionary.end())
       {
-         SetStatusText("Word is in list");
+         SetStatusText("Word %s is in list", word.c_str());
       }
       else
       {
@@ -1709,25 +1709,37 @@ void WainView::SpellCheckWord(void)
                   InsertSorted(candidates, GetLevenshteinDistance(word, wainApp.gs.m_dictionary[fn]), fn);
                }
             }
+            uint32_t nWords = 0;
             for (uint32_t n = 0; n < 20; n++)
             {
-               std::string x = wainApp.gs.m_dictionary[candidates[n][1]];
-               if (wasUpper)
+               if (candidates[n][0] != 0x7FFFFFFF)
                {
-                  x[0] = static_cast<unsigned char>(std::toupper(x[0]));
+                  nWords++;
+                  std::string x = wainApp.gs.m_dictionary[candidates[n][1]];
+                  if (wasUpper)
+                  {
+                     x[0] = static_cast<unsigned char>(std::toupper(x[0]));
+                  }
+                  m_completionString[n] = x;
+                  popup.AppendMenu(MF_STRING, IDM_COMP_ITEM0 + n, x.c_str());
                }
-               m_completionString[n] = x;
-               popup.AppendMenu(MF_STRING, IDM_COMP_ITEM0 + n, x.c_str());
             }
-            POINT p;
-            GetPopupPos(&p, 20);
-            popup.TrackPopupMenu(TPM_LEFTALIGN, p.x, p.y, this);
+            if (nWords)
+            {
+               POINT p;
+               GetPopupPos(&p, nWords);
+               popup.TrackPopupMenu(TPM_LEFTALIGN, p.x, p.y, this);
+            }
+            else
+            {
+               SetStatusText("No match");
+            }
          }
       }
    }
    else
    {
-      SetStatusText("No Word");
+      SetStatusText("No word");
    }
 }
 

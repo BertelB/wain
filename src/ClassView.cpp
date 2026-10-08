@@ -249,10 +249,11 @@ void NavigatorDialog::SetClassList(AddClassInfoListClass* _addInfo, TagFileList*
      m_classViewTree->ModifyStyle(WS_DISABLED, WS_VISIBLE, SWP_NOACTIVATE | SWP_NOZORDER);
      InvalidateRect(NULL, TRUE);
    }
-   // auto t1 = GetUSec();
+   auto t1 = GetUSec();
+   tt->SetRedraw(FALSE);
    delete tt;
-   // auto t2 = GetUSec();
-   // SetStatusText("SetClassList delete %u", uint32_t((t2 - t1) / 1000));
+   auto t2 = GetUSec();
+   SetStatusText("SetClassList delete %u", uint32_t((t2 - t1) / 1000));
    // AfxBeginThread(DeleteThread, tt, THREAD_PRIORITY_LOWEST, 0, 0);
 }
 

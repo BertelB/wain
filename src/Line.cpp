@@ -518,16 +518,16 @@ int TxtLine::GetSepLenLeft(int pos) const
 int TxtLine::GoWordRight(int pos) const
 {
   int r, s;
-  int org_pos = pos;
+  const int orgPos = pos;
   pos = ScreenPosToTextPos(pos);
   if(pos >= m_len)
     return 0;
 
 
-  if((r = GetWordLenRight(org_pos)) == 0)
-    r = GetSepLenRight(org_pos);
+  if((r = GetWordLenRight(orgPos)) == 0)
+    r = GetSepLenRight(orgPos);
 
-  s = GetSpaceLenRight(org_pos + r);
+  s = GetSpaceLenRight(orgPos + r);
 
   return s + r;
 }
@@ -535,19 +535,19 @@ int TxtLine::GoWordRight(int pos) const
 int32_t TxtLine::GoWordLeft(int32_t pos) const
 {
   int32_t r, s;
-  int32_t org_pos = pos;
+  const int32_t orgPos = pos;
   pos = ScreenPosToTextPos(pos);
   if(!pos)
   { /* At the beginning of the line or within the first tab stop */
-    return org_pos;
+    return orgPos;
   }
   if(pos > m_len)
     return pos - m_len;
 
-  if((r = -GetWordLenLeft(org_pos)) == 0)
-    r = -GetSepLenLeft(org_pos);
+  if((r = -GetWordLenLeft(orgPos)) == 0)
+    r = -GetSepLenLeft(orgPos);
 
-  s = -GetSpaceLenLeft(org_pos - r) + r;
+  s = -GetSpaceLenLeft(orgPos - r) + r;
 
   return s;
 }

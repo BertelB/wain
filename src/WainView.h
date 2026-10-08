@@ -495,8 +495,8 @@ public:
 protected:
   virtual void OnInitialUpdate(); // called first time after construct
   virtual void OnPrint(CDC *dc, CPrintInfo *print_info);
-  void DoWordList(std::string& _word, uint32_t _selectedItem, int _propIndex);
-    bool m_skipDraw{false};
+  void DoWordList(std::string& _word, uint32_t _selectedItem);
+   bool m_skipDraw {false};
 protected:
   afx_msg void OnSize( UINT nType, int cx, int cy );
   afx_msg void OnPaint(void);
