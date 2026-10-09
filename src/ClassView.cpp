@@ -150,38 +150,24 @@ void AddClassInfoListClass::InitTree(CTreeCtrl* _tree)
       if(!_tree->m_hWnd || !IsWindow(_tree->m_hWnd))
          return;
 
-      ListClass::size_type i, j;
+      ListClass::size_type i;
       for(i = 0; i < m_list.size(); i++)
       {
          HTREEITEM Parent = 0;
          TVINSERTSTRUCT ParentInsert;
          ParentInsert.hParent = 0;
          ParentInsert.hInsertAfter = 0;
-         ParentInsert.item.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+         ParentInsert.item.mask = TVIF_TEXT | TVIF_PARAM | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_CHILDREN;
          ParentInsert.item.pszText = (char *)m_list[i]->m_className.c_str();
          ParentInsert.item.iImage = int(m_list[i]->m_isStruct ? TagIndexType::STRUCT_IDX : TagIndexType::CLASS_IDX);
          ParentInsert.item.iSelectedImage = int(m_list[i]->m_isStruct ? TagIndexType::STRUCT_IDX : TagIndexType::CLASS_IDX);
          ParentInsert.item.lParam = i | 0x80000000U;
+         ParentInsert.item.cChildren = !m_list[i]->m_list.empty();
+
          if(!_tree->m_hWnd || !IsWindow(_tree->m_hWnd))
             return;
          Parent = _tree->InsertItem(&ParentInsert);
          m_list[i]->m_treeItem = Parent;
-
-         for(j = 0; j < m_list[i]->m_list.size(); j++)
-         {
-            TVINSERTSTRUCT Insert;
-            Insert.hParent = Parent;
-            Insert.hInsertAfter = 0;
-            Insert.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
-            Insert.item.iImage = int(m_list[i]->m_list[j]->m_indexType);
-            Insert.item.iSelectedImage = int(m_list[i]->m_list[j]->m_indexType);
-            Insert.item.pszText = (char *)m_list[i]->m_list[j]->m_tag.c_str();
-            Insert.item.lParam = (i << 16) | j;
-            Insert.hParent = Parent;
-            if(!_tree->m_hWnd || !IsWindow(_tree->m_hWnd))
-               return;
-            _tree->InsertItem(&Insert);
-         }
       }
    }
    catch (...)
@@ -266,7 +252,48 @@ BEGIN_MESSAGE_MAP(AddClassInfoTreeCtrlClass, CTreeCtrl)
   ON_COMMAND(IDC_CT_TAG_EXPAND,  TagExpand)
   ON_COMMAND(IDC_CT_EDIT, GotoEditor)
   ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, OnCustomDraw)
+  ON_NOTIFY_REFLECT(TVN_ITEMEXPANDING, OnItemExpanding)
 END_MESSAGE_MAP();
+
+void AddClassInfoTreeCtrlClass::OnItemExpanding(NMHDR* pNMHDR, LRESULT* pResult)
+{
+   if(!m_hWnd || !IsWindow(m_hWnd))
+      return;
+
+   LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+   UINT action = pNMTreeView->action; // TVE_EXPAND or TVE_COLLAPSE
+   if (action == TVE_EXPAND)
+   {
+      HTREEITEM hItem = pNMTreeView->itemNew.hItem;
+      HTREEITEM child = GetChildItem(hItem);
+      if (!child)
+      {
+         TVITEM tvItem;
+         memset(&tvItem, 0, sizeof(tvItem));
+         tvItem.hItem = hItem;
+         tvItem.mask = TVIF_PARAM;
+         if (GetItem(&tvItem))
+         {
+            uint32_t index = tvItem.lParam & 0x7FFFFFFF;
+            // SetStatusText("Item TVE_EXPAND - 0x%X - %s", tvItem.lParam, m_addClassView->m_addInfo->m_list[index]->m_list[0]->m_tag.c_str());
+            auto base = m_addClassView->m_addInfo->m_list[index];
+            for(uint32_t j = 0; j < base->m_list.size(); j++)
+            {
+               TVINSERTSTRUCT insItem;
+               insItem.hParent = hItem;
+               insItem.hInsertAfter = 0;
+               insItem.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_PARAM;
+               insItem.item.iImage = int(base->m_list[j]->m_indexType);
+               insItem.item.iSelectedImage = int(base->m_list[j]->m_indexType);
+               insItem.item.pszText = (char *)base->m_list[j]->m_tag.c_str();
+               insItem.item.lParam = (index << 16) | j;
+               InsertItem(&insItem);
+            }
+         }
+      }
+    }
+   *pResult = 0;
+}
 
 void AddClassInfoTreeCtrlClass::OnRButtonDown(UINT /* flags */, CPoint point)
 {

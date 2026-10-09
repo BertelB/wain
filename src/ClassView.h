@@ -25,6 +25,7 @@ public:
    afx_msg void TagExpand(void);
    afx_msg void GotoEditor(void);
    afx_msg void OnCustomDraw(NMHDR* pNMHDR, LRESULT* pResult);
+   afx_msg void OnItemExpanding(NMHDR* pNMHDR, LRESULT* pResult);
    DECLARE_MESSAGE_MAP();
 private:
    void DoPopUp(HTREEITEM item, POINT p);

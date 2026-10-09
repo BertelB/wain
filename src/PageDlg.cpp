@@ -76,10 +76,14 @@ void PageBarDialogClass::OnSize(UINT nType, int cx, int cy)
     {
       ViewListItem *view_item = (ViewListItem *)item.lParam;
       WainView *view = view_item->m_view;
-      view->MoveWindow(9, 9, cx - 19, bottom - 26);
+      if (view)
+      {
+         view->MoveWindow(9, 9, cx - 19, bottom - 26);
+      }
     }
   }
 }
+
 WainView *PageBarDialogClass::OpenDocument(const char* _fileName, enum DebugFileType _fileType, const std::string& _debugPath, bool _isProject, bool _isMake, uint32_t _nr, const char* _viewName)
 {
   WainView *view;
